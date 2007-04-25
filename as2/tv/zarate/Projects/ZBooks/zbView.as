@@ -19,6 +19,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 	public var appHeight:Number = 200;
 	public var labels_mc:MovieClip;
 	public var bookmarkForm:Boolean = false;
+	public var loginForm:Boolean = false;
 	
 	private var model:zbModel;
 	private var controller:zbController;
@@ -127,7 +128,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 		bookmarkForm = true;
 		
 		delete formBook;
-		formBook = book;
+		
 		
 		if(book == null){ 
 			
@@ -139,6 +140,8 @@ class tv.zarate.Projects.ZBooks.zbView{
 			bookFormAction = Constants.EDIT;
 			
 		}
+		
+		formBook = book;
 		
 		var margin:Number = 3;
 		var elementMargin:Number = 15;
@@ -322,15 +325,12 @@ class tv.zarate.Projects.ZBooks.zbView{
 		
 	}
 	
-	/*
-	private function submitForm():Void{
-		if(MovieclipUtils.getFocusObject() != alert.accept_mc){ alert.submit(); }
+	public function submitLoginForm():Void{
+		gatherLoginData();
 	}
-	*/
+	
 	public function submitBookForm():Void{
-		
 		getFormData();
-		
 	}
 	
 	public function submitSearch():Void{
@@ -362,7 +362,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 	
 	public function focusSearchField(initValue:String):Void{
 		
-		if(initValue != null){ searchField.text = initValue; }
+		if(initValue != null){ searchField.text = unescape(initValue); }
 		Selection.setFocus(searchField);
 		
 	}
@@ -370,6 +370,8 @@ class tv.zarate.Projects.ZBooks.zbView{
 	public function showLoginForm():Void{
 		
 		removeAlert();
+		
+		loginForm = true;
 		
 		var elementMargin:Number = 15;
 		var nextY:Number = elementMargin;
@@ -542,97 +544,9 @@ class tv.zarate.Projects.ZBooks.zbView{
 		
 	}
 
-	// PRIVATE METHODS
-	
-	private function gatherLoginData():Void{
+	public function drawBookmarks():Void{
 		
-		var name:String = addForm_mc.nameInput_mc.field.text;
-		var pass:String = addForm_mc.passInput_mc.field.text;
-		
-		if(name != "" && pass != ""){
-			
-			controller.login(name,pass);
-			
-		} else {
-			
-			showError("Please enter both username and password",Delegate.create(this,showLoginForm));
-			
-		}
-		
-	}
-	
-	private function drawBackGround():Void{
-		
-		background_mc = timeLine_mc.createEmptyMovieClip("background_mc",50);		
-		MovieclipUtils.DrawSquare(background_mc,0xffffff,100,appWidth,appHeight);
-		
-		addContextMenu(background_mc,"background",null);
-		
-	}
-	
-	private function drawTitle(labelTitle:String,totalBookmarks:Number):Void{
-		
-		title_mc = timeLine_mc.createEmptyMovieClip("title_mc",100);
-		title_mc._x = LEFTMARGIN;
-		title_mc._y = TOPMARGIN;
-		
-		// home btn
-		var home_btn:MovieClip = title_mc.createEmptyMovieClip("home_btn",50);
-		addContextMenu(home_btn);
-		
-		var field:TextField = TextfieldUtils.createField(home_btn);
-		field.text = model.getUserConfig().owner;
-		field.setTextFormat(getFormat("mainTitle"));
-		
-		home_btn.tabIndex = getTabIndex("menu");
-		home_btn.onPress = Delegate.create(controller,controller.labelPressed);
-		toDisable.push(home_btn);
-		
-		// label title
-		field = TextfieldUtils.createField(title_mc);
-		field._x = home_btn._width;
-		field.text = labelTitle + "    " + totalBookmarks + " bookmark" + ((totalBookmarks == 1)? "":"s") + ".";
-		field.setTextFormat(getFormat("mainTitle"));
-		field.setTextFormat(labelTitle.length,field.text.length,getFormat(""));
-		
-		controller.updateTitle(model.getUserConfig().owner + " - " + labelTitle);
-		
-		headerNextX = title_mc._x + title_mc._width + MAINELEMENTSMARGIN;
-		
-	}
-	
-	private function drawSearch():Void{
-		
-		search_mc = timeLine_mc.createEmptyMovieClip("search_mc",150);
-		
-		// input
-		searchField = TextfieldUtils.createInputField(search_mc,200,20);
-		searchField.tabIndex = getTabIndex("menu");
-		searchField.border = true;
-		searchField.setTextFormat(getFormat(""));
-		searchField.setNewTextFormat(getFormat(""));
-		
-		// button
-		var search_btn:MovieClip = search_mc.createEmptyMovieClip("search_btn",200);
-		addContextMenu(search_btn);
-		search_btn._x = searchField._x + searchField._width + 10;
-		
-		var field:TextField = TextfieldUtils.createField(search_btn);
-		field.text = "Search";
-		field.setTextFormat(getFormat("title"));
-		
-		search_btn.tabIndex = getTabIndex("menu");
-		search_btn.onPress = Delegate.create(this,getSearchFormData);
-		toDisable.push(search_btn,field);
-		
-		search_mc._x = appWidth - search_mc._width - RIGHTMARGIN;
-		search_mc._y = TOPMARGIN;
-		
-	}
-	
-	private function drawBookmarks():Void{
-		
-		bookmarkForm = false;
+		bookmarkForm = loginForm = false;
 		
 		var nextY:Number = 0;
 		var margin:Number = 15;
@@ -800,6 +714,95 @@ class tv.zarate.Projects.ZBooks.zbView{
 		
 	}
 	
+	// ************************ PRIVATE METHODS ************************
+	
+	private function gatherLoginData():Void{
+		
+		var name:String = addForm_mc.nameInput_mc.field.text;
+		var pass:String = addForm_mc.passInput_mc.field.text;
+		
+		if(name != "" && pass != ""){
+			
+			loginForm = false;
+			controller.login(name,pass);
+			
+		} else {
+			
+			showError("Please enter both username and password",Delegate.create(this,showLoginForm));
+			
+		}
+		
+	}
+	
+	private function drawBackGround():Void{
+		
+		background_mc = timeLine_mc.createEmptyMovieClip("background_mc",50);		
+		MovieclipUtils.DrawSquare(background_mc,0xffffff,100,appWidth,appHeight);
+		
+		addContextMenu(background_mc,"background",null);
+		
+	}
+	
+	private function drawTitle(labelTitle:String,totalBookmarks:Number):Void{
+		
+		title_mc = timeLine_mc.createEmptyMovieClip("title_mc",100);
+		title_mc._x = LEFTMARGIN;
+		title_mc._y = TOPMARGIN;
+		
+		// home btn
+		var home_btn:MovieClip = title_mc.createEmptyMovieClip("home_btn",50);
+		addContextMenu(home_btn);
+		
+		var field:TextField = TextfieldUtils.createField(home_btn);
+		field.text = model.getUserConfig().owner;
+		field.setTextFormat(getFormat("mainTitle"));
+		
+		home_btn.tabIndex = getTabIndex("menu");
+		home_btn.onPress = Delegate.create(controller,controller.labelPressed);
+		toDisable.push(home_btn);
+		
+		// label title
+		field = TextfieldUtils.createField(title_mc);
+		field._x = home_btn._width;
+		field.text = labelTitle + "    " + totalBookmarks + " bookmark" + ((totalBookmarks == 1)? "":"s") + ".";
+		field.setTextFormat(getFormat("mainTitle"));
+		field.setTextFormat(labelTitle.length,field.text.length,getFormat(""));
+		
+		controller.updateTitle(model.getUserConfig().owner + " - " + labelTitle);
+		
+		headerNextX = title_mc._x + title_mc._width + MAINELEMENTSMARGIN;
+		
+	}
+	
+	private function drawSearch():Void{
+		
+		search_mc = timeLine_mc.createEmptyMovieClip("search_mc",150);
+		
+		// input
+		searchField = TextfieldUtils.createInputField(search_mc,200,20);
+		searchField.tabIndex = getTabIndex("menu");
+		searchField.border = true;
+		searchField.setTextFormat(getFormat(""));
+		searchField.setNewTextFormat(getFormat(""));
+		
+		// button
+		var search_btn:MovieClip = search_mc.createEmptyMovieClip("search_btn",200);
+		addContextMenu(search_btn);
+		search_btn._x = searchField._x + searchField._width + 10;
+		
+		var field:TextField = TextfieldUtils.createField(search_btn);
+		field.text = "Search";
+		field.setTextFormat(getFormat("title"));
+		
+		search_btn.tabIndex = getTabIndex("menu");
+		search_btn.onPress = Delegate.create(this,getSearchFormData);
+		toDisable.push(search_btn,field);
+		
+		search_mc._x = appWidth - search_mc._width - RIGHTMARGIN;
+		search_mc._y = TOPMARGIN;
+		
+	}
+	
 	private function drawLabels():Void{
 		
 		var iniX:Number = 0;
@@ -856,10 +859,6 @@ class tv.zarate.Projects.ZBooks.zbView{
 		
 		panel.refreshScroll();
 		
-	}
-	
-	private function itemFocus(mc:MovieClip,panel:SplitPanel):Void{
-		panel.moveToClip(mc);
 	}
 	
 	private function drawPages(pages:Number,currentPage:Number):Void{
@@ -1044,8 +1043,6 @@ class tv.zarate.Projects.ZBooks.zbView{
 	
 	private function getFormData():Void{
 		
-		revisar hacer enviar el formulari con enter como atajo
-		
 		var book:Bookmark = formBook;
 		
 		var _title:String = addForm_mc.bookmarkInput_mc.field.text;
@@ -1156,6 +1153,10 @@ class tv.zarate.Projects.ZBooks.zbView{
 		}
 		return title;
 		
+	}
+	
+	private function itemFocus(mc:MovieClip,panel:SplitPanel):Void{
+		panel.moveToClip(mc);
 	}
 	
 }

@@ -10,7 +10,6 @@ import tv.zarate.Projects.ZBooks.Config;
 class tv.zarate.Projects.ZBooks.zbModel{
 	
 	private var currentLabel:Label;
-	
 	private var view:zbView;
 	private var data:zbData;
 	private var userConfig:Config;
@@ -21,6 +20,7 @@ class tv.zarate.Projects.ZBooks.zbModel{
 	private var pages:Number = 1;
 	private var currentPage:Number = 1;
 	private var labels:Array;
+	private var loggedIn:Boolean = false;
 	
 	private var currentUser:String = "1";
 	private var timeLine_mc:MovieClip;
@@ -67,6 +67,8 @@ class tv.zarate.Projects.ZBooks.zbModel{
 	}
 	
 	private function afterLoginProcess(validLogin:Boolean,errorText:String):Void{
+		
+		loggedIn = validLogin;
 		
 		if(validLogin){
 			
@@ -152,9 +154,15 @@ class tv.zarate.Projects.ZBooks.zbModel{
 		return (userConfig.user_id == currentUser);
 	}
 	
+	public function isLoggedIn():Boolean{
+		return loggedIn;
+	}
+	
 	// PRIVATE METHODS
 	
 	private function configLoaded(confObj:Config,keepPage:Boolean):Void{
+		
+		loggedIn = confObj.edit;
 		
 		userConfig = confObj;
 		setNewLabel(currentLabelID,keepPage);
@@ -162,8 +170,6 @@ class tv.zarate.Projects.ZBooks.zbModel{
 	}
 	
 	private function dataXMLLoaded(_currentLabel:Label,_labels:Array):Void{
-		
-		
 		
 		currentLabel = _currentLabel;
 		labels = _labels;

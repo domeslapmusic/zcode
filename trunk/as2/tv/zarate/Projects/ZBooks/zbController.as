@@ -120,18 +120,25 @@ class tv.zarate.Projects.ZBooks.zbController{
 		
 		switch(Key.getCode()){
 			
-			case(Key.SPACE):
+			case(Key.ESCAPE):
 				
-				//view.labels_mc.removeMovieClip();
+				if(!view.enabled){ 
+					
+					view.removeAlert();
+					
+				} else if(view.focusIsOnSearch()){
+					
+					Selection.setFocus(null);
+					
+				} else if(view.bookmarkForm || view.loginForm){
+					
+					view.drawBookmarks();
+					
+				}
+				
 				break;
 				
-			case(27): // ESC
-				
-				if(!view.enabled){ view.removeAlert(); }
-				
-				break;
-				
-			case(13): // Enter
+			case(Key.ENTER): // Enter
 				
 				if(view.enabled){
 					
@@ -143,11 +150,15 @@ class tv.zarate.Projects.ZBooks.zbController{
 						
 						view.submitBookForm();
 						
+					} else if(view.loginForm){
+						
+						view.submitLoginForm();
+						
 					}
 					
 				} else {
 					
-					//view.submitForm();
+					view.removeAlert();
 					
 				}
 				
@@ -160,38 +171,50 @@ class tv.zarate.Projects.ZBooks.zbController{
 				
 			case(65): // a addBookmark
 				
-				//if(view.enabled && !view.focusIsOnSearch() && model.getUserConfig().edit){
+				if(view.enabled && !focusOnTextField() && model.getUserConfig().edit){
 					
-					//view.showBookmarkForm({type:"add",bookmark_id:"",isPrivate:"",title:"",url:"",bookLabels:""});
-					//view.showBookmarkForm();
+					view.showBookmarkForm();
 					
-				//}
+				}
 				
 				break;
 				
 			case(77): // m show loging form
 				
-				//if(view.enabled && !view.focusIsOnSearch()){ view.showLoginForm(); }
+				if(view.enabled && !focusOnTextField()){
+					
+					if(!model.isLoggedIn()){ 
+						
+						view.showLoginForm(); 
+						
+					} else {
+						
+						model.logout();
+						
+					}
+					
+				}
+				
 				break;
 				
 			case(72): // h home
 				
-				//if(view.enabled && !view.focusIsOnSearch()){ labelPressed(); }
+				if(view.enabled && !focusOnTextField()){ labelPressed(); }
 				break;
 				
 			case(76): // l focus next label
 				
-				//if(view.enabled && !view.focusIsOnSearch()){ view.focusNextLabel(); }
+				if(view.enabled && !focusOnTextField()){ view.focusNextLabel(); }
 				break;
 				
 			case(66): // b focus next bookmark
 				
-				//if(view.enabled && !view.focusIsOnSearch()){ view.focusNextBookmark(); }
+				if(view.enabled && !focusOnTextField()){ view.focusNextBookmark(); }
 				break;
 				
 			case(83): // s focus search
 				
-				//if(view.enabled && !view.focusIsOnSearch()){ view.focusSearchField(); }
+				if(view.enabled && !focusOnTextField()){ view.focusSearchField(); }
 				break;
 				
 			case(189): // - previous page

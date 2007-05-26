@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data error="{$error}">
+
+	{if $action == "getConfig"}
+	<config user_id="{$user_id}" username="{$username}" edit="{$edit}" defaultTarget="{$defaultTarget}" showURL="{$showURL}" key="{$key}" />
+
+	{elseif $action != "add" && $action != "edit" && $action != "remove" && $action != "login" && $action != "logout" }
+	<label id="{$labelId}">
+
+		<title>{$labelTitle}</title>
+
+		<bookmarks total="{$totalBookmarks}" pages="{$totalPages}" currentPage="{$currentPage}" owner="{$owner}">
+
+			{section name=booksLoop loop=$booksData}
+			<bookmark id="{$booksData[booksLoop].bookmark_id}" date="{$booksData[booksLoop].date}" private="{$booksData[booksLoop].private}">
+				<title>{$booksData[booksLoop].title}</title>
+				<url>{$booksData[booksLoop].url}</url>
+				<labels>{$booksData[booksLoop].labels}</labels>
+			</bookmark>
+			{/section}
+
+		</bookmarks>
+
+	</label>
+
+	<labels>
+
+		{section name=labelsLoop loop=$labelsData}
+		<label id="{$labelsData[labelsLoop].label_id}" private="{$labelsData[labelsLoop].private}">{$labelsData[labelsLoop].title}</label>
+		{/section}
+
+	</labels>
+
+	{else}
+	<errorText><![CDATA[{$errorText}]]></errorText>
+	{/if}
+
+</data>

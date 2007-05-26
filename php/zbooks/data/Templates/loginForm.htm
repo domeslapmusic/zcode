@@ -1,0 +1,32 @@
+<div id="login">
+<h2>Login</h2>
+{if $logged}
+	
+	<span>Logged in as <strong>{$userName}</strong> ({$userEMail}) - <a href="../?user_id={$userID}">Go to your page</a></span>
+	<br /><br />
+	<form action="{php} echo $_SERVER["PHP_SELF"]; {/php}" method="post">
+		<input type="hidden" name="logout" value="true" />
+		<input type="submit" value="Logout" />
+	</form>
+	
+{else}
+
+	<form action="{php} echo $_SERVER["PHP_SELF"]; {/php}" method="post">
+		<fieldset>
+		<legend>Insert user/pass here:</legend>
+		<label for="newUserName">Username</label>
+		<input type="text" name="newUserName" value="" />
+		<label for="newUserPassword">Password</label>
+		<input type="password" name="newUserPassword" value="" />
+		<label for="useCookie">Remember?</label>
+		<input type="checkbox" name="useCookie" value="true" />
+		<input type="submit" value="Login" />
+		</fieldset>
+	</form>
+
+	<br />
+	<span><a href="../">ZBooks</a></span>
+	
+{/if}
+
+</div>

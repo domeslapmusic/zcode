@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{$xmlLang}" lang="{$xmlLang}">
+<head>
+<title>{$pageTitle}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="zbooks.css" type="text/css" media="screen" />
+
+</head>
+
+<body>
+	<h1>{$username}</h1>
+	<div class="bookmarks">
+	<ul>
+		{section name=booksLoop loop=$booksData}
+		<li><a href="{$booksData[booksLoop].url}">{$booksData[booksLoop].title}</a></li>
+		{/section}
+	</ul>
+	<div>
+	<div class="pages">
+		<span>Page {$currentPage} of {$totalPages} <a href="?user_id={$user_id}&currentPage=">Previous</a> /  <a href="?">Next</a>
+	</div>
+	<div class="labels">
+	<ul>
+		{section name=labelsLoop loop=$labelsData}
+		<li><a href="?label_id={$labelsData[labelsLoop].id}&user_id={$user_id}">{$labelsData[labelsLoop].title}</a></li>
+		{/section}
+	</ul>
+	<div>
+</body>
+</html>

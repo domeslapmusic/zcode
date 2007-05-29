@@ -1,0 +1,11 @@
+#!/bin/bash
+
+zlog=elements/ZLog.swf
+wadus=elements/wadus.swf
+
+rm $zlog
+rm $wadus
+
+echo "*** MTASC ***"
+mtasc -swf $zlog -header 1:1:31 -version 8 -strict -cp /home/zarate/projects/as2/ -main ZLog.as
+mtasc -swf $wadus -header 1:1:31 -version 8 -strict -cp /home/zarate/projects/as2/ -main wadus.as -trace tv.zarate.Utils.Trace.trc

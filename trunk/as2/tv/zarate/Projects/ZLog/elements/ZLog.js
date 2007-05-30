@@ -13,7 +13,7 @@ ZLog.prototype.update = function(s,type,reset){
 	if(this.running){
 
 		this.htmldiv.innerHTML += "<br/>" + '<span class="' + type + '"><strong>' + this.getDate() + "</strong> - " + unescape(s) + '</span>';
-		window.scrollTo(0,1000000); //TODO find out where the scrollTo(max,max) function is ¬¬
+		window.scrollTo(0,this.htmldiv.scrollHeight);
 
 	}
 

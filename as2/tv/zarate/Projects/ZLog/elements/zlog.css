@@ -11,19 +11,29 @@
 
 /* ***************** DON'T EDIT BELLOW THIS LINE ***************** */
 
-/* Thanks to denegro!
+/*  
+	Thanks to 
+	Stu Nicholls:
+	http://www.cssplay.co.uk/layouts/fixed.html
+	
+	and denegro:
 	http://www.denegro.com
 */
 
 body{
 
 	margin:0px;
+	height:100%;
+	overflow-y:auto;
+	font-family:"Courier New";
+	font-size:0.8em;
 
 }
 
 #header{
 
 	position:fixed;
+	display:block;
 	padding:10px;
 	width:100%;
 	height:30px;
@@ -31,8 +41,13 @@ body{
 
 }
 
+* html #header{ 
+	position:absolute;
+}
+
 #zlog{
 
+	display:block;
 	padding:50px 10px 0px 10px;
 
 }

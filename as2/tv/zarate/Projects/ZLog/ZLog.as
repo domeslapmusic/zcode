@@ -5,14 +5,18 @@ class tv.zarate.Projects.ZLog.ZLog{
 
 	// clips
 	private var receiving_lc:LocalConnection;
+	private var fakeBR:String = "[br]";
 
 	public function ZLog(m:MovieClip){
 
 		receiving_lc = new LocalConnection();
 		receiving_lc.allowDomain = function(domain:String):Boolean { return true; }
 		receiving_lc.allowInsecureDomain = function(domain:String):Boolean { return true; }
-		receiving_lc.log = Delegate.create(this,updateJS);
+
+		receiving_lc.log = Delegate.create(this,update);
 		receiving_lc.connect("_ZLog");
+
+		send("ZLog up and running...","",true);
 
 	}
 
@@ -22,45 +26,54 @@ class tv.zarate.Projects.ZLog.ZLog{
 
 	// PRIVATE METHODS
 
-	private function updateJS(s:Object,type:String,reset:Boolean):Void{
+	private function update(s:Object,type:String,reset:Boolean):Void{
 
 		if(s instanceof XML){
 
-			var rawXML:String = getNodeString(XMLNode(s));
-
-			rawXML = rawXML.split("<").join("&lt;").split(">").join("&gt;");
-
-			s = rawXML;
+			var rawXML:String = fakeBR + getNodeString(XMLNode(s.firstChild),0);
+			s = replaceEntities(rawXML);
+			s = s.split(fakeBR).join("<br>");
 
 		}
 
-		wadus(s,type,reset);
+		send(s,type,reset);
 
 	}
 
-	private function getNodeString(node:XMLNode):String{
+	private function getNodeString(node:XMLNode,depth:Number):String{
 
 		var s:String = "";
+		var spacer:String = "";
+
+		for(var x:Number=0;x<depth;x++){ spacer += "&nbsp;&nbsp;&nbsp;"; }
 
 		if(node.hasChildNodes()){
 
-			wadus2(node.nodeName +" childs")
+			s += spacer + "&lt;" + node.nodeName + "&gt;" + fakeBR;
 
 			var totalChilds:Number = node.childNodes.length;
 
 			for(var x:Number=0;x<totalChilds;x++){
 
-				s += getNodeString(node.childNodes[x]);
+				var n:XMLNode = node.childNodes[x];
+
+				if(n.hasChildNodes()){
+
+					s += getNodeString(n,depth+1);
+
+				} else {
+
+					s += spacer + spacer + replaceEntities(n.toString())  + fakeBR;
+
+				}
 
 			}
 
+			s += spacer + "&lt;/" + node.nodeName + "&gt;" + fakeBR;
 
 		} else {
 
-
-			s += node.toString();
-
-			wadus2(node.nodeName +" NO childs > " + node.toString())
+			s += spacer + replaceEntities(node.toString()) + fakeBR;
 
 		}
 
@@ -68,13 +81,12 @@ class tv.zarate.Projects.ZLog.ZLog{
 
 	}
 
-	private function wadus(s:Object,type:String,reset:Boolean){
+	private function send(s:Object,type:String,reset:Boolean):Void{
 		ExternalInterface.call("updateZLog",escape(s.toString()),type,reset);
 	}
 
-	private function wadus2(s:String):Void{
-
-		ExternalInterface.call("alert",s);
+	private function replaceEntities(s:String):String{
+		return s.split("<").join("&lt;").split(">").join("&gt;");
 	}
 
 }

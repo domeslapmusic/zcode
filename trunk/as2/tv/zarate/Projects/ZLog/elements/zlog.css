@@ -11,11 +11,11 @@
 
 /* ***************** DON'T EDIT BELLOW THIS LINE ***************** */
 
-/*  
-	Thanks to 
+/*
+	Thanks to
 	Stu Nicholls:
 	http://www.cssplay.co.uk/layouts/fixed.html
-	
+
 	and denegro:
 	http://www.denegro.com
 */
@@ -41,7 +41,7 @@ body{
 
 }
 
-* html #header{ 
+* html #header{
 	position:absolute;
 }
 

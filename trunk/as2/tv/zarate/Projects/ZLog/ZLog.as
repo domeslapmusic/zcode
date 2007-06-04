@@ -49,7 +49,12 @@ class tv.zarate.Projects.ZLog.ZLog{
 
 		if(node.hasChildNodes()){
 
-			s += spacer + "&lt;" + node.nodeName + "&gt;" + fakeBR;
+			var attString:String = "";
+			
+			for(var x:String in node.attributes){ attString += " " + x + '="' + node.attributes[x] + '" '; }
+			if(attString != ""){ attString = attString.substring(0,attString.length-2); }
+			
+			s += spacer + "&lt;" + node.nodeName + attString + "&gt;" + fakeBR;
 
 			var totalChilds:Number = node.childNodes.length;
 

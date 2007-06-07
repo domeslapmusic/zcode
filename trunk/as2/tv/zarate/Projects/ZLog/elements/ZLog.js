@@ -2,7 +2,7 @@ ZLog = function(htmldiv){
 
 	this.htmldiv = document.getElementById(htmldiv);
 	this.running = true;
-	this.reset();
+	this.clear();
 	this.update("Setting up ZLog...","",false);
 
 }
@@ -31,8 +31,15 @@ ZLog.prototype.pause = function(){
 
 }
 
-ZLog.prototype.reset = function(){
+ZLog.prototype.clear = function(){
 	this.htmldiv.innerHTML = "";
+}
+
+ZLog.prototype.reset = function(){
+
+	this.clear();
+	this.update("ZLog up and running...","",false);
+
 }
 
 ZLog.prototype.getDate = function(){

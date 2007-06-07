@@ -16,7 +16,7 @@ class tv.zarate.Projects.ZLog.ZLog{
 		receiving_lc.log = Delegate.create(this,update);
 		receiving_lc.connect("_ZLog");
 
-		send("ZLog up and running...","",true);
+		send("ZLog up and running...","",false);
 
 	}
 
@@ -50,10 +50,10 @@ class tv.zarate.Projects.ZLog.ZLog{
 		if(node.hasChildNodes()){
 
 			var attString:String = "";
-			
+
 			for(var x:String in node.attributes){ attString += " " + x + '="' + node.attributes[x] + '" '; }
-			if(attString != ""){ attString = attString.substring(0,attString.length-2); }
-			
+			if(attString != ""){ attString = attString.substring(0,attString.length-1); }
+
 			s += spacer + "&lt;" + node.nodeName + attString + "&gt;" + fakeBR;
 
 			var totalChilds:Number = node.childNodes.length;

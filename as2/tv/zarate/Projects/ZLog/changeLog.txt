@@ -1,0 +1,15 @@
+Zárate - ZLog
+http://www.zarate.tv/proyectos/zlog/
+
+------------ Version 1.1, 10th June 2007
+
+- Console now is HTML
+- Improved how XML objects are traced
+- Added "Add blank line" command
+- Added printing
+- Minimum Flash player required for the console is now player 8 (because of ExternalInterface used for Flash -> JS communication)
+- tv.zarate.Utils.Trace has been updated to allow sending objects instead of just plain strings
+
+------------ Version 1.0, 25th March 2006
+
+- Initial version

@@ -24,9 +24,12 @@ class tv.zarate.Projects.ZLog.ZLog{
 		receiving_lc.allowInsecureDomain = function(domain:String):Boolean { return true; }
 
 		receiving_lc.log = Delegate.create(this,update);
-		receiving_lc.connect("_ZLog");
+		var success:Boolean = receiving_lc.connect("_ZLog");
 
-		send("ZLog up and running...","",false);
+		var txt:String = (success)? "ZLog up and running..." : "Cannot create LocalConnection. Maybe another instance of ZLog is already running!";
+		var type:String = (success)? "log":"fatal";
+
+		send(txt,type,false);
 
 	}
 

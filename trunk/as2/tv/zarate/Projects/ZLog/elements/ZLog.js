@@ -14,14 +14,21 @@ ZLog.prototype.update = function(s,type,reset){
 	if(this.running){
 
 		this.htmldiv.innerHTML += "<br/>" + '<span class="' + type + '"><strong>' + this.getDate() + "</strong> - " + unescape(s) + '</span>';
-		window.scrollTo(0,this.htmldiv.scrollHeight);
+		this.moveToBottom();
 
 	}
 
 }
 
+ZLog.prototype.moveToBottom = function(){
+    window.scrollTo(0,this.htmldiv.scrollHeight);
+}
+
 ZLog.prototype.addBlankLine = function(){
+
 	this.htmldiv.innerHTML += "<br/>";
+    this.moveToBottom();
+    
 }
 
 ZLog.prototype.pause = function(){
@@ -90,14 +97,4 @@ function checkKey(e){
 
 function updateZLog(s,type,reset){
 	document.zlog.update(s,type,reset);
-}
-
-function doAlbert(){
-
-	for(var x=0;x<100;x++){
-
-		updateZLog("Albert mola > " + x);
-
-	}
-
 }

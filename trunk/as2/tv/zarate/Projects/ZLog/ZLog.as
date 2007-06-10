@@ -1,3 +1,13 @@
+/*
+*
+* Zarate - http://www.zarate.tv
+* cuentame@zarate.tv
+*
+* This code is under a Creative Commons Attribution License
+* http://creativecommons.org/licenses/by/2.5/
+*
+*/
+
 import tv.zarate.Utils.Delegate;
 import flash.external.ExternalInterface;
 

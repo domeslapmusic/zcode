@@ -6,6 +6,7 @@
       <clip id="check" import="assets/check.png" />
       <clip id="check_selected" import="assets/check_selected.png" />
       <clip id="panelArrow" import="assets/arrow.png" />
+      <clip id="tracker" import="assets/tracker.png" />
       <!-- <font id="optane" import="assets/Futura Bold BT.ttf" glyphs="abcdefghijklmnopqrstuvwxyz0123456789ABCEFGHIJKLMNOPQRSTUVWXYZ"/> -->
     </library>
   </frame>

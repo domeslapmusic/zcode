@@ -24,6 +24,8 @@ class tv.zarate.Projects.ZBooks.zbView{
 	private var controller:zbController;
 	private var alert:zbAlert;
 	private var formBook:Bookmark;
+	private var bookmarksPanel:SplitPanel;
+	private var labelsPanel:SplitPanel;
 
 	private var bookFormAction:String = "";
 	private var currentBookmarks:Array;
@@ -62,6 +64,11 @@ class tv.zarate.Projects.ZBooks.zbView{
 	private var MAINELEMENTSMARGIN:Number = 10;
 	private var LABELSEPARATOR:String = ",";
 	private var currentItem:String = "";
+
+	private var OVER:String = "over";
+	private var OUT:String = "out";
+	private var TITLE_OVER:Number = 0xdedede;
+	private var TITLE_OUT:Number = 0xffffff;
 
 	// tab orders
 	private var bookmarksTab:Number = 1000;
@@ -106,6 +113,9 @@ class tv.zarate.Projects.ZBooks.zbView{
 
 		block_mc = timeLine_mc.createEmptyMovieClip("block_mc",BLOCK_DEPTH);
 		MovieclipUtils.DrawSquare(block_mc,0x000000,10,appWidth,appHeight);
+
+		block_mc.tabEnabled = block_mc.useHandCursor = false;
+		block_mc.onPress = function():Void{}
 
 	}
 
@@ -261,7 +271,6 @@ class tv.zarate.Projects.ZBooks.zbView{
 		accept_mc._x = 90;
 		accept_mc._y = nextY;
 
-		//createButton(accept_mc,"Accept",Delegate.create(this,getFormData,type,book),getTabIndex("form"));
 		createButton(accept_mc,"Accept",Delegate.create(this,getFormData),getTabIndex("form"));
 
 		var cancel_mc:MovieClip = addForm_mc.createEmptyMovieClip("cancel_mc",1900);
@@ -291,9 +300,9 @@ class tv.zarate.Projects.ZBooks.zbView{
 
 	}
 
-	public function showError(errorText:String,callback:Function):Void{
+	public function showError(errorText:String,callback:Function,updateCurrentItem:Boolean):Void{
 
-		currentItem = Selection.getFocus();
+		if(updateCurrentItem == null || updateCurrentItem){ currentItem = Selection.getFocus(); }
 
 		Selection.setFocus(null);
 
@@ -371,10 +380,10 @@ class tv.zarate.Projects.ZBooks.zbView{
 
 	}
 
-	public function focusSearchField(initValue:String):Void{
+	public function focusSearchField(initValue:String,focus:Boolean):Void{
 
-		if(initValue != null){ searchField.text = unescape(initValue); }
-		Selection.setFocus(searchField);
+		if(initValue != null){ searchField.text = unescape(initValue); } else { searchField.text = ""; }
+		if(focus || focus == null){ Selection.setFocus(searchField); }
 
 	}
 
@@ -452,6 +461,18 @@ class tv.zarate.Projects.ZBooks.zbView{
 		field.setNewTextFormat(getFormat(""));
 
 		nextY += passInput_mc._height + margin;
+
+		var cookie_mc:MovieClip = addForm_mc.createEmptyMovieClip("cookie_mc",1350);
+
+		var check:zbCheck = new zbCheck(cookie_mc);
+		check.selected = false;
+		check.tabIndex = getTabIndex("form");
+
+		cookie_mc._x = elementMargin;
+		cookie_mc._y = nextY;
+		nextY += cookie_mc._height + margin;
+
+		addForm_mc	.check = check;
 
 		var accept_mc:MovieClip = addForm_mc.createEmptyMovieClip("accept_mc",1400);
 
@@ -573,10 +594,10 @@ class tv.zarate.Projects.ZBooks.zbView{
 		bookmarks_mc._x = LEFTMARGIN;
 		bookmarks_mc._y = bookmarksY;
 
-		var panel:SplitPanel = new SplitPanel(bookmarks_mc,10);
-		panel.setSize(booksScrollWidth,appHeight - bookmarks_mc._y - BOTTOMMARGIN);
+		bookmarksPanel = new SplitPanel(bookmarks_mc,10);
+		bookmarksPanel.setSize(booksScrollWidth,appHeight - bookmarks_mc._y - BOTTOMMARGIN);
 
-		var actualBookmarks_mc:MovieClip = panel.getContentMC();
+		var actualBookmarks_mc:MovieClip = bookmarksPanel.getContentMC();
 
 		var lng:Number = bookmarks.length;
 
@@ -600,11 +621,15 @@ class tv.zarate.Projects.ZBooks.zbView{
 			field.text = title;
 			field.setTextFormat(getFormat((book.isPrivate == "1")? "privateBookmark":"title"));
 
+			var titlebc_mc:MovieClip = title_mc.createEmptyMovieClip("titlebc_mc",50);
+			MovieclipUtils.DrawSquare(titlebc_mc,TITLE_OUT,100,title_mc._width,title_mc._height);
+
 			title_mc.tabIndex = getTabIndex("bookmark");
 			title_mc.onPress = Delegate.create(controller,controller.bookmarkPressed,book);
-			title_mc.onRollOver = Delegate.create(controller,controller.setPageStatus,book.url);
-			title_mc.onRollOut = Delegate.create(controller,controller.setPageStatus,"");
-			title_mc.onSetFocus = Delegate.createR(this,itemFocus,book_mc,panel);
+
+			title_mc.onRollOver = Delegate.create(this,manageBookmarkTitle,OVER,book,title_mc);
+			title_mc.onRollOut = Delegate.create(this,manageBookmarkTitle,OUT,book,title_mc);
+			title_mc.onSetFocus = Delegate.createR(this,itemFocus,book_mc,bookmarksPanel);
 
 			nextY = title_mc._y + title_mc._height;
 
@@ -631,7 +656,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 			var labels_mc:MovieClip = book_mc.createEmptyMovieClip("edit_mc",200);
 			labels_mc._x = title_mc._x;
 			labels_mc._y = nextY;
-			labels_mc.onSetFocus = Delegate.createR(this,itemFocus,book_mc,panel);
+			labels_mc.onSetFocus = Delegate.createR(this,itemFocus,book_mc,bookmarksPanel);
 
 			var nextLabelX:Number = 0;
 			var arrLabels:Array = book.labels.split(",");
@@ -693,9 +718,8 @@ class tv.zarate.Projects.ZBooks.zbView{
 				field.setTextFormat(getFormat(""));
 
 				delete_mc.tabIndex = getTabIndex("bookmark");
-				//delete_mc.focusEnabled = true;
 				delete_mc.onPress = Delegate.create(this,confirmDelete,book_mc,book);
-				delete_mc.onSetFocus = Delegate.createR(this,itemFocus,book_mc,panel);
+				delete_mc.onSetFocus = Delegate.createR(this,itemFocus,book_mc,bookmarksPanel);
 
 			}
 
@@ -715,25 +739,39 @@ class tv.zarate.Projects.ZBooks.zbView{
 
 		}
 
-		panel.refreshScroll();
+		bookmarksPanel.refreshScroll();
 
 	}
 
 	// ************************ PRIVATE METHODS ************************
 
+	private function manageBookmarkTitle(action:String,book:Bookmark,mc:MovieClip):Void{
+
+		var col:Number = (action == OVER)? TITLE_OVER:TITLE_OUT;
+		MovieclipUtils.changeColour(mc.titlebc_mc,col);
+
+		var status:String = (action == OVER)? book.url:"";
+		controller.setPageStatus(status);
+
+	}
+
 	private function gatherLoginData():Void{
+
+		if(eval(Selection.getFocus()) == addForm_mc.cancel_mc){ return null; }
 
 		var name:String = addForm_mc.nameInput_mc.field.text;
 		var pass:String = addForm_mc.passInput_mc.field.text;
+		var cookie:Boolean = (addForm_mc.check.selected)? true:false;
 
 		if(name != "" && pass != ""){
 
 			loginForm = false;
-			controller.login(name,pass);
+			controller.login(name,pass,cookie);
 
 		} else {
 
-			showError("Please enter both username and password",Delegate.create(this,showLoginForm));
+			currentItem = (name == "")? addForm_mc.nameInput_mc.field:addForm_mc.passInput_mc.field;
+			showError("Please enter both username and password",Delegate.create(this,removeAlert),false);
 
 		}
 
@@ -820,12 +858,12 @@ class tv.zarate.Projects.ZBooks.zbView{
 		labels_mc._x = appWidth - labelsWidth - RIGHTMARGIN;
 		labels_mc._y = bookmarksY;
 
-		var panel:SplitPanel = new SplitPanel(labels_mc,50);
-		panel.setSize(labelsWidth,appHeight - labels_mc._y - BOTTOMMARGIN);
+		labelsPanel = new SplitPanel(labels_mc,50);
+		labelsPanel.setSize(labelsWidth,appHeight - labels_mc._y - BOTTOMMARGIN);
 
 		//labelsWidth = labelsScrollWidth;
 
-		var actualLabels_mc:MovieClip = panel.getContentMC();
+		var actualLabels_mc:MovieClip = labelsPanel.getContentMC();
 
 		var labels:Array = model.getLabels();
 
@@ -848,7 +886,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 			label_mc.tabIndex = getTabIndex("label");
 			label_mc.focusEnabled = true;
 			label_mc.onPress = Delegate.create(controller,controller.labelPressed,label);
-			label_mc.onSetFocus = Delegate.createR(this,itemFocus,label_mc,panel);
+			label_mc.onSetFocus = Delegate.createR(this,itemFocus,label_mc,labelsPanel);
 
 			label_mc._x = nextX;
 			label_mc._y = nextY;
@@ -859,7 +897,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 
 		}
 
-		panel.refreshScroll();
+		labelsPanel.refreshScroll();
 
 	}
 
@@ -1056,7 +1094,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 
 		} else {
 
-			showError("All fields are mandatory",Delegate.create(this,showBookmarkForm,book));
+			showError("All fields are mandatory wadus",Delegate.create(this,showBookmarkForm,book));
 
 		}
 
@@ -1111,6 +1149,9 @@ class tv.zarate.Projects.ZBooks.zbView{
 		pages_mc.tabChildren = pages_mc.tabEnabled = action;
 		login_mc.tabChildren = login_mc.tabEnabled = action;
 		addForm_mc.tabChildren = addForm_mc.tabEnabled = action;
+
+		if(action){ bookmarksPanel.enable(); } else { bookmarksPanel.disable(); }
+		if(action){ labelsPanel.enable(); } else { labelsPanel.disable(); }
 
 	}
 

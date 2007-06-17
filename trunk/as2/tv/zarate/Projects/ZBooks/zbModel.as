@@ -61,24 +61,8 @@ class tv.zarate.Projects.ZBooks.zbModel{
 		data.changeLogin("logout",Delegate.create(this,afterLoginProcess));
 	}
 
-	public function login(name:String,pass:String):Void{
-		data.changeLogin("login",Delegate.create(this,afterLoginProcess),name,pass);
-	}
-
-	private function afterLoginProcess(validLogin:Boolean,errorText:String):Void{
-
-		loggedIn = validLogin;
-
-		if(validLogin){
-
-			data.getConfig(Delegate.create(this,configLoaded,true));
-
-		} else {
-
-			view.showError(errorText,Delegate.create(view,view.showLoginForm));
-
-		}
-
+	public function login(name:String,pass:String,cookie:Boolean):Void{
+		data.changeLogin("login",Delegate.create(this,afterLoginProcess),name,pass,cookie);
 	}
 
 	public function nextPage():Void{
@@ -86,18 +70,29 @@ class tv.zarate.Projects.ZBooks.zbModel{
 	}
 
 	public function previousPage():Void{
-		if(currentPage > 1) setNewPage(currentPage-1);
+		if(currentPage > 1){ setNewPage(currentPage-1); }
 	}
 
 	public function setNewPage(page:Number):Void{
 
 		view.disableApp();
 		currentPage = page;
-		data.getLabelData(currentLabelID,page,this,dataXMLLoaded);
+
+		if(searching){
+
+			search(searchQuery,false);
+
+		} else {
+
+			data.getLabelData(currentLabelID,page,this,dataXMLLoaded);
+
+		}
 
 	}
 
 	public function setNewLabel(label_id:String,keepPage:Boolean):Void{
+
+		searching = false;
 
 		view.disableApp();
 		currentLabelID = label_id;
@@ -124,9 +119,9 @@ class tv.zarate.Projects.ZBooks.zbModel{
 
 	}
 
-	public function search(q:String):Void{
+	public function search(q:String,begin:Boolean):Void{
 
-		currentPage = 1;
+		if(begin || begin == null){ currentPage = 1; }
 		searching = true;
 		searchQuery = q;
 		data.search(q,currentLabelID,currentPage,this,dataXMLLoaded);
@@ -176,7 +171,15 @@ class tv.zarate.Projects.ZBooks.zbModel{
 		userConfig.owner = currentLabel.owner;
 		pages = currentLabel.pages;
 
+		if(searching){
+
+			currentLabel.currentPage = currentPage;
+
+		}
+
 		view.startDraw();
+
+		view.focusSearchField(searchQuery,(pages <= 1 && searchQuery != ""));
 
 		var externalURL:String = unescape(flashVars.initString("fv_url",""));
 
@@ -184,7 +187,6 @@ class tv.zarate.Projects.ZBooks.zbModel{
 
 			if(config.edit == true){
 
-				externalAdded = true;
 				var externalTitle:String = unescape(flashVars.initString("fv_title",""));
 
 				var b:Bookmark = new Bookmark();
@@ -199,12 +201,23 @@ class tv.zarate.Projects.ZBooks.zbModel{
 
 			}
 
+			externalAdded = true;
+
 		}
 
-		if(searching){
+	}
 
-			searching = false;
-			view.focusSearchField(searchQuery);
+	private function afterLoginProcess(validLogin:Boolean,errorText:String):Void{
+
+		loggedIn = validLogin;
+
+		if(validLogin){
+
+			data.getConfig(Delegate.create(this,configLoaded,true));
+
+		} else {
+
+			view.showError(errorText,Delegate.create(view,view.showLoginForm));
 
 		}
 

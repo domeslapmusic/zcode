@@ -32,7 +32,7 @@
 
 		case("search"):
 
-			$searchRes = $myData->search($_GET["query"],$_GET["user_id"]);
+			$searchRes = $myData->search($_GET["query"],$_GET["user_id"],$_GET["page"]);
 			populateBookmarks($searchRes);
 
 			$labelsDB = $myData->getLabels($_GET["user_id"]);
@@ -70,7 +70,7 @@
 
 		case("login"):
 
-			$res = $user->validateUser($_GET["username"],$_GET["password"],"false");
+			$res = $user->validateUser($_GET["username"],$_GET["password"],$_GET["useCookie"]);
 
 			$error = ($res)? "true":"false";
 			$myData->errorText = $user->getError();

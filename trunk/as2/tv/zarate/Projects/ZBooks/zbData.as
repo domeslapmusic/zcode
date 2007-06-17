@@ -1,4 +1,4 @@
-//import com.meychi.ascrypt.
+import com.meychi.ascrypt.MD5;
 
 import tv.zarate.Utils.Delegate;
 
@@ -11,6 +11,7 @@ class tv.zarate.Projects.ZBooks.zbData{
 	private var WSPath:String = "";
 	private var dataXML:XML;
 	private var currentUser:String = "1";
+	private var serverKey:String = "";
 
 	function zbData(_currentUser:String,timeLine_mc:MovieClip){
 
@@ -19,10 +20,13 @@ class tv.zarate.Projects.ZBooks.zbData{
 
 	}
 
-	public function changeLogin(action:String,callback:Function,username:String,password:String):Void{
+	public function changeLogin(action:String,callback:Function,username:String,password:String,cookie:Boolean):Void{
+
+		var hashedPass:String = MD5.calculate(password);
+		var combinedHashed:String = MD5.calculate(hashedPass + serverKey);
 
 		var query:String = WSPath+"?action=" + action;
-		if(action == "login"){ query += "&username=" + username + "&password=" + password; }
+		if(action == "login"){ query += "&username=" + username + "&password=" + combinedHashed + "&useCookie=" + cookie; }
 
 		dataXML = new XML();
 		dataXML.ignoreWhite = true;
@@ -37,7 +41,7 @@ class tv.zarate.Projects.ZBooks.zbData{
 		dataXML = new XML();
 		dataXML.ignoreWhite = true;
 		dataXML.onLoad = Delegate.create(this,xmlLoaded,scope,callback);
-		dataXML.sendAndLoad(WSPath+"?action=search&query="+q+"&user_id="+currentUser+"&label_id="+label_id+"&currentPage="+currentPage,dataXML);
+		dataXML.sendAndLoad(WSPath+"?action=search&query="+q+"&user_id="+currentUser+"&page="+currentPage,dataXML);
 
 	}
 
@@ -92,6 +96,8 @@ class tv.zarate.Projects.ZBooks.zbData{
 
 			var userConfig:Config = new Config();
 			userConfig.setXML(configXML);
+
+			serverKey = userConfig.key;
 
 			callback(userConfig);
 

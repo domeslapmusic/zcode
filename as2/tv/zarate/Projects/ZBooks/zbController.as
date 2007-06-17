@@ -32,8 +32,8 @@ class tv.zarate.Projects.ZBooks.zbController{
 		model.goToOwnPage();
 	}
 
-	public function login(name:String,pass:String):Void{
-		model.login(name,pass);
+	public function login(name:String,pass:String,cookie:Boolean):Void{
+		model.login(name,pass,cookie);
 	}
 
 	public function logout():Void{
@@ -83,7 +83,6 @@ class tv.zarate.Projects.ZBooks.zbController{
 		} else {
 
 			var subject:String = escape("Hi mate, check this link out");
-
 			getURL("mailto:?Subject=" + subject + "&body=" + book.url );
 
 		}
@@ -91,7 +90,7 @@ class tv.zarate.Projects.ZBooks.zbController{
 	}
 
 	public function search(q:String):Void{
-		model.search(q);
+		model.search(q,true);
 	}
 
 	public function reloadCurrentLabel():Void{
@@ -125,8 +124,18 @@ class tv.zarate.Projects.ZBooks.zbController{
 				view.showLoginForm();
 				return null;
 
+			} else {
+
+				model.logout();
+				return null;
+
 			}
 
+		}
+
+		if(Key.isDown(Key.CONTROL) && Key.isDown(75)){ // CTRL + K, login
+
+			if(view.enabled && !focusOnTextField()){ view.focusSearchField(); }
 
 		}
 
@@ -164,11 +173,15 @@ class tv.zarate.Projects.ZBooks.zbController{
 
 					} else if(view.loginForm){
 
+						trace("sending form");
+
 						view.submitLoginForm();
 
 					}
 
 				} else {
+
+					trace("remove alert");
 
 					view.removeAlert();
 
@@ -224,11 +237,6 @@ class tv.zarate.Projects.ZBooks.zbController{
 				if(view.enabled && !focusOnTextField()){ view.focusNextBookmark(); }
 				break;
 
-			case(83): // s focus search
-
-				if(view.enabled && !focusOnTextField()){ view.focusSearchField(); }
-				break;
-
 			case(189): // - previous page
 
 				if(view.enabled && !focusOnTextField()){ model.previousPage(); }
@@ -248,7 +256,9 @@ class tv.zarate.Projects.ZBooks.zbController{
 	}
 
 	private function onMouseWheel():Void{
+
 		//TODO move relevant scroll here
+
 	}
 
 }

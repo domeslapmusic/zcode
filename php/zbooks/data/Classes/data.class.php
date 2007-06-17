@@ -28,19 +28,26 @@ class data{
 
 	}
 
-	function search($str,$userFrom_id){
+	function search($str,$userFrom_id,$page){
 
 		$userFrom_id = $this->validate->userID($userFrom_id);
 		$str = "%".$this->validate->searchString($str)."%";
 
+		$init = ($page-1) * $this->itemsPerPage;
+		$end = $init + $this->itemsPerPage;
+
+		$qCount = sprintf("SELECT COUNT(*) FROM zb_bookmarks
+				WHERE title LIKE '%1\$s' OR url LIKE '%1\$s' AND ".$this->getWhereUserString($userFrom_id),$str);
+
+		$this->totalBookmarks = mysql_result(mysql_query($qCount),0);
+
 		$q = sprintf("SELECT * FROM zb_bookmarks
-				WHERE title LIKE '%1\$s' OR url LIKE '%1\$s' AND ".$this->getWhereUserString($userFrom_id)."",$str);
+				WHERE title LIKE '%1\$s' OR url LIKE '%1\$s' AND ".$this->getWhereUserString($userFrom_id)." LIMIT ".$init.",".$end."",$str);
 
 		$result = mysql_query($q);
 
-		$this->currentPage = 1;
-		$this->totalPages = 1;
-		$this->totalBookmarks = mysql_num_rows($result);
+		$this->currentPage = $page;
+		$this->totalPages = ceil($this->totalBookmarks/$this->itemsPerPage);
 
 		return $result;
 

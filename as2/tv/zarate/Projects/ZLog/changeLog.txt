@@ -9,6 +9,7 @@ http://www.zarate.tv/proyectos/zlog/
 - Added printing
 - Minimum Flash player required for the console is now player 8 (because of ExternalInterface used for Flash -> JS communication)
 - tv.zarate.Utils.Trace has been updated to allow sending objects instead of just plain strings
+- Now we check if the LocalConnection is actually created and display error if otherwise.
 
 ------------ Version 1.0, 25th March 2006
 

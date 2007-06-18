@@ -127,7 +127,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 
 	}
 
-	public function showBookmarkForm(book:Bookmark):Void{
+	public function showBookmarkForm(book:Bookmark,externalLink:Boolean):Void{
 
 		bookmarkForm = true;
 
@@ -140,7 +140,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 
 		} else {
 
-			bookFormAction = Constants.EDIT;
+			bookFormAction = (externalLink != null && externalLink == true)? Constants.ADD:Constants.EDIT;
 
 		}
 
@@ -801,7 +801,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 		field.setTextFormat(getFormat("mainTitle"));
 
 		home_btn.tabIndex = getTabIndex("menu");
-		home_btn.onPress = Delegate.create(controller,controller.labelPressed);
+		home_btn.onPress = Delegate.create(controller,controller.goHome);
 
 		// label title
 		field = TextfieldUtils.createField(title_mc);

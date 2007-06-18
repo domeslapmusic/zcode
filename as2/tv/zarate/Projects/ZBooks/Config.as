@@ -21,4 +21,8 @@ class tv.zarate.Projects.ZBooks.Config{
 
 	}
 
+	public function toString():String{
+		return "[Config name=" + name + ", edit=" + edit + ", key=" + key + "]";
+	}
+
 }

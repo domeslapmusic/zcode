@@ -21,12 +21,12 @@ class tv.zarate.Projects.ZBooks.zbModel{
 	private var currentPage:Number = 1;
 	private var labels:Array;
 	private var loggedIn:Boolean = false;
-
 	private var currentUser:String = "1";
 	private var timeLine_mc:MovieClip;
 	private var externalAdded:Boolean = false;
 	private var searching:Boolean = false;
 	private var searchQuery:String = "";
+	private var externalURL:String = "";
 
 	public function zbModel(){}
 
@@ -96,27 +96,13 @@ class tv.zarate.Projects.ZBooks.zbModel{
 
 		view.disableApp();
 		currentLabelID = label_id;
-		if(keepPage == undefined || keepPage == null) currentPage = 1;
+		if(keepPage == undefined || keepPage == null){ currentPage = 1; }
 		data.getLabelData(currentLabelID,currentPage,this,dataXMLLoaded);
 
 	}
 
 	public function manageBookmark(action:String,book:Bookmark):Void{
 		data.manageBookmark(action,book,this,dataAdded);
-	}
-
-	public function dataAdded(success:Boolean,errorText:String):Void{
-
-		if(success){
-
-			data.getLabelData(currentLabelID,currentPage,this,dataXMLLoaded);
-
-		} else {
-
-			view.showError(errorText);
-
-		}
-
 	}
 
 	public function search(q:String,begin:Boolean):Void{
@@ -156,9 +142,10 @@ class tv.zarate.Projects.ZBooks.zbModel{
 
 	private function configLoaded(confObj:Config,keepPage:Boolean):Void{
 
-		loggedIn = confObj.edit;
-
 		userConfig = confObj;
+
+		loggedIn = userConfig.edit;
+
 		setNewLabel(currentLabelID,keepPage);
 
 	}
@@ -181,11 +168,11 @@ class tv.zarate.Projects.ZBooks.zbModel{
 
 		view.focusSearchField(searchQuery,(pages <= 1 && searchQuery != ""));
 
-		var externalURL:String = unescape(flashVars.initString("fv_url",""));
+		externalURL = unescape(flashVars.initString("fv_url",""));
 
 		if(externalURL != "" && !externalAdded){
 
-			if(config.edit == true){
+			if(userConfig.edit == true){
 
 				var externalTitle:String = unescape(flashVars.initString("fv_title",""));
 
@@ -193,7 +180,7 @@ class tv.zarate.Projects.ZBooks.zbModel{
 				b.url = externalURL;
 				b.title = externalTitle;
 
-				view.showBookmarkForm(b);
+				view.showBookmarkForm(b,true);
 
 			} else {
 
@@ -218,6 +205,28 @@ class tv.zarate.Projects.ZBooks.zbModel{
 		} else {
 
 			view.showError(errorText,Delegate.create(view,view.showLoginForm));
+
+		}
+
+	}
+
+	private function dataAdded(success:Boolean,errorText:String):Void{
+
+		if(success){
+
+			if(externalAdded){
+
+				getURL(unescape(externalURL));
+
+			} else {
+
+				data.getLabelData(currentLabelID,currentPage,this,dataXMLLoaded);
+
+			}
+
+		} else {
+
+			view.showError(errorText);
 
 		}
 

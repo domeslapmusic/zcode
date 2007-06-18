@@ -37,14 +37,25 @@ class tv.zarate.Projects.ZBooks.zbController{
 	}
 
 	public function logout():Void{
+
 		view.disableApp();
 		model.logout();
+
 	}
 
 	public function bookmarkPressed(book:Bookmark,target:String):Void{
 
 		var t:String = (target)? target:model.getUserConfig().defaultTarget;
 		getURL(book.url,t);
+
+	}
+
+	public function goHome():Void{
+
+		var label:Label = new Label();
+		label.id = "0";
+
+		model.setNewLabel(label.id);
 
 	}
 
@@ -55,13 +66,6 @@ class tv.zarate.Projects.ZBooks.zbController{
 			view.checkLabelInBookmark(label.title);
 
 		} else {
-
-			if(label == null){
-
-				label = new Label();
-				label.id = "0";
-
-			}
 
 			model.setNewLabel(label.id);
 
@@ -224,7 +228,7 @@ class tv.zarate.Projects.ZBooks.zbController{
 
 			case(72): // h home
 
-				if(view.enabled && !focusOnTextField()){ labelPressed(); }
+				if(view.enabled && !focusOnTextField()){ goHome(); }
 				break;
 
 			case(76): // l focus next label

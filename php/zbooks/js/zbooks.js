@@ -11,6 +11,12 @@ function sendLoginForm(formobj){
 
 }
 
+function setFocusToLog(){
+
+	document.getElementById("namebody").focus();
+
+}
+
 function updateTitle(s){
 	document.title = s;
 }

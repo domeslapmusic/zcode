@@ -10,26 +10,12 @@
 		<title>{$labelTitle}</title>
 
 		<bookmarks total="{$totalBookmarks}" pages="{$totalPages}" currentPage="{$currentPage}" owner="{$owner}">
-
-			{section name=booksLoop loop=$booksData}
-			<bookmark id="{$booksData[booksLoop].bookmark_id}" date="{$booksData[booksLoop].date}" private="{$booksData[booksLoop].private}">
-				<title>{$booksData[booksLoop].title}</title>
-				<url>{$booksData[booksLoop].url}</url>
-				<labels>{$booksData[booksLoop].labels}</labels>
-			</bookmark>
-			{/section}
-
+			<![CDATA[{section name=booksLoop loop=$booksData}{$booksData[booksLoop].bookmark_id}_{$booksData[booksLoop].private}_{$booksData[booksLoop].date}_{$booksData[booksLoop].title}_{$booksData[booksLoop].url}_{$booksData[booksLoop].labels}*{/section}]]>
 		</bookmarks>
 
 	</label>
 
-	<labels>
-
-		{section name=labelsLoop loop=$labelsData}
-		<label id="{$labelsData[labelsLoop].label_id}" private="{$labelsData[labelsLoop].private}">{$labelsData[labelsLoop].title}</label>
-		{/section}
-
-	</labels>
+	<labels><![CDATA[{section name=labelsLoop loop=$labelsData}{$labelsData[labelsLoop].label_id}_{$labelsData[labelsLoop].private}_{$labelsData[labelsLoop].title}*{/section}]]></labels>
 
 	{else}
 	<errorText><![CDATA[{$errorText}]]></errorText>

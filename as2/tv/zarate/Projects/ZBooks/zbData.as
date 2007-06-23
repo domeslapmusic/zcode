@@ -111,23 +111,26 @@ class tv.zarate.Projects.ZBooks.zbData{
 
 			// current label
 			var currentLabel:Label = new Label();
-			currentLabel.setXML(dataXML.firstChild.childNodes[0]);
+			currentLabel.setData(dataXML.firstChild.childNodes[0]);
 
 			// labels
 
 			var labels:Array = new Array();
 
-			var lng:Number = dataXML.firstChild.childNodes[1].childNodes.length;
+			var labelsRaw:String = dataXML.firstChild.childNodes[1].firstChild.nodeValue;
+
+			var labelsData:Array = labelsRaw.split("*");
+			var lng:Number = labelsData.length-1; // last item on the raw data is a "*" so we get one extra row
 
 			for(var x:Number=0;x<lng;x++){
 
-				var node:XMLNode = dataXML.firstChild.childNodes[1].childNodes[x];
+				var labelData:Array = labelsData[x].split("_");
 
 				var l:Label = new Label();
 
-				l.title = unescape(node.childNodes[0].nodeValue);
-				l.id = node.attributes["id"];
-				l.isPrivate = node.attributes["private"];
+				l.title = unescape(labelData[2]);
+				l.id = labelData[0];
+				l.isPrivate = labelData[1];
 
 				labels.push(l);
 

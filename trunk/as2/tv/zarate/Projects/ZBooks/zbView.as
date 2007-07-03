@@ -343,7 +343,13 @@ class tv.zarate.Projects.ZBooks.zbView{
 	}
 
 	public function submitBookForm():Void{
-		getFormData();
+
+		if(!MovieclipUtils.hasFocus(addForm_mc.accept_mc)){
+
+			getFormData();
+
+		}
+
 	}
 
 	public function submitSearch():Void{
@@ -1094,7 +1100,7 @@ class tv.zarate.Projects.ZBooks.zbView{
 
 		} else {
 
-			showError("All fields are mandatory wadus",Delegate.create(this,showBookmarkForm,book));
+			showError("All fields are mandatory",Delegate.create(this,showBookmarkForm,book),false);
 
 		}
 

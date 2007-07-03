@@ -34,13 +34,15 @@ class tv.zarate.Projects.ZBooks.zbModel{
 
 		view = _view;
 		timeLine_mc = m;
-		flashVars = FlashVars.getInstance();
-		flashVars.config(timeLine_mc);
+
+		flashVars = new FlashVars(timeLine_mc);
 
 		currentUser = flashVars.initString("fv_user_id",currentUser);
 		currentLabelID = flashVars.initString("fv_label_id",currentLabelID);
 
-		data = new zbData(currentUser,timeLine_mc);
+		var WSPath:String = flashVars.initString("fv_WSPath","");
+
+		data = new zbData(currentUser,WSPath);
 
 	}
 
@@ -84,7 +86,8 @@ class tv.zarate.Projects.ZBooks.zbModel{
 
 		} else {
 
-			data.getLabelData(currentLabelID,page,this,dataXMLLoaded);
+			var callback:Function = Delegate.create(this,dataXMLLoaded);
+			data.getLabelData(currentLabelID,page,callback);
 
 		}
 
@@ -97,12 +100,17 @@ class tv.zarate.Projects.ZBooks.zbModel{
 		view.disableApp();
 		currentLabelID = label_id;
 		if(keepPage == undefined || keepPage == null){ currentPage = 1; }
-		data.getLabelData(currentLabelID,currentPage,this,dataXMLLoaded);
+
+		var callback:Function = Delegate.create(this,dataXMLLoaded);
+		data.getLabelData(currentLabelID,currentPage,callback);
 
 	}
 
 	public function manageBookmark(action:String,book:Bookmark):Void{
-		data.manageBookmark(action,book,this,dataAdded);
+
+		var callback:Function = Delegate.create(this,dataAdded);
+		data.manageBookmark(action,book,callback);
+
 	}
 
 	public function search(q:String,begin:Boolean):Void{
@@ -110,12 +118,17 @@ class tv.zarate.Projects.ZBooks.zbModel{
 		if(begin || begin == null){ currentPage = 1; }
 		searching = true;
 		searchQuery = q;
-		data.search(q,currentLabelID,currentPage,this,dataXMLLoaded);
+
+		var callback:Function = Delegate.create(this,dataXMLLoaded);
+		data.search(q,currentLabelID,currentPage,callback);
 
 	}
 
 	public function reloadCurrentLabel():Void{
-		data.getLabelData(currentLabelID,currentPage,this,dataXMLLoaded);
+
+		var callback:Function = Delegate.create(this,dataXMLLoaded);
+		data.getLabelData(currentLabelID,currentPage,callback);
+
 	}
 
 	public function getLabels():Array{
@@ -220,7 +233,8 @@ class tv.zarate.Projects.ZBooks.zbModel{
 
 			} else {
 
-				data.getLabelData(currentLabelID,currentPage,this,dataXMLLoaded);
+				var callback:Function = Delegate.create(this,dataXMLLoaded);
+				data.getLabelData(currentLabelID,currentPage,callback);
 
 			}
 

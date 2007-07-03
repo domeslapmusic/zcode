@@ -240,7 +240,7 @@ class data{
 				} else {
 
 					$lastID = $this->addLabel($val,"0");
-					if($lastID) $labels_id[] = $lastID;
+					if($lastID){ $labels_id[] = $lastID; }
 
 				}
 

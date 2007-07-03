@@ -185,8 +185,6 @@ class tv.zarate.Projects.ZBooks.zbController{
 
 				} else {
 
-					trace("remove alert");
-
 					view.removeAlert();
 
 				}

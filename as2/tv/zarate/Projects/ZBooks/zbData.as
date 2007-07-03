@@ -13,9 +13,9 @@ class tv.zarate.Projects.ZBooks.zbData{
 	private var currentUser:String = "1";
 	private var serverKey:String = "";
 
-	function zbData(_currentUser:String,timeLine_mc:MovieClip){
+	function zbData(_currentUser:String,_WSPath:String){
 
-		WSPath = (timeLine_mc.fv_WSPath)? timeLine_mc.fv_WSPath:WSPath; // we can override this property via FlashVars
+		WSPath = _WSPath;
 		currentUser = _currentUser;
 
 	}
@@ -36,25 +36,25 @@ class tv.zarate.Projects.ZBooks.zbData{
 
 	}
 
-	public function search(q:String,label_id:String,currentPage:Number,scope:Object,callback:Function):Void{
+	public function search(q:String,label_id:String,currentPage:Number,callback:Function):Void{
 
 		dataXML = new XML();
 		dataXML.ignoreWhite = true;
-		dataXML.onLoad = Delegate.create(this,xmlLoaded,scope,callback);
+		dataXML.onLoad = Delegate.create(this,xmlLoaded,callback);
 		dataXML.sendAndLoad(WSPath+"?action=search&query="+q+"&user_id="+currentUser+"&page="+currentPage,dataXML);
 
 	}
 
-	public function getLabelData(label_id:String,currentPage:Number,scope:Object,callback:Function):Void{
+	public function getLabelData(label_id:String,currentPage:Number,callback:Function):Void{
 
 		dataXML = new XML();
 		dataXML.ignoreWhite = true;
-		dataXML.onLoad = Delegate.create(this,xmlLoaded,scope,callback);
+		dataXML.onLoad = Delegate.create(this,xmlLoaded,callback);
 		dataXML.sendAndLoad(WSPath+"?user_id="+currentUser+"&label_id="+label_id+"&currentPage="+currentPage,dataXML);
 
 	}
 
-	public function manageBookmark(action:String,book:Bookmark,scope:Object,callback:Function):Void{
+	public function manageBookmark(action:String,book:Bookmark,callback:Function):Void{
 
 		book.title = escape(book.title);
 		book.url = escape(book.url);
@@ -65,7 +65,7 @@ class tv.zarate.Projects.ZBooks.zbData{
 		dataXML = new XML();
 		dataXML.ignoreWhite = true;
 		dataXML.addRequestHeader("Connection","'close'");
-		dataXML.onLoad = Delegate.create(this,dataAdded,scope,callback);
+		dataXML.onLoad = Delegate.create(this,dataAdded,callback);
 		dataXML.sendAndLoad(path,dataXML);
 
 	}
@@ -105,7 +105,7 @@ class tv.zarate.Projects.ZBooks.zbData{
 
 	}
 
-	private function xmlLoaded(success:Boolean,scope:Object,callback:Function):Void{
+	private function xmlLoaded(success:Boolean,callback:Function):Void{
 
 		if(success){
 
@@ -138,17 +138,17 @@ class tv.zarate.Projects.ZBooks.zbData{
 
 			delete dataXML;
 
-			callback.apply(scope,[currentLabel,labels]);
+			callback(currentLabel,labels);
 
 		}
 
 	}
 
-	private function dataAdded(success:Boolean,scope:Object,callback:Function):Void{
+	private function dataAdded(success:Boolean,callback:Function):Void{
 
 		var result:Boolean = (dataXML.firstChild.attributes["error"] == "false")? true:false;
 		var errorText:String = dataXML.firstChild.childNodes[0].childNodes[0].toString();
-		callback.apply(scope,[result,errorText]);
+		callback(result,errorText);
 
 	}
 

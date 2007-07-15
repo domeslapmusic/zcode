@@ -1,0 +1,10 @@
+#!/bin/bash
+
+swfpath="/home/zarate/Desktop/www/zplayer/supernovaplayer.swf"
+zpath="/home/zarate/projects/as2/"
+
+rm $swfpath
+
+swfmill simple supernova.xml $swfpath
+
+mtasc -swf $swfpath -version 8 -strict -cp $zpath -main snModel.as -trace tv.zarate.Utils.Trace.trc

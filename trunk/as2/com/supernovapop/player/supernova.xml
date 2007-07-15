@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<movie version="8" width="700" height="500" framerate="24">
+<background color="#ffffff"/>
+	<frame>
+		<library>
+
+			<!-- Thanks to FlashDevelop guys for the ready-to-use xml
+					http://www.flashdevelop.org/community/viewtopic.php?t=321#2982 -->
+
+			<clip id="VideoDisplay">
+				<frame>
+					<video id="VideoSurface" width="160" height="120" />
+					<place id="VideoSurface" name="video" />
+				</frame>
+			</clip>
+
+			<clip id="grabbing_mouse" import="grabbing_mouse.png" />
+			<clip id="grab_mouse" import="grab_mouse.png" />
+			<clip id="zoom_icon" import="zoom.png" />
+			<clip id="fitinscreen_icon" import="fitinscreen.png" />
+
+		</library>
+	</frame>
+</movie>

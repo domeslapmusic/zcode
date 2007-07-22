@@ -13,17 +13,27 @@ class tv.zarate.Projects.zplayer.zpConfig{
 	private var xmlPath:String = "zplayer.xml";
 	private var dataXML:XML;
 
-	public function zpConfig(m:MovieClip,callback:Function){
+	private static var _instance:zpConfig;
+
+	public function config(m:MovieClip,callback:Function):Void{
 
 		var flashvars:FlashVars = new FlashVars(m);
-
 		xmlPath = flashvars.initString("xmlPath",xmlPath);
-
 		loadXML(callback);
+
+
+	}
+
+	public static function getInstance():zpConfig{
+
+		if(_instance == null){ _instance = new zpConfig(); }
+		return _instance;
 
 	}
 
 	// **************** PRIVATE METHODS ****************
+
+	private function zpConfig(){}
 
 	private function loadXML(callback:Function):Void{
 
@@ -40,11 +50,7 @@ class tv.zarate.Projects.zplayer.zpConfig{
 
 		if(success){
 
-			var settingsNode:XMLNode = dataXML.firstChild.childNodes[0];
-
-			imageDelay = settingsNode.attributes["imageDelay"];
-
-			var itemsNode:XMLNode = dataXML.firstChild.childNodes[1];
+			var itemsNode:XMLNode = dataXML.firstChild.childNodes[0];
 			var totalItems:Number = itemsNode.childNodes.length;
 
 			for(var x:Number=0;x<totalItems;x++){
@@ -69,6 +75,7 @@ class tv.zarate.Projects.zplayer.zpConfig{
 
 				}
 
+				i.order = x;
 				items.push(i);
 
 			}

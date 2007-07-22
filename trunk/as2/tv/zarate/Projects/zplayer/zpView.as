@@ -80,7 +80,7 @@ class tv.zarate.Projects.zplayer.zpView{
 
 	}
 
-	public function showItem(item:Item):Void{
+	public function showItem(item:Item,finishCallback:Function):Void{
 
 		if(currentPlayer != null){
 
@@ -99,12 +99,14 @@ class tv.zarate.Projects.zplayer.zpView{
 		switch(item.type){
 
 			case(zpConstants.TYPE_VIDEO):
-				currentPlayer = new PlayerVideo(item,player_mc); break;
+				currentPlayer = new PlayerVideo(item,player_mc,finishCallback); break;
 
 			case(zpConstants.TYPE_IMAGE):
-				currentPlayer = new PlayerImage(item,player_mc); break;
+				currentPlayer = new PlayerImage(item,player_mc,finishCallback); break;
 
 		}
+
+		itemsBand.setCurrentItem(item);
 
 		currentPlayer.setSize(playerWidth,playerHeight);
 		currentPlayer.playItem();
@@ -159,7 +161,7 @@ class tv.zarate.Projects.zplayer.zpView{
 		items_mc = base_mc.createEmptyMovieClip("items_mc",ITEMS_DEPTH);
 
 		itemsBand = new ItemsBand();
-		itemsBand.config(items,null,items_mc,selectItemCallback);
+		itemsBand.config(items,items_mc,selectItemCallback);
 
 	}
 

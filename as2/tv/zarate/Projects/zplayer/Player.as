@@ -8,11 +8,13 @@ class tv.zarate.Projects.zplayer.Player{
 	private var width:Number = 0;
 	private var height:Number = 0;
 	private var margin:Number = 10;
+	private var finishCallback:Function;
 
-	public function Player(_item:Item,_base_mc:MovieClip){
+	public function Player(_item:Item,_base_mc:MovieClip,_finishCallback:Function){
 
 		item = _item;
 		base_mc = _base_mc;
+		finishCallback = _finishCallback;
 
 	}
 

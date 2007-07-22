@@ -9,10 +9,13 @@ class tv.zarate.Projects.zplayer.zpModel{
 
 	private var view:zpView;
 	private var config:zpConfig;
+	private var currentItem:Item;
 
 	private var items:/*Item*/Array;
 	private var timeLine_mc:MovieClip;
 	private var view_mc:MovieClip;
+	private var nextItemCallback:Function;
+	private var totalItems:Number = 0;
 
 	public function zpModel(m:MovieClip){
 
@@ -20,6 +23,8 @@ class tv.zarate.Projects.zplayer.zpModel{
 
 		Stage.scaleMode = "noScale";
 		Stage.align = "TL";
+
+		nextItemCallback = Delegate.create(this,nextItem);
 
 		timeLine_mc = m;
 		timeLine_mc.onEnterFrame = Delegate.create(this,waitForStage);
@@ -32,7 +37,9 @@ class tv.zarate.Projects.zplayer.zpModel{
 
 		if(Stage.width != null && Stage.height != null){
 
-			config = new zpConfig(timeLine_mc,Delegate.create(this,configReady));
+			config = zpConfig.getInstance();
+			config.config(timeLine_mc,Delegate.create(this,configReady));
+
 			delete timeLine_mc.onEnterFrame;
 
 		}
@@ -41,9 +48,10 @@ class tv.zarate.Projects.zplayer.zpModel{
 
 	private function configReady(success:Boolean,_items:/*Item*/Array):Void{
 
-		items = _items;
-
 		if(success){
+
+			items = _items;
+			totalItems = items.length;
 
 			var selectItemCallback:Function = Delegate.create(this,selectItem);
 
@@ -51,7 +59,7 @@ class tv.zarate.Projects.zplayer.zpModel{
 			view.conf(this,config,view_mc,items,selectItemCallback);
 			view.start();
 
-			view.showItem(items[0]);
+			showItem(items[0]);
 
 		} else {
 
@@ -63,7 +71,25 @@ class tv.zarate.Projects.zplayer.zpModel{
 
 	private function selectItem(item:Item):Void{
 
-		view.showItem(item);
+		showItem(item);
+
+	}
+
+	private function showItem(item:Item):Void{
+
+		currentItem = item;
+		view.showItem(item,nextItemCallback);
+
+	}
+
+	private function nextItem():Void{
+
+		if(totalItems > 1){
+
+			var i:Item = ((currentItem.order + 1) >= totalItems)? items[0]:items[currentItem.order+1];
+			showItem(i);
+
+		}
 
 	}
 

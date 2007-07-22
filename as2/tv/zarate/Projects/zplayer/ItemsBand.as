@@ -6,13 +6,12 @@ import tv.zarate.Projects.zplayer.Item;
 
 class tv.zarate.Projects.zplayer.ItemsBand{
 
-	private var currentItem:Item;
-
 	private var base_mc:MovieClip;
 	private var items_mc:MovieClip;
 	private var description_mc:MovieClip;
 
 	private var items:/*Item*/Array;
+	private var itemClips:/*MovieClip*/Array;
 	private var currentItem_mc:MovieClip;
 	private var width:Number = 0;
 	private var height:Number = 0;
@@ -32,10 +31,25 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 
 	}
 
-	public function config(_items:/*Item*/Array,_currentItem:Item,_base_mc:MovieClip,_selectCallback:Function):Void{
+	public function setCurrentItem(i:Item):Void{
+
+		for(var x:Number=0;x<itemClips.length;x++){
+
+			if(i.order == itemClips[x].order){
+
+				currentItem_mc = itemClips[x];
+				currentItem_mc.enabled = false;
+				break;
+
+			}
+
+		}
+
+	}
+
+	public function config(_items:/*Item*/Array,_base_mc:MovieClip,_selectCallback:Function):Void{
 
 		items = _items;
-		currentItem = _currentItem;
 		base_mc = _base_mc;
 		selectCallback = _selectCallback;
 
@@ -57,11 +71,16 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 
 		var totalItems:Number = items.length;
 
+		itemClips = new Array();
+
 		for(var x:Number=0;x<totalItems;x++){
 
 			var item:Item = items[x];
 
 			var item_mc:MovieClip = items_mc.createEmptyMovieClip("item_"+x,100+x);
+			item_mc.order = item.order;
+
+			itemClips.push(item_mc);
 
 			var image_mc:MovieClip = item_mc.createEmptyMovieClip("image_mc",100);
 			image_mc.loadMovie(item.thumb)
@@ -116,8 +135,6 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 		manageItem(OUT,order,item_mc);
 
 		currentItem_mc = item_mc;
-
-		currentItem_mc.enabled = false;
 
 		var item:Item = items[order];
 		selectCallback(item);

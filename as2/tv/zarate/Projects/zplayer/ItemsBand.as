@@ -33,7 +33,14 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 
 	public function setCurrentItem(i:Item):Void{
 
-		for(var x:Number=0;x<itemClips.length;x++){
+		if(currentItem_mc != null){
+
+			currentItem_mc.enabled = true;
+
+		}
+
+		var totalItems:Number = itemClips.length;
+		for(var x:Number=0;x<totalItems;x++){
 
 			if(i.order == itemClips[x].order){
 

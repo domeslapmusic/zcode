@@ -85,11 +85,24 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		loadbar = new LoadBar(loadbar_mc,width);
 		loadbar.onDrag = Delegate.create(this,onDrag);
 
+		loadbar_mc._y = height - loadbar_mc._height;
+
 		soundLoaderChecker_mc = base_mc.createEmptyMovieClip("soundLoaderChecker_mc",700);
 		soundLoaderChecker_mc.onEnterFrame = Delegate.create(this,checkSoundLoad);
 
 		soundPositionChecker_mc = base_mc.createEmptyMovieClip("soundPositionChecker_mc",800);
 		soundPositionChecker_mc.onEnterFrame = Delegate.create(this,checkSoundPosition);
+
+		var soundUp_mc:MovieClip = base_mc.attachMovie("moresound","soundUp_mc",900);
+		soundUp_mc._x = width - soundUp_mc._width - margin;
+		soundUp_mc._y = loadbar_mc._y - soundUp_mc._height - margin;
+
+		var soundDown_mc:MovieClip = base_mc.attachMovie("lesssound","soundDown_mc",1000);
+		soundDown_mc._x = soundUp_mc._x - soundDown_mc._width - margin;
+		soundDown_mc._y = soundUp_mc._y;
+
+		soundUp_mc.onPress = Delegate.create(this,manageSound,true);
+		soundDown_mc.onPress = Delegate.create(this,manageSound,false);
 
 	}
 
@@ -294,8 +307,20 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 
 	private function finished():Void{
 
-		trace("finishing image");
 		finishCallback();
+
+	}
+
+	private function manageSound(up:Boolean):Void{
+
+		var mod:Number = (up)? 10:-10;
+
+		var newVol:Number = sound.getVolume() + mod;
+
+		if(newVol < 0){ newVol = 0; }
+		if(newVol > 100){ newVol = 100; }
+
+		sound.setVolume(newVol);
 
 	}
 

@@ -61,6 +61,19 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 		loadbar = new LoadBar(loadbar_mc,width);
 		loadbar.onDrag = Delegate.create(this,onDrag);
 
+		loadbar_mc._y = height - loadbar_mc._height;
+
+		var soundUp_mc:MovieClip = base_mc.attachMovie("moresound","soundUp_mc",900);
+		soundUp_mc._x = width - soundUp_mc._width - margin;
+		soundUp_mc._y = loadbar_mc._y - soundUp_mc._height - margin;
+
+		var soundDown_mc:MovieClip = base_mc.attachMovie("lesssound","soundDown_mc",1000);
+		soundDown_mc._x = soundUp_mc._x - soundDown_mc._width - margin;
+		soundDown_mc._y = soundUp_mc._y;
+
+		soundUp_mc.onPress = Delegate.create(this,manageSound,true);
+		soundDown_mc.onPress = Delegate.create(this,manageSound,false);
+
 		totalTime_mc = base_mc.createEmptyMovieClip("totalTime_mc",300);
 
 		var field:TextField = TextfieldUtils.createField(totalTime_mc);
@@ -69,7 +82,6 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 		video_mc.attachAudio(stream_ns);
 
 		sound = new Sound(video_mc);
-		setVolume(currentVolume);
 
 	}
 
@@ -174,21 +186,37 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 
 	}
 
+	private function manageSound(up:Boolean):Void{
+
+		var mod:Number = (up)? 10:-10;
+
+		var newVol:Number = sound.getVolume() + mod;
+
+		if(newVol < 0){ newVol = 0; }
+		if(newVol > 100){ newVol = 100; }
+
+		sound.setVolume(newVol);
+
+	}
+
 	private function setMetaData(stream:Object):Void{
 
+		/*
 		for(var x:String in stream){
 			trace("meta > " + x + ' : ' + stream[x] )
 		}
-
+		*/
 		videoDuration = stream.duration;
 
 	}
 
 	private function statusHandler(infObj:Object){
 
+		/*
 		for(var x:String in infObj){
 			trace("status > " + x + ' : ' + infObj[x] )
 		}
+		*/
 
 	}
 

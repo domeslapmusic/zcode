@@ -18,6 +18,8 @@
 			<clip id="grab_mouse" import="grab_mouse.png" />
 			<clip id="zoom_icon" import="zoom.png" />
 			<clip id="fitinscreen_icon" import="fitinscreen.png" />
+			<clip id="lesssound" import="lesssound.png" />
+			<clip id="moresound" import="moresound.png" />
 
 		</library>
 	</frame>

@@ -10,6 +10,10 @@
 
 class tv.zarate.Utils.MovieclipUtils{
 
+	public static function isRoot(mc:MovieClip):Boolean{
+		return (mc._parent == null);
+	}
+
 	public static function MaxResize(mc:Object,maxWidth:Number,maxHeight:Number):Void{
 
 		var appAspectRatio:Number = maxWidth/maxHeight;

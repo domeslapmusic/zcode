@@ -6,17 +6,18 @@ class com.supernovapop.player.snModel extends zpModel{
 	
 	private var view:snView;
 	
-	public function snModel(m:MovieClip){
+	public function snModel(){
 		
 		view = new snView();
 		
-		super(m);
+		super();
 		
 	}
 
 	public static function main(m:MovieClip):Void{
 		
-		var instance:snModel = new snModel(m);
+		var instance:snModel = new snModel();
+		instance.config(m);
 		
 	}
 	

@@ -5,6 +5,7 @@ import tv.zarate.Projects.zplayer.Player;
 import tv.zarate.Projects.zplayer.Item;
 import tv.zarate.Projects.zplayer.zpImage;
 import tv.zarate.Projects.zplayer.LoadBar;
+import tv.zarate.Projects.zplayer.zpConstants;
 
 class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 
@@ -24,6 +25,7 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 	private var GRAB_CURSOR:String = "grab_mouse";
 	private var GRABBING_CURSOR:String = "grabbing_mouse";
 	private var autoInterval:Number;
+	private var maskHeight:Number = 0;
 
 	public function PlayerImage(_image:Item,base_mc:MovieClip,finishCallback:Function){
 		
@@ -46,16 +48,19 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		loader.addListener(this);
 		loader.loadClip(item.url,imageLoader_mc);
 		
-		mask_mc = base_mc.createEmptyMovieClip("mask_mc",200);
-		MovieclipUtils.DrawSquare(mask_mc,0xff00ff,100,width,height);
-		
-		image_mc.setMask(mask_mc);
+		maskHeight = height;
 		
 		if(hasSound){
 			
+			maskHeight -= zpConstants.LOAD_BAR_HEIGHT;
 			loadSound();
 			
 		}
+		
+		mask_mc = base_mc.createEmptyMovieClip("mask_mc",200);
+		MovieclipUtils.DrawSquare(mask_mc,0xff00ff,100,width,maskHeight);
+		
+		image_mc.setMask(mask_mc);
 		
 	}
 
@@ -84,6 +89,8 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		loadbar_mc = base_mc.createEmptyMovieClip("loadbar_mc",600);
 		loadbar = new LoadBar(loadbar_mc,width);
 		loadbar.onDrag = Delegate.create(this,onDrag);
+		loadbar.onToggle = Delegate.create(this,onToggle);
+		loadbar.onSoundChange = Delegate.create(this,updateSound);
 		
 		loadbar_mc._y = height - loadbar_mc._height;
 		
@@ -92,17 +99,6 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		
 		soundPositionChecker_mc = base_mc.createEmptyMovieClip("soundPositionChecker_mc",800);
 		soundPositionChecker_mc.onEnterFrame = Delegate.create(this,checkSoundPosition);
-		
-		var soundUp_mc:MovieClip = base_mc.attachMovie("moresound","soundUp_mc",900);
-		soundUp_mc._x = width - soundUp_mc._width - margin;
-		soundUp_mc._y = loadbar_mc._y - soundUp_mc._height - margin;
-		
-		var soundDown_mc:MovieClip = base_mc.attachMovie("lesssound","soundDown_mc",1000);
-		soundDown_mc._x = soundUp_mc._x - soundDown_mc._width - margin;
-		soundDown_mc._y = soundUp_mc._y;
-		
-		soundUp_mc.onPress = Delegate.create(this,manageSound,true);
-		soundDown_mc.onPress = Delegate.create(this,manageSound,false);
 		
 	}
 
@@ -113,6 +109,24 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		
 	}
 
+	private function onToggle(playing:Boolean):Void{
+		
+		if(playing){
+			
+			sound.start(sound.position/1000);
+			
+		} else {
+			
+			sound.stop();
+			
+		}
+		
+	}
+	
+	private function updateSound(vol:Number):Void{
+		sound.setVolume(vol);
+	}
+	
 	private function checkSoundLoad():Void{
 		
 		var loaded:Number = sound.getBytesLoaded();
@@ -187,7 +201,7 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 
 	private function checkImageDimensions():Void{
 		
-		if(image_mc._width > width || image_mc._height > height){
+		if(image_mc._width > width || image_mc._height > maskHeight){
 			
 			addDragAndDrop();
 			
@@ -207,19 +221,20 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		var fitInScreen_mc:MovieClip = base_mc.attachMovie("fitinscreen_icon","fitInScreen_mc",300);
 		fitInScreen_mc.onPress = Delegate.create(this,fitInScreen);
 		
-		fitInScreen_mc._x = width - fitInScreen_mc._width;
+		fitInScreen_mc._x = width - fitInScreen_mc._width - margin;
+		fitInScreen_mc._y = margin;
 		
 		var zoom_mc:MovieClip = base_mc.attachMovie("zoom_icon","zoom_mc",400);
 		zoom_mc.onPress = Delegate.create(this,zoomImage);
 		
 		zoom_mc._x = fitInScreen_mc._x;
-		zoom_mc._y = fitInScreen_mc._y + fitInScreen_mc._height + 10;
+		zoom_mc._y = fitInScreen_mc._y + fitInScreen_mc._height + margin;
 		
 	}
 
 	private function fitInScreen():Void{
 		
-		MovieclipUtils.MaxResize(image_mc,width,height);
+		MovieclipUtils.MaxResize(image_mc,width,maskHeight);
 		centreImage();
 		
 		image_mc.enabled = false;
@@ -240,7 +255,7 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 	private function centreImage():Void{
 		
 		image_mc._x = Math.round((width - image_mc._width)/2);
-		image_mc._y = Math.round((height - image_mc._height)/2);
+		image_mc._y = Math.round((maskHeight - image_mc._height)/2);
 		
 	}
 
@@ -280,10 +295,10 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		var canvasMargin:Number = 0;
 		
 		var minX:Number = (image_mc._width > width)? width-image_mc._width:image_mc._x;
-		var minY:Number = (image_mc._height > height)? height-image_mc._height:image_mc._y;
+		var minY:Number = (image_mc._height > maskHeight)? maskHeight-image_mc._height:image_mc._y;
 		
 		var maxX:Number = (image_mc._width > width)? canvasMargin:minX;
-		var maxY:Number = (image_mc._height > height)? canvasMargin:minY;
+		var maxY:Number = (image_mc._height > maskHeight)? canvasMargin:minY;
 		
 		image_mc.startDrag(false,minX,minY,maxX,maxY);
 		
@@ -307,20 +322,7 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 
 	private function finished():Void{
 		
-		finishCallback();
-		
-	}
-
-	private function manageSound(up:Boolean):Void{
-		
-		var mod:Number = (up)? 10:-10;
-		
-		var newVol:Number = sound.getVolume() + mod;
-		
-		if(newVol < 0){ newVol = 0; }
-		if(newVol > 100){ newVol = 100; }
-		
-		sound.setVolume(newVol);
+		//finishCallback(); // just dont calling finish callback for the time being
 		
 	}
 

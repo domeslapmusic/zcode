@@ -1,16 +1,20 @@
 import tv.zarate.Utils.Delegate;
 import tv.zarate.Utils.MovieclipUtils;
 
+import tv.zarate.effects.Image;
+
 import tv.zarate.Projects.zplayer.Player;
 import tv.zarate.Projects.zplayer.Item;
 import tv.zarate.Projects.zplayer.zpImage;
 import tv.zarate.Projects.zplayer.LoadBar;
 import tv.zarate.Projects.zplayer.zpConstants;
+import tv.zarate.Projects.zplayer.ImagePreloader;
 
 class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 
 	private var loadbar:LoadBar;
 	private var image:zpImage;
+	private var imageLoader:ImagePreloader;
 
 	private var image_mc:MovieClip;
 	private var mask_mc:MovieClip;
@@ -18,6 +22,7 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 	private var soundLoaderChecker_mc:MovieClip;
 	private var soundPositionChecker_mc:MovieClip;
 	private var loadbar_mc:MovieClip;
+	private var imagePreloader_mc:MovieClip;
 
 	private var soundPath:String = "";
 	private var hasSound:Boolean = false;
@@ -41,6 +46,7 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 	public function playItem():Void{
 		
 		image_mc = base_mc.createEmptyMovieClip("image_mc",100);
+		image_mc._alpha = 0;
 		
 		var imageLoader_mc:MovieClip = image_mc.createEmptyMovieClip("imageLoader_mc",100);
 		
@@ -61,6 +67,11 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		MovieclipUtils.DrawSquare(mask_mc,0xff00ff,100,width,maskHeight);
 		
 		image_mc.setMask(mask_mc);
+		
+		imagePreloader_mc = base_mc.createEmptyMovieClip("image_mc",1200);
+		
+		imageLoader = new ImagePreloader(imagePreloader_mc,zpConstants.THUMB_SIZE);
+		MovieclipUtils.CentreClips(base_mc,imagePreloader_mc);
 		
 	}
 
@@ -175,7 +186,19 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		
 	}
 
+	private function onLoadProgress(mc:MovieClip,loaded:Number,total:Number):Void{
+		
+		var percent:Number = loaded / total;
+		imageLoader.update(percent);
+		
+	}
+	
 	private function onLoadInit(mc:MovieClip):Void{
+		
+		Image.Fade(image_mc,100);
+		
+		imageLoader.update(1);
+		imageLoader.remove();
 		
 		checkImageDimensions();
 		

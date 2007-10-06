@@ -2,6 +2,8 @@ import tv.zarate.Utils.Delegate;
 import tv.zarate.Utils.MovieclipUtils;
 import tv.zarate.Utils.TextfieldUtils;
 
+import tv.zarate.effects.Image;
+
 import tv.zarate.Projects.zplayer.Player;
 import tv.zarate.Projects.zplayer.zpVideo;
 import tv.zarate.Projects.zplayer.Item;
@@ -40,6 +42,8 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 		stream_ns = new NetStream(connection_nc);
 		
 		video_mc = base_mc.attachMovie("VideoDisplay","video_mc",100);
+		video_mc._alpha = 0;
+		
 		videoObj = video_mc.video;
 		
 		videoObj.attachVideo(stream_ns);
@@ -73,6 +77,8 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 		video_mc.attachAudio(stream_ns);
 		
 		sound = new Sound(video_mc);
+		
+		Image.Fade(video_mc,100);
 		
 	}
 

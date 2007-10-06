@@ -6,6 +6,7 @@ import tv.zarate.Projects.zplayer.Item;
 import tv.zarate.Projects.zplayer.zpConstants;
 import tv.zarate.Projects.zplayer.zpImage;
 import tv.zarate.Projects.zplayer.InfoBand;
+import tv.zarate.Projects.zplayer.Thumbnail;
 
 class tv.zarate.Projects.zplayer.ItemsBand{
 
@@ -13,6 +14,7 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 	
 	private var base_mc:MovieClip;
 	private var background_mc:MovieClip;
+	private var backgroundMask_mc:MovieClip;
 	private var items_mc:MovieClip;
 	private var description_mc:MovieClip;
 	private var pagination_mc:MovieClip;
@@ -50,13 +52,13 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 		
 		if(currentItem != null){
 			
-			enableItem(currentItem.clip,true);
+			enableItem(currentItem,true);
 			
 		}
 		
 		currentItem = i;
 		
-		enableItem(currentItem.clip,false);
+		enableItem(currentItem,false);
 		
 	}
 
@@ -77,6 +79,9 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 	private function doInitialLayout():Void{
 		
 		background_mc = base_mc.attachMovie("itemsbg","background_mc",50);
+		backgroundMask_mc = base_mc.createEmptyMovieClip("backgroundMask_mc",60);
+		
+		background_mc.setMask(backgroundMask_mc);
 		
 		pagination_mc = base_mc.createEmptyMovieClip("pagination_mc",200);
 		
@@ -101,6 +106,10 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 		
 		background_mc._width = width;
 		
+		backgroundMask_mc.clear();
+		//MovieclipUtils.DrawSquare(backgroundMask_mc,0xff00ff,100,background_mc._width,50);
+		MovieclipUtils.DrawRoundedSquare(backgroundMask_mc,0xff0000,100,background_mc._width,background_mc._height,10);
+		
 		calculatePages();
 		createItems();
 		
@@ -111,7 +120,6 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 
 	private function createItems():Void{
 		
-		var titleFormat:TextFormat = new TextFormat("Verdana",10,0xffffff,true);
 		var margin:Number = 10;
 		var nextX:Number = margin;
 		
@@ -125,29 +133,12 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 		
 		for(var x:Number=initItem;x<endItem;x++){
 			
-			var item:Item = items[x];
-			
 			var item_mc:MovieClip = items_mc.createEmptyMovieClip("item_"+x,100+x);
-			item_mc.order = item.order;
 			
+			var item:Item = items[x];
 			item.clip = item_mc;
 			
-			var image_mc:MovieClip = item_mc.createEmptyMovieClip("image_mc",100);
-			image_mc.loadMovie(item.thumb)
-			
-			var titleBg_mc:MovieClip = item_mc.createEmptyMovieClip("titleBg_mc",200);
-			MovieclipUtils.DrawSquare(titleBg_mc,0x000000,75,zpConstants.THUMB_SIZE,20);
-			
-			titleBg_mc._y = zpConstants.THUMB_SIZE - titleBg_mc._height;
-			
-			var itemType_mc:MovieClip = item_mc.createEmptyMovieClip("itemType_mc",300);
-			
-			var field:TextField = TextfieldUtils.createField(itemType_mc);
-			field.text = (item.type == zpConstants.TYPE_VIDEO)? "VIDEO" : ((zpImage(item).sound != undefined)? "SONIDO":"FOTO");
-			field.setTextFormat(titleFormat);
-			
-			MovieclipUtils.CentreClips(titleBg_mc,itemType_mc);
-			itemType_mc._y += titleBg_mc._y;
+			var thumb:Thumbnail = new Thumbnail(item_mc,item);
 			
 			item_mc._x = nextX;
 			item_mc._y = margin;
@@ -209,10 +200,17 @@ class tv.zarate.Projects.zplayer.ItemsBand{
 		
 	}
 	
-	private function enableItem(item_mc:MovieClip,enable:Boolean):Void{
+	private function enableItem(item:Item,enable:Boolean):Void{
 		
-		item_mc.enabled = enable;
-		item_mc._alpha = (enable)? 100:40;
+		if(enable){
+			
+			item.enable();
+			
+		} else {
+			
+			item.disable();
+			
+		}
 		
 	}
 	

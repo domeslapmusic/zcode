@@ -1,5 +1,6 @@
 import tv.zarate.Utils.Delegate;
 import tv.zarate.Utils.FlashVars;
+import tv.zarate.Utils.MathUtils;
 
 import tv.zarate.Application.Config;
 
@@ -52,6 +53,20 @@ class tv.zarate.Projects.zplayer.zpConfig extends Config{
 			
 			i.order = x;
 			items.push(i);
+			
+		}
+		
+		if(items.length > 1){
+			
+			// if more than one item, 
+			// we random between first 3 elements
+			
+			var rnd:Number = MathUtils.getRandom(2);
+			
+			var randItem:Item = items[rnd];
+			
+			items.splice(rnd,1);
+			items.splice(0,0,randItem);
 			
 		}
 		

@@ -103,7 +103,7 @@ class tv.zarate.Projects.zplayer.zpView extends View{
 		
 		info_mc._y = player_mc._y + player_mc._height - info_mc._height;
 		
-		if((item.type == zpConstants.TYPE_IMAGE && zpImage(item).sound != undefined) || zpConstants.TYPE_VIDEO){ info_mc._y -= zpConstants.LOAD_BAR_HEIGHT; }
+		if((item.type == zpConstants.TYPE_IMAGE && zpImage(item).sound != undefined) || item.type == zpConstants.TYPE_VIDEO){ info_mc._y -= zpConstants.LOAD_BAR_HEIGHT; }
 		
 	}
 

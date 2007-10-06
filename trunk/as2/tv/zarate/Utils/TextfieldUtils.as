@@ -26,7 +26,7 @@ class tv.zarate.Utils.TextfieldUtils{
 		
 	}
 
-	public static function createMultilineField(m:MovieClip,width:Number,height:Number,depth:Number):TextField{
+	public static function createMultiline(m:MovieClip,width:Number,height:Number,depth:Number):TextField{
 		return createField(m,width,height,"center",true,depth);
 	}
 

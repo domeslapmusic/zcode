@@ -6,6 +6,7 @@ class tv.zarate.Projects.zplayer.Item{
 	public var type:String = "";
 	public var thumb:String = "";
 	public var order:Number = -1;
+	public var clip:MovieClip;
 
 	public function Item(){}
 

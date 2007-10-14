@@ -24,7 +24,7 @@ class tv.zarate.Projects.zplayer.LoadBar{
 	private var maxTrackerPosition:Number = 0;
 	private var updateTracker:Boolean = true;
 	private var barPercentage:Number = 0.3;
-	private var playing:Boolean = true;
+	private var playing:Boolean = false;
 	private var margin:Number = 10;
 	private var currentVolume:Number = 100;
 
@@ -62,6 +62,7 @@ class tv.zarate.Projects.zplayer.LoadBar{
 		
 		play_mc = toggleButton_mc.attachMovie("play","play_mc",100);
 		pause_mc = toggleButton_mc.attachMovie("pause","pause_mc",200);
+		pause_mc._visible = false;
 		
 		toggleButton_mc.onPress = Delegate.create(this,togglePlay);
 		
@@ -104,6 +105,15 @@ class tv.zarate.Projects.zplayer.LoadBar{
 		
 	}
 
+	public function togglePlay():Void{
+		
+		playing = !playing;
+		pause_mc._visible = playing;
+		
+		onToggle(playing);
+		
+	}
+	
 	public function remove():Void{
 		base_mc.removeMovieClip();
 	}
@@ -144,15 +154,6 @@ class tv.zarate.Projects.zplayer.LoadBar{
 		
 	}
 	
-	private function togglePlay():Void{
-		
-		playing = !playing;
-		pause_mc._visible = playing;
-		
-		onToggle(playing);
-		
-	}
-
 	private function manageSound(up:Boolean):Void{
 		
 		var mod:Number = (up)? 10:-10;

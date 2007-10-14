@@ -19,14 +19,6 @@ class tv.zarate.Projects.zplayer.ImagePreloader{
 		size = _size;
 		if(_showNumber != null){ showNumber = _showNumber; }
 		
-		var background_mc:MovieClip = base_mc.createEmptyMovieClip("background_mc",100);
-		MovieclipUtils.DrawSquare(background_mc,0x000000,40,size,size);
-		MovieclipUtils.MakeDropShadow(background_mc);
-		
-		bar_mc = base_mc.createEmptyMovieClip("bar_mc",200);
-		bar_mc._rotation = 180;
-		bar_mc._x = bar_mc._y = size - border;
-		
 		if(showNumber){
 			
 			var f:TextFormat = new TextFormat("RP",40,0xffffff);
@@ -35,12 +27,22 @@ class tv.zarate.Projects.zplayer.ImagePreloader{
 			var number_mc:MovieClip = base_mc.createEmptyMovieClip("number_mc",300);
 			number_mc._alpha = 75;
 			
-			numberField = TextfieldUtils.createField(number_mc,size,40,"none");
+			numberField = TextfieldUtils.createField(number_mc);
 			numberField.embedFonts = true;
 			numberField.setNewTextFormat(f);
 			
 			MovieclipUtils.CentreClips(base_mc,number_mc);
 			MovieclipUtils.MakeDropShadow(number_mc);
+			
+		} else {
+			
+			var background_mc:MovieClip = base_mc.createEmptyMovieClip("background_mc",100);
+			MovieclipUtils.DrawSquare(background_mc,0x000000,40,size,size);
+			MovieclipUtils.MakeDropShadow(background_mc);
+			
+			bar_mc = base_mc.createEmptyMovieClip("bar_mc",200);
+			bar_mc._rotation = 180;
+			bar_mc._x = bar_mc._y = size - border;			
 			
 		}
 		
@@ -57,7 +59,7 @@ class tv.zarate.Projects.zplayer.ImagePreloader{
 		bar_mc.clear();
 		MovieclipUtils.DrawSquare(bar_mc,0xffffff,80,size - border * 2,height);
 		
-		if(showNumber){ numberField.text = Math.round(percent * 100) + "%"; }
+		if(showNumber){ numberField.text = "Cargando contenido..." + Math.round(percent * 100) + "%"; }
 		
 	}
 

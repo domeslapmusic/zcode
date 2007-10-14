@@ -16,7 +16,8 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 	private var video_mc:MovieClip;
 	private var loadbar_mc:MovieClip;
 	private var checkLoad_mc:MovieClip;
-	private var totalTime_mc:MovieClip;
+	private var bigPlay_mc:MovieClip;
+	private var intro_mc:MovieClip;
 
 	private var videoObj:Video;
 	private var stream_ns:NetStream;
@@ -34,6 +35,8 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 
 	public function playItem():Void{
 		
+		// create connection to load video
+		
 		clearConnection();
 		
 		connection_nc = new NetConnection();
@@ -42,10 +45,8 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 		stream_ns = new NetStream(connection_nc);
 		
 		video_mc = base_mc.attachMovie("VideoDisplay","video_mc",100);
-		video_mc._alpha = 0;
 		
 		videoObj = video_mc.video;
-		
 		videoObj.attachVideo(stream_ns);
 		
 		checkLoad_mc = video_mc.createEmptyMovieClip("checkLoad_mc",100);
@@ -60,6 +61,9 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 		startChecking(true);
 		
 		stream_ns.play(item.url);
+		stream_ns.pause(true);
+		
+		// load bar to show *video* download progress
 		
 		loadbar_mc = base_mc.createEmptyMovieClip("loadbar_mc",200);
 		loadbar = new LoadBar(loadbar_mc,width);
@@ -69,16 +73,24 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 		
 		loadbar_mc._y = height - loadbar_mc._height;
 		
-		totalTime_mc = base_mc.createEmptyMovieClip("totalTime_mc",300);
-		
-		var field:TextField = TextfieldUtils.createField(totalTime_mc);
-		field.text = "Loading...";
-		
-		video_mc.attachAudio(stream_ns);
-		
+		video_mc.attachAudio(stream_ns);		
 		sound = new Sound(video_mc);
 		
-		Image.Fade(video_mc,100);
+		// load intro image
+		
+		intro_mc = base_mc.createEmptyMovieClip("intro_mc",750);
+		intro_mc._alpha = 0;
+		
+		var loader:MovieClipLoader = new MovieClipLoader();
+		loader.addListener(this);
+		loader.loadClip(zpVideo(item).intro,intro_mc);
+		
+		// add play icon
+		
+		bigPlay_mc = base_mc.attachMovie("bigplay","bigPlay_mc",800);
+		MovieclipUtils.CentreClips(base_mc,bigPlay_mc);
+		
+		bigPlay_mc.onPress = Delegate.create(this,bigPlayPressed);
 		
 	}
 
@@ -90,21 +102,42 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 	}
 
 	// **************** PRIVATE METHODS ****************
-
+	
+	private function onLoadInit(mc:MovieClip):Void{
+		
+		Image.Fade(mc,100);
+		
+	}
+	
+	private function bigPlayPressed():Void{
+		
+		loadbar.togglePlay();
+		removeBigPlay();
+		
+	}
+	
+	private function removeBigPlay():Void{
+		
+		if(bigPlay_mc != null){
+			
+			intro_mc.removeMovieClip();
+			bigPlay_mc.removeMovieClip();
+			bigPlay_mc = null;
+			
+		}
+		
+	}
+	
 	private function onDrag(percent:Number):Void{
 		
 		var videoPosition:Number = videoDuration * percent;
-		
-		//trace("onDrag videoPosition > " + videoPosition + " -- percent > " + percent)
-		
 		stream_ns.seek(videoPosition);
 		
 	}
 
 	private function onToggle(playing:Boolean):Void{
 		
-		//trace("onToggle > " + playing)
-		
+		removeBigPlay();
 		stream_ns.pause(!playing);
 		
 	}
@@ -129,8 +162,7 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 		
 		if(timeElapsed >= videoDuration && videoDuration > 0){
 			
-			stream_ns.pause(true);
-			startChecking(false);
+			loadbar.togglePlay();			
 			stream_ns.seek(0);
 			timeElapsed = 0;
 			//finishCallback(); // just dont calling finish callback for the time being
@@ -140,17 +172,10 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 		var percentPos:Number = timeElapsed/videoDuration;
 		loadbar.updatePosition(percentPos);
 		
-		totalTime_mc.field.text = timeElapsed + " -- " + videoDuration;
-		
 	}
 
 	private function setPosition(position:Number):Void{
-		
-		trace("setPosition > " + position)
-		
 		stream_ns.seek(position);
-		
-		
 	}
 
 	private function checkLoad():Void{
@@ -206,23 +231,12 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 	}
 	
 	private function setMetaData(stream:Object):Void{
-		
-		/*
-		for(var x:String in stream){
-			trace("meta > " + x + ' : ' + stream[x] )
-		}
-		*/
 		videoDuration = stream.duration;
-		
 	}
 
 	private function statusHandler(infObj:Object){
 		
-		/*
-		for(var x:String in infObj){
-			trace("status > " + x + ' : ' + infObj[x] )
-		}
-		*/
+		// void for the time being
 		
 	}
 

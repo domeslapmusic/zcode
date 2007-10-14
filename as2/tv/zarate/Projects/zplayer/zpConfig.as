@@ -61,7 +61,8 @@ class tv.zarate.Projects.zplayer.zpConfig extends Config{
 			// if more than one item, 
 			// we random between first 3 elements
 			
-			var rnd:Number = MathUtils.getRandom(2);
+			var maxElement:Number = Math.min(2,items.length-1);			
+			var rnd:Number = MathUtils.getRandom(maxElement);
 			
 			var randItem:Item = items[rnd];
 			

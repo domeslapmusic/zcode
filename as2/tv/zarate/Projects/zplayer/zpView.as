@@ -40,7 +40,8 @@ class tv.zarate.Projects.zplayer.zpView extends View{
 	private var BACKGROUND_DEPTH:Number = 50;
 	private var TITLE_DEPTH:Number = 100;
 	private var PLAYER_DEPTH:Number = 200;
-	private var ITEMS_DEPTH:Number = 300;
+	private var INFO_DEPTH:Number = 300;
+	private var ITEMS_DEPTH:Number = 400;
 
 	public function zpView(){
 		
@@ -98,7 +99,7 @@ class tv.zarate.Projects.zplayer.zpView extends View{
 		currentPlayer.setSize(playerWidth,playerHeight);
 		currentPlayer.playItem();
 		
-		var info_mc:MovieClip = view_mc.createEmptyMovieClip("info_mc",12900);
+		var info_mc:MovieClip = view_mc.createEmptyMovieClip("info_mc",INFO_DEPTH);
 		infoBand = new InfoBand(info_mc,width,item.info);
 		
 		info_mc._y = player_mc._y + player_mc._height - info_mc._height;
@@ -121,8 +122,11 @@ class tv.zarate.Projects.zplayer.zpView extends View{
 		title_mc = view_mc.createEmptyMovieClip("title_mc",TITLE_DEPTH);
 		title_mc._x = title_mc._y = titleMargin;
 		
+		var titleBorder_mc:MovieClip = title_mc.createEmptyMovieClip("titleBorder_mc",200);
+		
+		
 		var field:TextField = TextfieldUtils.createField(title_mc,100,20,"none");
-		field.setNewTextFormat(new TextFormat("Verdana",10,0xffffff));
+		field.setNewTextFormat(new TextFormat("Verdana",12,0xffffff));
 		
 	}
 
@@ -135,6 +139,10 @@ class tv.zarate.Projects.zplayer.zpView extends View{
 		playerWidth = maxWidth;
 		
 		title_mc.field._width = width - titleMargin * 2;
+		
+		title_mc.titleBorder_mc._x = -titleMargin;
+		title_mc.titleBorder_mc._y = title_mc._height;
+		MovieclipUtils.DrawSquare(title_mc.titleBorder_mc,0xffffff,100,width,1);
 		
 		background_mc.clear();
 		

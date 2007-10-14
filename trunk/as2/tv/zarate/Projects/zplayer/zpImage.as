@@ -5,6 +5,8 @@ class tv.zarate.Projects.zplayer.zpImage extends Item{
 
 	public var sound:String = "";
 	public var duration:Number = 0; // duration in miliseconds
+	public var link:String = "";
+	public var target:String = "_self";
 
 	public function zpImage(){}
 
@@ -13,8 +15,9 @@ class tv.zarate.Projects.zplayer.zpImage extends Item{
 		type = zpConstants.TYPE_IMAGE;
 		
 		url = xmlNode.attributes["url"];
-		thumb = xmlNode.attributes["thumb"];
 		sound = xmlNode.attributes["sound"];
+		link = xmlNode.attributes["link"];
+		if(xmlNode.attributes["target"] != undefined){ target = xmlNode.attributes["target"]; }
 		title = xmlNode.childNodes[0].firstChild.nodeValue;
 		info = xmlNode.childNodes[1].firstChild.nodeValue;
 		
@@ -28,6 +31,8 @@ class tv.zarate.Projects.zplayer.zpImage extends Item{
 			duration = ((mins * 60) + secs) * 1000;
 			
 		}
+		
+		setThumb(url);
 		
 	}
 

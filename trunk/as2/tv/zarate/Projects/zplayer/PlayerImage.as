@@ -73,6 +73,12 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		imageLoader = new ImagePreloader(imagePreloader_mc,zpConstants.THUMB_SIZE);
 		MovieclipUtils.CentreClips(base_mc,imagePreloader_mc);
 		
+		if(image.link != undefined){
+			
+			image_mc.onPress = Delegate.create(this,imagePressed);
+			
+		}
+		
 	}
 
 	public function remove():Void{
@@ -96,6 +102,7 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		sound.onLoad = Delegate.create(this,soundLoaded);
 		sound.onSoundComplete = Delegate.create(this,finished);
 		sound.loadSound(soundPath,true);
+		sound.stop();
 		
 		loadbar_mc = base_mc.createEmptyMovieClip("loadbar_mc",600);
 		loadbar = new LoadBar(loadbar_mc,width);
@@ -195,28 +202,24 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 	
 	private function onLoadInit(mc:MovieClip):Void{
 		
-		Image.Fade(image_mc,100);
-		
 		imageLoader.update(1);
 		imageLoader.remove();
 		
-		checkImageDimensions();
+		//checkImageDimensions();
 		
-		if(mc._width < width){
+		if(mc._width > width || mc._height > height){
 			
-			image_mc._x = Math.round((width-image_mc._width)/2);
+			MovieclipUtils.MaxResize(image_mc,width,height);
 			
 		}
 		
-		if(mc._height < height){
-			
-			image_mc._y = Math.round((height-image_mc._height)/2);
-			
-		}
+		MovieclipUtils.CentreClips(base_mc,image_mc);
+		
+		Image.Fade(image_mc,100);
 		
 		if(!hasSound){
 			
-			autoInterval = setInterval(this,"finished",5000);
+			//autoInterval = setInterval(this,"finished",5000);
 			
 		}
 		
@@ -343,6 +346,10 @@ class tv.zarate.Projects.zplayer.PlayerImage extends Player{
 		
 	}
 
+	private function imagePressed():Void{
+		getURL(image.link,image.target);
+	}
+	
 	private function finished():Void{
 		
 		//finishCallback(); // just dont calling finish callback for the time being

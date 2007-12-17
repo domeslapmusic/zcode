@@ -81,6 +81,7 @@ function checkKey(e){
 			document.zlog.addBlankLine();
 			break;
 
+		case(116): // F5
 		case(82): // r
 
 			document.zlog.reset();

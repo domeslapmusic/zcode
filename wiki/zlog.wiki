@@ -1,4 +1,4 @@
-#labels zlogflash
+#labels Featured
 ZLog ("z-log") is a simple-ultra-light Flash log system 100% compatible with MTASC and the IDE.
 
 = Introduction =

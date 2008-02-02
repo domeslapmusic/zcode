@@ -1,11 +1,13 @@
 import tv.zarate.Utils.Delegate;
+import tv.zarate.Utils.FlashVars;
 
 class tv.zarate.Application.Config{
 
-	private static var _instance:Config;
-
+	public var flashvars:FlashVars;
 	public var dataXML:XML;
-
+	
+	public function Config(){}
+	
 	public function loadXML(xmlPath:String,callback:Function):Void{
 		
 		if(xmlPath != ""){
@@ -23,16 +25,7 @@ class tv.zarate.Application.Config{
 		
 	}
 
-	public static function getInstance():Config{
-		
-		if(_instance == null){ _instance = new Config(); }
-		return _instance;
-		
-	}
-
 	// ******************** PRIVATE METHODS ********************
-
-	private function Config(){}
 
 	private function xmlLoaded(success:Boolean,callback:Function):Void{
 		

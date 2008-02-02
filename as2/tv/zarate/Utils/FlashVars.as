@@ -11,24 +11,24 @@ class tv.zarate.Utils.FlashVars{
 	}
 
 	public function initString(varName:String,currentVal:String):String{
-
+		
 		var fv:String = getVar(varName);
 		return (fv != null)? fv:currentVal;
-
+		
 	}
 
 	public function initNumber(varName:String,currentVal:Number):Number{
-
+		
 		var fv:String = getVar(varName);
 		return (fv != null)? Number(fv):currentVal;
-
+		
 	}
 
 	public function initBoolean(varName:String,currentVal:Boolean):Boolean{
-
+		
 		var fv:String = getVar(varName);
 		return (fv != null)? ((fv == "true")? true:false):currentVal;
-
+		
 	}
 
 }

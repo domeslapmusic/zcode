@@ -32,10 +32,22 @@ class tv.zarate.Application.Model{
 		view.setSize(w,h);
 	}
 	
+	public function enable():Void{
+		
+		timeLine_mc.enabled = timeLine_mc.tabChildren = true;
+		view.enable();
+		
+	}
+	
+	public function disable():Void{
+		
+		timeLine_mc.enabled = timeLine_mc.tabChildren = false;
+		view.disable();
+		
+	}
+	
 	public function remove():Void{
-		
 		timeLine_mc.removeMovieClip();
-		
 	}
 
 	// ******************** PRIVATE METHODS ********************
@@ -59,7 +71,8 @@ class tv.zarate.Application.Model{
 		
 		var xmlPath:String = flashvars.initString("fv_xmlPath","");
 		
-		if(conf == null){ conf = Config.getInstance(); }
+		if(conf == null){ conf = new Config(); }
+		conf.flashvars = flashvars;
 		conf.loadXML(xmlPath,Delegate.create(this,configReady));
 		
 	}
@@ -71,8 +84,7 @@ class tv.zarate.Application.Model{
 			timeLine_mc.menu = new RightClick();
 			
 			if(view == null){ view = new View(); }
-			view.setSize(Stage.width,Stage.height,false);
-			view.config(timeLine_mc.createEmptyMovieClip("view_mc",100),MovieclipUtils.isRoot(timeLine_mc));
+			view.config(timeLine_mc.createEmptyMovieClip("view_mc",100),MovieclipUtils.isRoot(timeLine_mc),this,conf);
 			
 			frameworkReady();
 			

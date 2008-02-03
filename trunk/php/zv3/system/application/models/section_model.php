@@ -28,7 +28,7 @@ class Section_model extends Model{
 		$this->db->select("*");
 		$this->db->from("section");
 		$this->db->join("section_literals","section.section_id=section_literals.section_id");
-		$this->db->where("section.section_id='".$section_id."'");
+		$this->db->where("section.section_id='".$section_id."' AND section_literals.language_id='".$this->session->userdata('language_id')."'");
 		$q = $this->db->get();
 		
 		$this->currentSection = $q->row();
@@ -49,7 +49,7 @@ class Section_model extends Model{
 		$this->db->select("*");
 		$this->db->from("section");
 		$this->db->join("section_literals","section.section_id=section_literals.section_id");
-		$this->db->where("section_literals.rewrite='".$rewrite."'");
+		$this->db->where("section_literals.rewrite='".$rewrite."' AND section_literals.language_id='".$this->session->userdata('language_id')."'");
 		$q = $this->db->get();
 		
 		$section = $q->row();
@@ -137,7 +137,7 @@ class Section_model extends Model{
 		$this->db->select("*");
 		$this->db->from("section");
 		$this->db->join("section_literals","section.section_id=section_literals.section_id");
-		$this->db->where("section.section_id='".$section_id."'");
+		$this->db->where("section.section_id='".$section_id."' AND section_literals.language_id='".$this->session->userdata('language_id')."'");
 		$q = $this->db->get();
 		
 		return $q->row();

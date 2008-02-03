@@ -88,18 +88,21 @@ class Language_model extends Model{
 		
 		$this->load->helper('url');
 		
-		$currentLang = $lang;
+		$this->currentLang = $lang;
 		
-		$this->session->set_userdata('language_id',$currentLang->language_id);
+		$this->session->set_userdata('language_id',$this->currentLang->language_id);
+		$this->session->set_userdata('language_folder',$this->currentLang->lang_file);
 		
 		$cookie = array(
 			'name'   => $this->cookieName,
-			'value'  => $currentLang->language_id,
+			'value'  => $this->currentLang->language_id,
 			'expire' => 60*60*24*365,
 			'domain' => "",
 			'path'   => '/',
 			'prefix' => '',
 		);
+		
+		$config['language'] = $this->currentLang->lang_file; // update CI lang file
 		
 		set_cookie($cookie);
 		

@@ -2,12 +2,14 @@ import tv.zarate.Application.Config;
 
 import tv.zarate.Projects.webv3.Section;
 import tv.zarate.Projects.webv3.Language;
+import tv.zarate.Projects.webv3.Literals;
 
 class tv.zarate.Projects.webv3.WebConfig extends Config{
 	
 	public var sections:/*Section*/Array; // this is a typed array, only Section objects go inside
 	public var languages:/*Language*/Array; // same but with Language objects
 	public var initialSection:Section;
+	public var literals:Literals;
 	
 	public function WebConfig(){
 		
@@ -49,6 +51,11 @@ class tv.zarate.Projects.webv3.WebConfig extends Config{
 				languages.push(l);
 				
 			}
+			
+			var literalsNode:XMLNode = dataXML.firstChild.childNodes[2];
+			
+			literals = new Literals();
+			literals.setXML(literalsNode);
 			
 		}
 		

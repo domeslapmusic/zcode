@@ -11,10 +11,10 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
 	<?php foreach($sections as $section){ ?>
 	
-	<section section_id="<?php echo utf8_encode($section->section_id); ?>" selected="<?php echo ($currentSection->section_id == $section->section_id)? "true":"false"; ?>">
+	<section section_id="<?php echo $section->section_id; ?>" selected="<?php echo ($currentSection->section_id == $section->section_id)? "true":"false"; ?>">
 		
-		<title><![CDATA[<?php echo utf8_encode($section->title); ?>]]></title>
-		<text><![CDATA[<?php echo utf8_encode($section->summary); ?>]]></text>
+		<title><![CDATA[<?php echo $section->title; ?>]]></title>
+		<text><![CDATA[<?php echo $section->summary; ?>]]></text>
 		
 		<?php if(isset($section->options)){?>
 		
@@ -22,9 +22,9 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 			
 			<?php foreach($section->options as $option){?>
 			<option>
-				<title><![CDATA[<?php echo utf8_encode($option->title); ?>]]></title>
-				<text><![CDATA[<?php echo utf8_encode($option->summary); ?>]]></text>
-				<link><![CDATA[<?php echo utf8_encode($option->url); ?>]]></link>
+				<title><![CDATA[<?php echo $option->title; ?>]]></title>
+				<text><![CDATA[<?php echo $option->summary; ?>]]></text>
+				<link><![CDATA[<?php echo $option->url; ?>]]></link>
 			</option>
 			
 			<?php } ?>
@@ -44,14 +44,18 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 		<?php foreach($languages as $language){ ?>
 		
 		<language language_id="<?php echo $language->language_id; ?>" shortID="<?php echo $language->shortID; ?>" selected="<?php echo ($language->language_id != $this->session->userdata('language_id'))? "false":"true"; ?>">
-			<title><![CDATA[<?php echo utf8_encode($language->title); ?>]]></title>
-			<change><![CDATA[<?php echo utf8_encode($language->change); ?>]]></change>
+			<title><![CDATA[<?php echo $language->title; ?>]]></title>
+			<change><![CDATA[<?php echo $language->change; ?>]]></change>
 		</language>
 		
 		<?php } ?>
 		
 	</languages>
 	
-	<molas><?php echo $currentSection->section_id; ?></molas>
+	<literals>
+		<?php foreach($literals as $key => $val){ ?>
+		<literal id="<?php echo $key; ?>"><![CDATA[<?php echo $val; ?>]]></literal>
+		<?php } ?>
+	</literals>
 	
 </data>

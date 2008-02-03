@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	
-	<title>Z&aacute;rate - <?php echo utf8_encode($section->title); ?></title>
+	<title>Z&aacute;rate - <?php echo $section->title; ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
 	<base href="<?php echo base_url(); ?>" />
@@ -14,72 +14,90 @@
 
 	<div id="container">
 		
-		<div id="menu">
+		<div id="header">
 			
-			<ul>
-				<?php foreach($sections as $menuSection){
+			<div id="languages">
 				
-				if($menuSection->section_id != $section->section_id){  ?>
+				<ul>
+					
+					<?php foreach($languages as $language){
+					
+					if($language->language_id != $this->session->userdata('language_id')){  ?>
+					
+					<li><a href="<?php echo $language->shortID; ?>" title="<?php echo $language->change; ?>"><?php echo $language->title; ?></a></li>
+					
+					<?php } else {?>
+					
+					<li><?php echo $language->title; ?></li>
+					
+					<?php }
+					
+					} ?>
+					
+				</ul>
 				
-				<li><a href="<?php echo utf8_encode($menuSection->rewrite); ?>"><?php echo utf8_encode($menuSection->title); ?></a></li>
+			</div>
+			
+			<div id="menu">
 				
-				<?php } else { ?>
+				<ul>
+					<?php foreach($sections as $menuSection){
+					
+					if($menuSection->section_id != $section->section_id){  ?>
+					
+					<li><a href="<?php echo $menuSection->rewrite; ?>"><?php echo $menuSection->title; ?></a></li>
+					
+					<?php } else { ?>
+					
+					<li><?php echo $menuSection->title; ?></li>
+					
+					<?php }
+					
+					} ?>
+				</ul>
 				
-				<li><?php echo utf8_encode($menuSection->title); ?></li>
-				
-				<?php }
-				
-				} ?>
-			<ul>
+			</div>
 			
 		</div>
 		
-		<h1><?php echo utf8_encode($section->title); ?></h1>
-		
-		<p><?php echo utf8_encode($section->summary); ?></p>
-		
-		<?php if(isset($section->options)){?>
-		
-		<div id="options">
+		<div id="section">
 			
-			<dl>
+			<h1><?php echo $section->title; ?></h1>
+			
+			<p><?php echo $section->summary; ?></p>
+			
+			<?php if(isset($section->options)){?>
+			
+			<div id="options">
 				
-				<?php foreach($section->options as $option){?>
+				<dl>
+					
+					<?php foreach($section->options as $option){?>
+					
+					<dt><?php echo $option->title; ?></dt>
+					<dd><?php echo $option->summary; ?>. <?php $option->url; ?></dd>
+					
+					<?php } ?>
+					
+				</dl>
 				
-				<dt><?php echo utf8_encode($option->title); ?></dt>
-				<dd><?php echo utf8_encode($option->summary); ?>. <?php echo utf8_encode($option->url); ?></dd>
-				
-				<?php } ?>
-				
-			</dl>
+			</div>
+			
+			<?php } ?>
 			
 		</div>
 		
-		<?php } ?>
+		<div id="hcard-Juan-Delgado" class="vcard">
+			<a class="url fn" href="http://zarate.tv">Juan Delgado</a>
+			<a class="email" href="mailto:zzzarate@gmail.com">zzzarate@gmail.com</a>
+			<div class="adr">
+				<span class="locality">Cambridge</span>
+				<span class="country-name">UK</span>
+			</div>
+			<div class="tags"><a href="http://kitchen.technorati.com/contacts/tag/flash">flash</a> <a href="http://kitchen.technorati.com/contacts/tag/developer">developer</a> <a href="http://kitchen.technorati.com/contacts/tag/actionscript">actionscript</a> <a href="http://kitchen.technorati.com/contacts/tag/open source">open source</a> <a href="http://kitchen.technorati.com/contacts/tag/haxe">haxe</a> <a href="http://kitchen.technorati.com/contacts/tag/php">php</a> </div>
+		</div>
 		
-		<div id="languages">
-			
-			<ul>
-				
-				<?php foreach($languages as $language){
-				
-				if($language->language_id != $this->session->userdata('language_id')){  ?>
-				
-				<li><a href="<?php echo $language->shortID; ?>" title="<?php echo utf8_encode($language->change); ?>"><?php echo utf8_encode($language->title); ?></a></li>
-				
-				<?php } else {?>
-				
-				<li><?php echo utf8_encode($language->title); ?></li>
-				
-				<?php }
-				
-				} ?>
-				
-			</ul>
-			
-		<div>
-		
-		<p>Either not correct version of Flash player, no JS or you have an iPhone.</p>
+		<p id="no_flash_warning"><?php echo $misc_flash_warning; ?></p>
 		
 	</div>
 	

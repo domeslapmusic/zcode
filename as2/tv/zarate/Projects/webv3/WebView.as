@@ -2,6 +2,7 @@ import tv.zarate.Utils.TextfieldUtils;
 import tv.zarate.Utils.MovieclipUtils;
 import tv.zarate.Utils.Delegate;
 import tv.zarate.Utils.ArrayUtils;
+import tv.zarate.Utils.StyleSheetObject;
 
 import tv.zarate.effects.Image;
 
@@ -12,6 +13,7 @@ import tv.zarate.Projects.webv3.WebModel;
 import tv.zarate.Projects.webv3.Section;
 import tv.zarate.Projects.webv3.Option;
 import tv.zarate.Projects.webv3.Language;
+import tv.zarate.Projects.webv3.Literals;
 
 class tv.zarate.Projects.webv3.WebView extends View{
 	
@@ -29,6 +31,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	private var contactField:TextField;
 	
 	private var textFormat:TextFormat;
+	private var textCSS:TextField.StyleSheet;
 	private var letterWidth:Number;
 	private var letterHeight:Number;
 	private var totalLetters:Number = 0;
@@ -46,6 +49,20 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		
 		textFormat = new TextFormat("ZFONT",20,0xffffff);
 		textFormat.align = "justify";
+		
+		var p:StyleSheetObject = new StyleSheetObject();
+		p.color = "#FFFFFF";
+		
+		var a:StyleSheetObject = new StyleSheetObject();
+		a.color = "#FFFF00";
+		a.textDecoration = StyleSheetObject.DECORATION_UNDERLINE;
+		
+		p.fontFamily = a.fontFamily = "ZFONT";
+		p.fontSize = a.fontSize = 20;
+		
+		textCSS = new TextField.StyleSheet();
+		textCSS.setStyle("p",p);
+		textCSS.setStyle("a",a);
 		
 		Key.addListener(this);
 		
@@ -159,16 +176,14 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		
 		explanationField = TextfieldUtils.createMultiline(explanation_mc,minimumWidth,100);
 		explanationField.autoSize = "none";
-		explanationField.text = model.currentSection.text;
+		explanationField.html = true;
+		explanationField.styleSheet = textCSS;
+		explanationField.htmlText = "<p>" + model.currentSection.text  + "</p>";
 		explanationField.embedFonts = true;
-		//explanationField.border = true;
-		explanationField.borderColor = 0xffff00;
-		explanationField.setTextFormat(textFormat);
-		explanationField.setNewTextFormat(textFormat);
 		
 		separator2_mc = view_mc.createEmptyMovieClip("separator2_mc",400);
 		
-		textFormat.size = 25;
+		textFormat.size = 23;
 		
 		createFooter();
 		
@@ -284,6 +299,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 			var s:Section = conf.sections[x];
 			
 			var to:Number = (s == section)? MAX_ALPHA:MIN_ALPHA;
+			var enable:Boolean = (s == section)? true:false;
 			
 			Image.Fade(s.clip_mc,to);
 			
@@ -291,6 +307,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 				
 				var o:Option = s.options[i];
 				Image.Fade(o.clip_mc,to);
+				o.clip_mc.enabled = enable;
 				
 			}
 			
@@ -308,7 +325,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	}
 	
 	private function showExplanation(action:Boolean,title:String,text:String,link:String):Void{
-		explanationField.text = text;
+		explanationField.htmlText = "<p>" + text + "</p>";
 	}
 	
 	private function createFooter():Void{
@@ -351,7 +368,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		var contact_mc:MovieClip = footer_mc.createEmptyMovieClip("contact_mc",200);
 		
 		contactField = TextfieldUtils.createInputField(contact_mc,minimumWidth-languages_mc._width,40);
-		contactField.text = "Want to say something? Type here and press ENTER";
+		contactField.text = conf.literals.getLiteral(Literals.WANT_TO_SEND_EMAIL);
 		contactField.embedFonts = true;
 		contactField.setTextFormat(textFormat);
 		contactField.setNewTextFormat(textFormat);
@@ -377,7 +394,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 				
 				var currentText:String = contactField.text;
 				
-				contactField.text = "Sending...";
+				contactField.text = conf.literals.getLiteral(Literals.SENDING_EMAIL);
 				model.sendMail(currentText,callback);
 				
 			}
@@ -388,7 +405,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	
 	private function sendEmailCallback(success:Boolean):Void{
 		
-		var txt:String = (success)? "Email sent. Thanks :)":"Ups... didn't go through :|";
+		var txt:String = (success)? conf.literals.getLiteral(Literals.MAIL_SENT_OK):conf.literals.getLiteral(Literals.MAIL_SENT_PROBLEM);
 		contactField.text = txt;
 		
 		sendingEmail = false;

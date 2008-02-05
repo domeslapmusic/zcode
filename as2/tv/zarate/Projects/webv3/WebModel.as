@@ -1,3 +1,5 @@
+import flash.external.ExternalInterface;
+
 import tv.zarate.Utils.Delegate;
 import tv.zarate.Utils.MovieclipUtils;
 
@@ -49,6 +51,10 @@ class tv.zarate.Projects.webv3.WebModel extends Model{
 		
 		lv.sendAndLoad(FLASH_GATEWAY,lv,"POST");
 		
+	}
+	
+	public function updateTitle(newtitle:String):Void{
+		ExternalInterface.call("updatePageTitle",newtitle);
 	}
 	
 	public static function main(m:MovieClip):Void{

@@ -53,7 +53,8 @@ class Language_model extends Model{
 			
 			if(isset($session_language_id) && $session_language_id != ""){
 				
-				// language already in session, do nothing
+				$lang = $this->getLanguageByID($session_language_id);
+				$this->setCurrentLang($lang);
 				
 			} else {
 				
@@ -79,6 +80,8 @@ class Language_model extends Model{
 			$this->newLanguage = true;
 			
 		}
+		
+		return $this->currentLang;
 		
 	}
 

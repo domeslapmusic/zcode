@@ -3,7 +3,20 @@ body,html, #container{
 	height:100%;
 	width:100%;
 	margin:0px;
+	background:#000;
+	color:#fff;
 
+}
+
+dt{
+	margin:8px 0px 8px 0px;
+	font-weight:bold;
+}
+
+a{
+	color:#fff;
+	background:#0000ff;
+	padding:1px;
 }
 
 #section, #hcard-Juan-Delgado, #no_flash_warning, #header{
@@ -14,39 +27,25 @@ body,html, #container{
 	
 }
 
-
-
 #languages{
 	
-	width:200px;
-	/*background:blue;*/
-	
-}
-
-#languages{
-	/*float:left;*/
-}
-
-#menu{
-	
-	/*text-align:right;*/
-	width:600px;
-	/*background:green;*/
+	float:left;
 	clear:both;
 	
 }
 
-ul{
-	padding-left:0px;
+#menu{
+	
+	text-align:right;
+	padding-top:1px;
+	
 }
 
-#menu li, #languages li{
-	display: inline;
-}
+ul{ padding-left:0px;}
+#menu li, #languages li{ display: inline; }
 
 #no_flash_warning{	
 	
 	border: 2px dotted;
-	padding:10px;
+	padding:20px;
 	
-}

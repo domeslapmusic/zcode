@@ -293,6 +293,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	private function manageSection(section:Section):Void{
 		
 		model.currentSection = section;
+		model.updateTitle(section.title);
 		
 		for(var x:Number=0;x<conf.sections.length;x++){
 			

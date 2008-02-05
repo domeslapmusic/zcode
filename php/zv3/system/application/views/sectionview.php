@@ -1,5 +1,12 @@
+<!--
+
+<?php echo utf8_encode($misc_freak_warning); ?>
+	
+
+-->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $language->shortID; ?>" lang="<?php echo $language->shortID; ?>">
 <head>
 	
 	<title>Z&aacute;rate - <?php echo $section->title; ?></title>
@@ -8,6 +15,7 @@
 	<base href="<?php echo base_url(); ?>" />
 	<link rel="stylesheet" href="css/zwebv3.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="js/swfobject.js"></script>
+	<script type="text/javascript" src="js/zwebv3.js"></script>
 	
 </head>
 <body>
@@ -75,7 +83,7 @@
 					<?php foreach($section->options as $option){?>
 					
 					<dt><?php echo $option->title; ?></dt>
-					<dd><?php echo $option->summary; ?>. <?php $option->url; ?></dd>
+					<dd><?php echo $option->summary; ?> URL: <?php $option->url; ?></dd>
 					
 					<?php } ?>
 					
@@ -90,14 +98,9 @@
 		<div id="hcard-Juan-Delgado" class="vcard">
 			<a class="url fn" href="http://zarate.tv">Juan Delgado</a>
 			<a class="email" href="mailto:zzzarate@gmail.com">zzzarate@gmail.com</a>
-			<div class="adr">
-				<span class="locality">Cambridge</span>
-				<span class="country-name">UK</span>
-			</div>
-			<div class="tags"><a href="http://kitchen.technorati.com/contacts/tag/flash">flash</a> <a href="http://kitchen.technorati.com/contacts/tag/developer">developer</a> <a href="http://kitchen.technorati.com/contacts/tag/actionscript">actionscript</a> <a href="http://kitchen.technorati.com/contacts/tag/open source">open source</a> <a href="http://kitchen.technorati.com/contacts/tag/haxe">haxe</a> <a href="http://kitchen.technorati.com/contacts/tag/php">php</a> </div>
 		</div>
 		
-		<p id="no_flash_warning"><?php echo $misc_flash_warning; ?></p>
+		<p id="no_flash_warning"><?php echo utf8_encode($misc_flash_warning); ?></p>
 		
 	</div>
 	

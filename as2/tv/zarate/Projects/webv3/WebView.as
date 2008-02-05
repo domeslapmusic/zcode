@@ -42,6 +42,9 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	private var MAX_ALPHA:Number = 100;
 	//private var disabling:Boolean = false;
 	private var sendingEmail:Boolean = false;
+	private var NICE_COLOR:Number = 0xef7513;
+	
+	// 0xcdef13
 	
 	public function WebView(){
 		
@@ -54,7 +57,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		p.color = "#FFFFFF";
 		
 		var a:StyleSheetObject = new StyleSheetObject();
-		a.color = "#FFFF00";
+		a.color = "#ef7513";
 		a.textDecoration = StyleSheetObject.DECORATION_UNDERLINE;
 		
 		p.fontFamily = a.fontFamily = "ZFONT";
@@ -95,7 +98,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		*/
 		//blocker_mc._visible = false;
 		
-		view_mc._alpha = MIN_ALPHA;
+		//view_mc._alpha = MIN_ALPHA;
 		
 	}
 	
@@ -118,7 +121,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		MovieclipUtils.DrawSquare(blocker_mc,0xff00ff,100,width,height);
 		*/
 		
-		view_mc._alpha = MAX_ALPHA;
+		//view_mc._alpha = MAX_ALPHA;
 		
 	}
 	
@@ -270,14 +273,14 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		header_mc._yscale = header_mc._xscale;
 		
 		separator1_mc.clear();
-		MovieclipUtils.DrawSquare(separator1_mc,0xffffff,100,width,1);
+		MovieclipUtils.DrawSquare(separator1_mc,NICE_COLOR,100,width,1);
 		separator1_mc._y = Math.ceil(header_mc._height);
 		
 		explanation_mc._x = Math.round((width-minimumWidth)/2);
 		explanation_mc._y = Math.round(separator1_mc._y + 10);
 		
 		separator2_mc.clear();
-		MovieclipUtils.DrawSquare(separator2_mc,0xffffff,100,width,1);
+		MovieclipUtils.DrawSquare(separator2_mc,NICE_COLOR,100,width,1);
 		separator2_mc._y = Math.ceil(explanation_mc._y + explanation_mc._height + 10);
 		
 		createLetters();
@@ -286,7 +289,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		letters_mc._y = Math.round(separator2_mc._y) + 8;
 		
 		footer_mc._x = Math.round((width-minimumWidth)/2);
-		footer_mc._y = height - footer_mc._height;
+		footer_mc._y = height - footer_mc._height - 10;
 		
 	}
 	
@@ -366,21 +369,41 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		languages_mc._x = minimumWidth - languages_mc._width;
 		
 		// contact
+		
+		var contactFieldBg_mc:MovieClip = footer_mc.createEmptyMovieClip("contactFieldBg_mc",150);
+		contactFieldBg_mc._alpha = 0;
+		
 		var contact_mc:MovieClip = footer_mc.createEmptyMovieClip("contact_mc",200);
 		
-		contactField = TextfieldUtils.createInputField(contact_mc,minimumWidth-languages_mc._width,40);
+		contactField = TextfieldUtils.createInputField(contact_mc,minimumWidth-languages_mc._width - 10,33);
 		contactField.text = conf.literals.getLiteral(Literals.WANT_TO_SEND_EMAIL);
 		contactField.embedFonts = true;
+		contactField.maxChars = 400;
+		//contactField.border = true;
+		contactField.borderColor = 0xff0000;
 		contactField.setTextFormat(textFormat);
 		contactField.setNewTextFormat(textFormat);
 		
-		contactField.onSetFocus = Delegate.create(this,checkSendField,true);
-		contactField.onKillFocus = Delegate.create(this,checkSendField,false,contactField.text);
+		contactField.onSetFocus = Delegate.create(this,checkSendField,true,null,contactFieldBg_mc);
+		contactField.onKillFocus = Delegate.create(this,checkSendField,false,contactField.text,contactFieldBg_mc);
+		
+		var leftLimit_mc:MovieClip = contactFieldBg_mc.createEmptyMovieClip("leftLimit_mc",100);
+		MovieclipUtils.DrawSquare(leftLimit_mc,NICE_COLOR,100,1,contactField._height);
+		
+		var rightLimit_mc:MovieClip = contactFieldBg_mc.createEmptyMovieClip("rightLimit_mc",200);
+		MovieclipUtils.DrawSquare(rightLimit_mc,NICE_COLOR,100,1,contactField._height);
+		
+		rightLimit_mc._x = contactField._width;
 		
 	}
 	
-	private function checkSendField(obj:Object,hasFocus:Boolean,txt:String):Void{
+	private function checkSendField(obj:Object,hasFocus:Boolean,txt:String,bg_mc:MovieClip):Void{
+		
+		var to:Number = (hasFocus)? 100:0;
+		Image.Fade(bg_mc,to,null,6)
+		
 		contactField.text = (hasFocus)? "":txt;
+		
 	}
 	
 	private function onKeyDown():Void{

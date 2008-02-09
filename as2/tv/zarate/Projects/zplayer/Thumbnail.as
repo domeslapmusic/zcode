@@ -51,7 +51,7 @@ class tv.zarate.Projects.zplayer.Thumbnail{
 		var titleTxt_mc:MovieClip = itemType_mc.createEmptyMovieClip("titleTxt_mc",200);
 		
 		var field:TextField = TextfieldUtils.createField(titleTxt_mc);
-		field.text = (item.type == zpConstants.TYPE_VIDEO)? "VÍDEO" : ((zpImage(item).sound != undefined)? "SONIDO":"IMAGEN");
+		field.text = (item.type == zpConstants.TYPE_VIDEO)? "Vï¿½DEO" : ((zpImage(item).sound != undefined)? "SONIDO":"IMAGEN");
 		field.setTextFormat(titleFormat);
 		
 		MovieclipUtils.CentreClips(titleBg_mc,titleTxt_mc);

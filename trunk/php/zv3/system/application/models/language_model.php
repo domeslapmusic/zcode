@@ -9,6 +9,7 @@ class Language_model extends Model{
 	public function Language_model(){
 		
 		parent::Model();
+		$this->load->model('Section_model');
 		
 	}
 
@@ -49,26 +50,38 @@ class Language_model extends Model{
 		
 		if($urilang == false){ // no language in URI
 			
-			$session_language_id = $this->session->userdata('language_id');
-			
-			if(isset($session_language_id) && $session_language_id != ""){
+			if($this->Section_model->isUniqueRewrite($this->uri->segment(1))){ // unique section rewrite
 				
-				$lang = $this->getLanguageByID($session_language_id);
+				$section = $this->Section_model->setSectionFromRewrite($this->uri->segment(1),true);
+				
+				$lang = $this->getLanguageByID($section->language_id);
+				
 				$this->setCurrentLang($lang);
 				
-			} else {
+			} else { // section rewrite conflict
 				
-				$cookieLang = $this->getCookieLanguage();
+				$session_language_id = $this->session->userdata('language_id');
 				
-				if($cookieLang == false){ // no language in cookie
+				if(isset($session_language_id) && $session_language_id != ""){
 					
-					$defaultLang = $this->getDefaultLanguage();
+					$lang = $this->getLanguageByID($session_language_id);
+					$this->setCurrentLang($lang);
 					
-					$this->setCurrentLang($defaultLang);
+				} else {
 					
-				} else { // language in cookie, let's use it
+					$cookieLang = $this->getCookieLanguage();
 					
-					$this->setCurrentLang($cookieLang);
+					if($cookieLang == false){ // no language in cookie
+						
+						$defaultLang = $this->getDefaultLanguage();
+						
+						$this->setCurrentLang($defaultLang);
+						
+					} else { // language in cookie, let's use it
+						
+						$this->setCurrentLang($cookieLang);
+						
+					}
 					
 				}
 				

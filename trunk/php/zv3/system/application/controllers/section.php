@@ -11,7 +11,6 @@ class Section extends Controller{
 		$this->load->helper('url');
 		$this->load->model('Section_model');
 		
-		
 	}
 	
 	public function _remap($method){
@@ -26,7 +25,7 @@ class Section extends Controller{
 		$data["misc_flash_warning"] = $this->lang->line('misc_flash_warning');
 		$data["misc_freak_warning"] = $this->lang->line('misc_freak_warning');
 		
-		$data["section"] = $this->Section_model->getSectionFromRewrite($sectionRewrite);
+		$data["section"] = $this->Section_model->setSectionFromRewrite($sectionRewrite);
 		$data["sections"] = $this->Section_model->getSections(false);
 		$data["languages"] = $this->Language_model->getLanguages();
 		

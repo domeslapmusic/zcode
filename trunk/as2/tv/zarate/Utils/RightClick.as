@@ -8,4 +8,8 @@ class tv.zarate.Utils.RightClick extends ContextMenu{
 		
 	}
 
+	public function addItem(item:ContextMenuItem):Void{
+		customItems.push(item);
+	}
+	
 }

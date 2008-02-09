@@ -12,6 +12,7 @@ class tv.zarate.Application.Model{
 	private var conf:Config;
 	private var flashvars:FlashVars;
 	private var view:View;
+	private var rightClickMenu:RightClick;
 
 	private var timeLine_mc:MovieClip;
 
@@ -81,7 +82,9 @@ class tv.zarate.Application.Model{
 		
 		if(success){
 			
-			timeLine_mc.menu = new RightClick();
+			rightClickMenu = new RightClick();
+			
+			timeLine_mc.menu = rightClickMenu;
 			
 			if(view == null){ view = new View(); }
 			view.config(timeLine_mc.createEmptyMovieClip("view_mc",100),MovieclipUtils.isRoot(timeLine_mc),this,conf);

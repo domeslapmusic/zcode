@@ -70,6 +70,9 @@ class tv.zarate.Projects.webv3.WebModel extends Model{
 		
 		currentSection = conf.initialSection;
 		
+		var viewCode:ContextMenuItem = new ContextMenuItem("View source :)",Delegate.create(this,showSourceCode));
+		rightClickMenu.addItem(viewCode);
+		
 	}
 	
 	private function emailCallback(success:Boolean,callback:Function,lv:LoadVars):Void{
@@ -93,6 +96,10 @@ class tv.zarate.Projects.webv3.WebModel extends Model{
 		
 		initialize();
 		
+	}
+	
+	private function showSourceCode():Void{
+		getURL("http://zarate.tv/proyectos/zcode/");
 	}
 	
 }

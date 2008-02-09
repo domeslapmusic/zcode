@@ -22,11 +22,13 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	
 	private var header_mc:MovieClip;
 	private var letters_mc:MovieClip;
-	private var blocker_mc:MovieClip;
 	private var explanation_mc:MovieClip;
 	private var separator1_mc:MovieClip;
 	private var separator2_mc:MovieClip;
 	private var footer_mc:MovieClip;
+	private var content_mc:MovieClip;
+	private var spaceWarning_mc:MovieClip;
+	private var warningText_mc:MovieClip;
 	private var explanationField:TextField;
 	private var contactField:TextField;
 	
@@ -40,11 +42,12 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	private var optionsToRandomize:Array;
 	private var MIN_ALPHA:Number = 25;
 	private var MAX_ALPHA:Number = 100;
-	//private var disabling:Boolean = false;
-	private var sendingEmail:Boolean = false;
 	private var NICE_COLOR:Number = 0xef7513;
+	private var WARNING_PERCENT:Number = 0.8;
 	
-	// 0xcdef13
+	private var enabling:Boolean = false;
+	private var disabling:Boolean = false;
+	private var sendingEmail:Boolean = false;
 	
 	public function WebView(){
 		
@@ -71,75 +74,20 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		
 	}
 	
-	public function setSize(w:Number,h:Number):Void{
-		
-		if(w < minimumWidth || h < minimumHeight){
-			
-			disable();
-			
-		} else {
-			
-			enable();
-			
-		}
-		
-		super.setSize(w,h);
-		
-	}
-	
-	public function enable():Void{
-		
-		super.enable();
-		
-		//Image.Blur(view_mc,0);
-		/*
-		disabling = false;
-		view_mc.filters = new Array();
-		*/
-		//blocker_mc._visible = false;
-		
-		//view_mc._alpha = MIN_ALPHA;
-		
-	}
-	
-	public function disable():Void{
-		
-		super.disable();
-		/*
-		if(!disabling){
-			
-			disabling = true;
-			Image.Blur(view_mc,10);
-			
-		}
-		*/
-		
-		/*
-		blocker_mc._visible = true;
-		
-		blocker_mc.clear();
-		MovieclipUtils.DrawSquare(blocker_mc,0xff00ff,100,width,height);
-		*/
-		
-		//view_mc._alpha = MAX_ALPHA;
-		
-	}
-	
 	// ******************** PRIVATE METHODS ********************
 	
 	private function initialLayout():Void{
 		
 		model.currentSection = conf.initialSection;
 		
-		// blocker
-		blocker_mc = view_mc.createEmptyMovieClip("blocker_mc",5000);
+		content_mc = view_mc.createEmptyMovieClip("content_mc",100);
 		
 		// header with sections first
 		var headerNextX:Number = 0;
 		var headerFormat:TextFormat = new TextFormat("ZFONT",10,0xffffff);
 		
 		header_mc.removeMovieClip();
-		header_mc = view_mc.createEmptyMovieClip("header_mc",100);
+		header_mc = content_mc.createEmptyMovieClip("header_mc",100);
 		
 		optionsToRandomize = new Array();
 		
@@ -172,10 +120,10 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		}
 		
 		// separator 1
-		separator1_mc = view_mc.createEmptyMovieClip("separator1_mc",200);
+		separator1_mc = content_mc.createEmptyMovieClip("separator1_mc",200);
 		
 		// text
-		explanation_mc = view_mc.createEmptyMovieClip("explanation_mc",300);
+		explanation_mc = content_mc.createEmptyMovieClip("explanation_mc",300);
 		
 		explanationField = TextfieldUtils.createMultiline(explanation_mc,minimumWidth,100);
 		explanationField.autoSize = "none";
@@ -184,12 +132,11 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		explanationField.htmlText = "<p>" + model.currentSection.text  + "</p>";
 		explanationField.embedFonts = true;
 		
-		separator2_mc = view_mc.createEmptyMovieClip("separator2_mc",400);
+		separator2_mc = content_mc.createEmptyMovieClip("separator2_mc",400);
 		
 		textFormat.size = 23;
 		
 		createFooter();
-		
 		layout();
 		
 		manageSection(model.currentSection);
@@ -201,7 +148,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		ArrayUtils.randomizeArray(optionsToRandomize);
 		
 		letters_mc.removeMovieClip();
-		letters_mc = view_mc.createEmptyMovieClip("letters_mc",500);
+		letters_mc = content_mc.createEmptyMovieClip("letters_mc",500);
 		
 		var nextLetterX:Number = 0;
 		var nextLetterY:Number = 0;
@@ -269,6 +216,8 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	
 	private function layout():Void{
 		
+		checkSpace();
+		
 		header_mc._width = width;
 		header_mc._yscale = header_mc._xscale;
 		
@@ -290,6 +239,8 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		
 		footer_mc._x = Math.round((width-minimumWidth)/2);
 		footer_mc._y = height - footer_mc._height - 10;
+		
+		if(spaceWarning_mc != null){ centreWarning(); }
 		
 	}
 	
@@ -322,10 +273,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	}
 	
 	private function manageOption(option:Option):Void{
-		
-		//Image.Fade(option.clip_mc,100);
 		showExplanation(true,option.title,option.text,option.link);
-		
 	}
 	
 	private function showExplanation(action:Boolean,title:String,text:String,link:String):Void{
@@ -334,7 +282,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	
 	private function createFooter():Void{
 		
-		footer_mc = view_mc.createEmptyMovieClip("footer_mc",600);
+		footer_mc = content_mc.createEmptyMovieClip("footer_mc",600);
 		
 		// languages
 		var languages_mc:MovieClip = footer_mc.createEmptyMovieClip("languages_mc",100);
@@ -379,8 +327,6 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		contactField.text = conf.literals.getLiteral(Literals.WANT_TO_SEND_EMAIL);
 		contactField.embedFonts = true;
 		contactField.maxChars = 400;
-		//contactField.border = true;
-		contactField.borderColor = 0xff0000;
 		contactField.setTextFormat(textFormat);
 		contactField.setNewTextFormat(textFormat);
 		
@@ -440,6 +386,89 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		
 		disable();
 		model.changeLanguage(language_id);
+		
+	}
+	
+	private function checkSpace():Void{
+		
+		var enable:Boolean = true;
+		
+		if(width < minimumWidth || height < minimumHeight){
+			
+			enable = false;
+			
+			if(!disabling){
+				
+				disabling = true;
+				enabling = false;
+				
+				Image.Fade(content_mc,0);
+				showSpaceWarning(true);
+				
+			}
+			
+		} else {
+			
+			if(!enabling){
+				
+				enabling = true;
+				disabling = false;
+				
+				Image.Fade(content_mc,100);
+				showSpaceWarning(false);
+				
+			}
+			
+		}
+		
+		content_mc.tabChildren = content_mc.enabled = enable;
+		
+	}
+	
+	private function showSpaceWarning(action:Boolean):Void{
+		
+		if(action){
+			
+			spaceWarning_mc = view_mc.createEmptyMovieClip("spaceWarning_mc",200);
+			spaceWarning_mc._alpha = 0;
+			
+			var bg_mc:MovieClip = spaceWarning_mc.createEmptyMovieClip("bg_mc",100);
+			
+			bg_mc.useHandCursor = bg_mc.tabEnabled = false;
+			bg_mc.onPress = function():Void{}; // good ol' blocker
+			
+			warningText_mc = spaceWarning_mc.createEmptyMovieClip("warningText_mc",200);
+			
+			var field:TextField = TextfieldUtils.createField(warningText_mc);
+			field.text = conf.literals.getLiteral(Literals.SPACE_WARNING);
+			field.selectable = false;
+			field.backgroundColor = NICE_COLOR;
+			field.embedFonts = true;
+			field.setTextFormat(textFormat);
+			
+			centreWarning();
+			
+			Image.Fade(spaceWarning_mc,100);
+			
+		} else {
+			
+			spaceWarning_mc.removeMovieClip();
+			spaceWarning_mc = null;
+			
+		}
+		
+	}
+	
+	private function centreWarning():Void{
+		
+		spaceWarning_mc.bg_mc.clear();
+		MovieclipUtils.DrawSquare(spaceWarning_mc.bg_mc,0xff0000,100,width,height);
+		
+		warningText_mc._width = width * WARNING_PERCENT;
+		warningText_mc._yscale = warningText_mc._xscale;
+		
+		warningText_mc._x = Math.round((width-warningText_mc._width)/2);
+		warningText_mc._y = Math.round((height-warningText_mc._height)/2);
 		
 	}
 	

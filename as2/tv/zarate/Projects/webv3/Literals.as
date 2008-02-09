@@ -4,6 +4,7 @@ class tv.zarate.Projects.webv3.Literals{
 	public static var SENDING_EMAIL:String = "sending_email";
 	public static var MAIL_SENT_OK:String = "mail_sent_ok";
 	public static var MAIL_SENT_PROBLEM:String = "mail_sent_problem";
+	public static var SPACE_WARNING:String = "space_warning";
 	
 	private var literals:Object;
 	

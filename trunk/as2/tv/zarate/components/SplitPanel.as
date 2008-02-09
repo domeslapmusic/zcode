@@ -1,3 +1,24 @@
+/*
+* 
+* Copyright (c) 2008, Juan Delgado - Zarate
+* 
+* Visit http://zarate.tv/proyectos/zcode/ for more info
+* 
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Lesser General Public License for more details.
+
+* You should have received a copy of the GNU Lesser General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+
 import tv.zarate.Utils.MovieclipUtils;
 import tv.zarate.Utils.Delegate;
 
@@ -19,6 +40,7 @@ class tv.zarate.components.SplitPanel extends Common{
 	private var destY:Number = 0;
 	private var diff:Number = 0;
 	private var trackerDiff:Number = 0;
+	private var buttonSize:Number = 50;
 
 	public function SplitPanel(m:MovieClip,speed:Number){
 
@@ -101,12 +123,15 @@ class tv.zarate.components.SplitPanel extends Common{
 		content_mc = base_mc.createEmptyMovieClip("content_mc",300);
 		mask_mc = base_mc.createEmptyMovieClip("mask_mc",400);
 		smart_mc = base_mc.createEmptyMovieClip("smart_mc",500);
-		tracker_mc = base_mc.attachMovie("tracker","tracker_mc",900);
 
-		upArrow_mc = base_mc.attachMovie("panelArrow","upArrow_mc",700);
-		upArrow_mc._rotation = 180;
+		tracker_mc = base_mc.createEmptyMovieClip("tracker_mc",900);
+		MovieclipUtils.DrawSquare(tracker_mc,0xcecece,100,buttonSize/2,buttonSize/2);
 
-		downArrow_mc = base_mc.attachMovie("panelArrow","downArrow_mc",800);
+		upArrow_mc = base_mc.createEmptyMovieClip("upArrow_mc",700);
+		MovieclipUtils.DrawSquare(upArrow_mc,0x000000,100,buttonSize,buttonSize);
+
+		downArrow_mc = base_mc.createEmptyMovieClip("downArrow_mc",800);
+		MovieclipUtils.DrawSquare(downArrow_mc,0x000000,100,buttonSize,buttonSize);
 
 		upArrow_mc.onRollOver = Delegate.create(this,activate,true,true);
 		downArrow_mc.onRollOver = Delegate.create(this,activate,true,false);
@@ -126,8 +151,7 @@ class tv.zarate.components.SplitPanel extends Common{
 
 		content_mc.setMask(mask_mc);
 
-		upArrow_mc._x = width;
-		upArrow_mc._y = upArrow_mc._height;
+		upArrow_mc._x = width - upArrow_mc._width;
 
 		downArrow_mc._x = width - upArrow_mc._width;
 
@@ -203,7 +227,7 @@ class tv.zarate.components.SplitPanel extends Common{
 	}
 
 	private function checkArrows():Void{
-		upArrow_mc.enabled = downArrow_mc.enabled = needsScroll();
+		upArrow_mc._visible = downArrow_mc._visible = tracker_mc._visible = needsScroll();
 	}
 
 }

@@ -1,3 +1,24 @@
+/*
+* 
+* Copyright (c) 2008, Juan Delgado - Zarate
+* 
+* Visit http://zarate.tv/proyectos/zcode/ for more info
+* 
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Lesser General Public License for more details.
+
+* You should have received a copy of the GNU Lesser General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+
 import tv.zarate.Utils.Delegate;
 import tv.zarate.Utils.MovieclipUtils;
 import tv.zarate.Utils.TextfieldUtils;
@@ -35,8 +56,11 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 
 	public function playItem():Void{
 		
-		// create connection to load video
+		// specific black background for videos
+		var bg_mc:MovieClip = base_mc.createEmptyMovieClip("bg_mc",50);
+		MovieclipUtils.DrawSquare(bg_mc,0x000000,100,width,height);
 		
+		// create connection to load video
 		clearConnection();
 		
 		connection_nc = new NetConnection();
@@ -78,7 +102,7 @@ class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
 		
 		// load intro image
 		
-		intro_mc = base_mc.createEmptyMovieClip("intro_mc",750);
+		intro_mc = base_mc.createEmptyMovieClip("intro_mc",150);
 		intro_mc._alpha = 0;
 		
 		var loader:MovieClipLoader = new MovieClipLoader();

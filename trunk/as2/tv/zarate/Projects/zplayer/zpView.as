@@ -1,3 +1,24 @@
+/*
+* 
+* Copyright (c) 2008, Juan Delgado - Zarate
+* 
+* Visit http://zarate.tv/proyectos/zcode/ for more info
+* 
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Lesser General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Lesser General Public License for more details.
+
+* You should have received a copy of the GNU Lesser General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+
 import tv.zarate.Utils.TextfieldUtils;
 import tv.zarate.Utils.MovieclipUtils;
 import tv.zarate.Utils.Delegate;
@@ -120,12 +141,13 @@ class tv.zarate.Projects.zplayer.zpView extends View{
 		items_mc = view_mc.createEmptyMovieClip("items_mc",ITEMS_DEPTH);
 		
 		title_mc = view_mc.createEmptyMovieClip("title_mc",TITLE_DEPTH);
-		title_mc._x = title_mc._y = titleMargin;
+		title_mc._x = titleMargin;
+		title_mc._y = 5;
 		
 		var titleBorder_mc:MovieClip = title_mc.createEmptyMovieClip("titleBorder_mc",200);
 		
-		
 		var field:TextField = TextfieldUtils.createField(title_mc,100,20,"none");
+		//field.border = true;
 		field.setNewTextFormat(new TextFormat("Verdana",12,0xffffff));
 		
 	}
@@ -141,7 +163,7 @@ class tv.zarate.Projects.zplayer.zpView extends View{
 		title_mc.field._width = width - titleMargin * 2;
 		
 		title_mc.titleBorder_mc._x = -titleMargin;
-		title_mc.titleBorder_mc._y = title_mc._height;
+		title_mc.titleBorder_mc._y = title_mc._height + 5;
 		MovieclipUtils.DrawSquare(title_mc.titleBorder_mc,0xffffff,100,width,1);
 		
 		background_mc.clear();

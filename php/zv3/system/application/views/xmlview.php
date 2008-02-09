@@ -54,7 +54,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 	
 	<literals>
 		<?php foreach($literals as $key => $val){ ?>
-		<literal id="<?php echo $key; ?>"><![CDATA[<?php echo $val; ?>]]></literal>
+		<literal id="<?php echo $key; ?>"><![CDATA[<?php echo utf8_encode($val); ?>]]></literal>
 		<?php } ?>
 	</literals>
 	

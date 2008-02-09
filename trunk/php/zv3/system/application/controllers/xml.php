@@ -28,6 +28,7 @@ class Xml extends Controller{
 		$data["literals"]["sending_email"] = $this->lang->line('flash_sending_email');
 		$data["literals"]["mail_sent_ok"] = $this->lang->line('flash_mail_sent_ok');
 		$data["literals"]["mail_sent_problem"] = $this->lang->line('flash_mail_sent_problem');
+		$data["literals"]["space_warning"] = $this->lang->line('flash_space_warning');
 		
 		$this->load->view('xmlview',$data);
 		

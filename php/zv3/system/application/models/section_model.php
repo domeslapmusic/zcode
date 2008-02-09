@@ -14,6 +14,20 @@ class Section_model extends Model{
 		
 	}
 	
+	public function isUniqueRewrite($rewrite){
+		
+		$this->db->select("rewrite");
+		$this->db->from("section_literals");
+		$this->db->where("rewrite='".$rewrite."'");
+		
+		$total = $this->db->count_all_results();
+		
+		$res = ($total == 1)? true:false;
+		
+		return $res;
+		
+	}
+	
 	public function getCurrentSection(){
 		
 		$session_section_id = $this->session->userdata('section_id');
@@ -37,7 +51,7 @@ class Section_model extends Model{
 		
 	}
 	
-	public function getSectionFromRewrite($rewrite){
+	public function setSectionFromRewrite($rewrite,$unique=false){
 		
 		if(!isset($rewrite) || $rewrite == ""){
 			
@@ -49,7 +63,17 @@ class Section_model extends Model{
 		$this->db->select("*");
 		$this->db->from("section");
 		$this->db->join("section_literals","section.section_id=section_literals.section_id");
-		$this->db->where("section_literals.rewrite='".$rewrite."' AND section_literals.language_id='".$this->session->userdata('language_id')."'");
+		
+		if($unique){
+			
+			$this->db->where("section_literals.rewrite='".$rewrite."'");
+			
+		} else {
+			
+			$this->db->where("section_literals.rewrite='".$rewrite."' AND section_literals.language_id='".$this->session->userdata('language_id')."'");
+			
+		}
+		
 		$q = $this->db->get();
 		
 		$section = $q->row();
@@ -82,6 +106,9 @@ class Section_model extends Model{
 			}
 			
 		}
+		
+		$this->currentSection = $section;
+		$this->session->set_userdata('section_id',$this->currentSection->section_id);
 		
 		return $section;
 		

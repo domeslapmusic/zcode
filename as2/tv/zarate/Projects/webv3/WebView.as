@@ -58,13 +58,14 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	private var letterWidth:Number;
 	private var letterHeight:Number;
 	private var totalLetters:Number = 0;
-	private var minimumWidth:Number = 1000;
+	private var minimumWidth:Number = 900;
 	private var minimumHeight:Number = 500;
 	private var optionsToRandomize:Array;
 	private var MIN_ALPHA:Number = 25;
 	private var MAX_ALPHA:Number = 100;
 	private var NICE_COLOR:Number = 0xef7513;
 	private var WARNING_PERCENT:Number = 0.8;
+	private var FONT_SIZE:Number = 20;
 	
 	private var enabling:Boolean = false;
 	private var disabling:Boolean = false;
@@ -74,7 +75,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		
 		super();
 		
-		textFormat = new TextFormat("ZFONT",20,0xffffff);
+		textFormat = new TextFormat("ZFONT",FONT_SIZE,0xffffff);
 		textFormat.align = "justify";
 		
 		var p:StyleSheetObject = new StyleSheetObject();
@@ -85,7 +86,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		a.textDecoration = StyleSheetObject.DECORATION_UNDERLINE;
 		
 		p.fontFamily = a.fontFamily = "ZFONT";
-		p.fontSize = a.fontSize = 20;
+		p.fontSize = a.fontSize = FONT_SIZE;
 		
 		textCSS = new TextField.StyleSheet();
 		textCSS.setStyle("p",p);
@@ -146,7 +147,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		// text
 		explanation_mc = content_mc.createEmptyMovieClip("explanation_mc",300);
 		
-		explanationField = TextfieldUtils.createMultiline(explanation_mc,minimumWidth,100);
+		explanationField = TextfieldUtils.createMultiline(explanation_mc,minimumWidth,120);
 		explanationField.autoSize = "none";
 		explanationField.html = true;
 		explanationField.styleSheet = textCSS;
@@ -154,8 +155,6 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		explanationField.embedFonts = true;
 		
 		separator2_mc = content_mc.createEmptyMovieClip("separator2_mc",400);
-		
-		textFormat.size = 23;
 		
 		createFooter();
 		layout();
@@ -239,6 +238,8 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		
 		checkSpace();
 		
+		var separatorMargin:Number = 15;
+		
 		header_mc._width = width;
 		header_mc._yscale = header_mc._xscale;
 		
@@ -247,11 +248,11 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		separator1_mc._y = Math.ceil(header_mc._height);
 		
 		explanation_mc._x = Math.round((width-minimumWidth)/2);
-		explanation_mc._y = Math.round(separator1_mc._y + 10);
+		explanation_mc._y = Math.round(separator1_mc._y + separatorMargin);
 		
 		separator2_mc.clear();
 		MovieclipUtils.DrawSquare(separator2_mc,NICE_COLOR,100,width,1);
-		separator2_mc._y = Math.ceil(explanation_mc._y + explanation_mc._height + 10);
+		separator2_mc._y = Math.ceil(explanation_mc._y + explanation_mc._height + separatorMargin);
 		
 		createLetters();
 		

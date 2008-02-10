@@ -4,7 +4,7 @@
   <frame>
     <library>
       <!-- <clip id="tracker" import="assets/tracker.png" /> -->
-      <font id="ZFONT" import="assets/NOP.ttf" glyphs="ÁÉÍÓÚáéíóúabcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789 ;:!*()-=+_\|{}[]'#~',./?/@>$%^*&#163;&#8364;&#60;&#161;&#191;&#36;&#34;&#38;&#126;&#172;"/>
+      <font id="ZFONT" import="assets/Florsn33.ttf" glyphs="ÁÉÍÓÚáéíóúabcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789 ;:!*()-=+_\|{}[]'#~',./?/@>$%^*&#163;&#8364;&#60;&#161;&#191;&#36;&#34;&#38;&#126;&#172;"/>
     </library>
   </frame>
 </movie>

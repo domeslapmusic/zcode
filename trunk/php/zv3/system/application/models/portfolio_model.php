@@ -23,13 +23,13 @@
 
 class Portfolio_model extends Model{
 	
-	function Portfolio_model(){
+	public function Portfolio_model(){
 		
 		parent::Model();
 		
 	}
 	
-	function getAllItems(){
+	public function getAllItems(){
 		
 		$this->db->select("*");
 		$this->db->from("portfolio");
@@ -42,7 +42,7 @@ class Portfolio_model extends Model{
 		
 	}
 	
-	function getPortfolio($portfolio_id){
+	public function getPortfolio($portfolio_id){
 		
 		$this->db->select("*");
 		$this->db->from("portfolio");

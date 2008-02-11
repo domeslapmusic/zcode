@@ -108,7 +108,7 @@ echo utf8_encode($misc_freak_warning);
 					<?php foreach($section->options as $option){?>
 					
 					<dt><?php echo $option->title; ?></dt>
-					<dd><?php echo $option->summary; ?> URL: <?php $option->url; ?></dd>
+					<dd><?php echo $option->summary; ?></dd>
 					
 					<?php } ?>
 					

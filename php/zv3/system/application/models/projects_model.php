@@ -35,6 +35,7 @@ class Projects_model extends Model{
 		$this->db->from("project");
 		$this->db->join("project_literals","project.project_id=project_literals.project_id");
 		$this->db->where("project_literals.language_id='".$this->session->userdata('language_id')."'");
+		$this->db->orderby("project.date","desc");
 		$q = $this->db->get();
 		
 		return $q;

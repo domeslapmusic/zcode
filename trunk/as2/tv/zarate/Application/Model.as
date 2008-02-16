@@ -30,8 +30,9 @@ import tv.zarate.Application.View;
 
 class tv.zarate.Application.Model{
 
+	public var flashvars:FlashVars;
+	
 	private var conf:Config;
-	private var flashvars:FlashVars;
 	private var view:View;
 	private var rightClickMenu:RightClick;
 

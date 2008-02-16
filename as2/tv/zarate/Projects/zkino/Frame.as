@@ -24,10 +24,12 @@ class tv.zarate.Projects.zkino.Frame{
 	public var path:String = "";
 	public var delay:Number; // miliseconds
 	
-	public function Frame(_path:String,_delay:Number){
+	public function Frame(){}
+	
+	public function setXML(frameXML:XMLNode):Void{
 		
-		path = _path;
-		delay = _delay;
+		path = frameXML.attributes["path"]
+		delay = Number(frameXML.attributes["delay"])
 		
 	}
 	

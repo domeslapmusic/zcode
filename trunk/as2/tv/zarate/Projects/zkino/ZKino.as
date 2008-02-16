@@ -26,12 +26,13 @@ import tv.zarate.Application.Model;
 
 import tv.zarate.Projects.zkino.Frame;
 import tv.zarate.Projects.zkino.ZKinoView;
+import tv.zarate.Projects.zkino.ZKinoConfig;
 
 class tv.zarate.Projects.zkino.ZKino extends Model{
 	
 	private var view:ZKinoView;
+	private var conf:ZKinoConfig;
 	
-	private var frames:Array;
 	private var currentFrame:Number = 0;
 	private var currentInterval:Number = 0;
 	private var playing:Boolean = true;
@@ -40,6 +41,7 @@ class tv.zarate.Projects.zkino.ZKino extends Model{
 	public function ZKino(){
 		
 		view = new ZKinoView();
+		conf = new ZKinoConfig();
 		
 		super();
 		
@@ -59,25 +61,17 @@ class tv.zarate.Projects.zkino.ZKino extends Model{
 		var toggleCallback:Function = Delegate.create(this,toggleKino);
 		var loadFinishCallback:Function = Delegate.create(this,loadFinished);
 		
-		view.config2(toggleCallback,loadFinishCallback);
+		view.specificConfig(toggleCallback,loadFinishCallback);
 		
-		frames = new Array();
+		showFrame();
 		
-		totalFrames = conf.dataXML.firstChild.childNodes.length;
+	}
+	
+	private function showFrame():Void{
 		
-		for(var x:Number=0;x<totalFrames;x++){
-			
-			var node:XMLNode = conf.dataXML.firstChild.childNodes[x];			
-			var f:Frame = new Frame(node.attributes["path"],Number(node.attributes["delay"]));
-			
-			frames.push(f);
-			
-		}
-		
-		var frame:Frame = frames[currentFrame];
+		var frame:Frame = conf.frames[currentFrame];
 		
 		view.showFrame(frame);
-		
 		currentInterval = setInterval(this,"changeFrame",frame.delay);
 		
 	}
@@ -88,17 +82,26 @@ class tv.zarate.Projects.zkino.ZKino extends Model{
 		
 		currentFrame++;
 		
-		if(currentFrame >= frames.length){ currentFrame = 0; }
-		
-		
-		
-		var frame:Frame = frames[currentFrame];
-		view.showFrame(frame);
+		if(currentFrame >= conf.frames.length){ 
+			
+			if(conf.loop){
+				
+				currentFrame = 0; 
+				showFrame();
+				
+			}
+			
+		} else {
+			
+			showFrame();
+			
+		}
 		
 	}
-
+	
 	private function loadFinished():Void{
 		
+		// nothing now
 		
 	}
 	
@@ -110,8 +113,7 @@ class tv.zarate.Projects.zkino.ZKino extends Model{
 			
 		} else {
 			
-			var frame:Frame = frames[currentFrame];
-			view.showFrame();
+			showFrame();
 			
 		}
 		

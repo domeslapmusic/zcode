@@ -50,18 +50,10 @@ class tv.zarate.Application.Config{
 
 	private function xmlLoaded(success:Boolean,callback:Function):Void{
 		
-		if(success){
-			
-			// do here whatever you might need before calling the callback
-			// typically you would be parsing the xml file for data
-			
-			callback(true);
-			
-		} else {
-			
-			callback(false);
-			
-		}
+		// do here whatever you might need before calling the callback
+		// typically you would be parsing the xml file for data
+		
+		callback(success);
 		
 	}
 	

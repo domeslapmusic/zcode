@@ -1,8 +1,44 @@
 import flash.filters.BlurFilter;
 import flash.filters.ColorMatrixFilter;
+import flash.display.BitmapData;
+import flash.geom.Matrix;
 
 class com.ventdaval.effects.Basic{
 
+	public static function WetFloor(mc:MovieClip,height:Number,margin:Number):Void{
+		
+		// This method needs a "gradient" clip on the library!!
+		// TODO: Create the gradient by code
+		
+		if(height == null){ height = 40; }
+		if(margin == null){ margin = 2; }
+		
+		var width:Number = mc._width;
+		var initHeight:Number = mc._height;
+		
+		var bmp:BitmapData = new BitmapData(width,height,true,0);
+		
+		var reflection_mc:MovieClip = mc.createEmptyMovieClip("reflection_mc",mc.getNextHighestDepth());
+		reflection_mc.attachBitmap(bmp,0,"never",true);
+		
+		var gradient_mc:MovieClip = reflection_mc.attachMovie("gradient","gradient_mc",100);
+		gradient_mc._width = width;
+		gradient_mc._height = height;
+		
+		reflection_mc.blendMode = "layer";
+		gradient_mc.blendMode = "alpha";
+		
+		reflection_mc._y = mc._height + margin;
+		
+		var matrix:Matrix = new Matrix();
+		matrix.scale(1,-1);
+		matrix.translate(0,initHeight);
+		
+		bmp.fillRect(bmp.rectangle,0);
+		bmp.draw(mc,matrix);
+		
+	}
+	
 	public static function FadeBrightness(mc:MovieClip,init:Number,end:Number,speed:Number,callback:Function):Void{
 		
 		/* 

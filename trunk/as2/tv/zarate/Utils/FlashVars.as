@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Utils.FlashVars{
+class tv.zarate.utils.FlashVars{
 
 	private var timeLine_mc:MovieClip;
 

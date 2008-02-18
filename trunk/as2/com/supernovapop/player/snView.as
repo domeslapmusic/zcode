@@ -1,4 +1,4 @@
-import tv.zarate.Projects.zplayer.zpView;
+import tv.zarate.projects.zplayer.zpView;
 
 class com.supernovapop.player.snView extends zpView{
 

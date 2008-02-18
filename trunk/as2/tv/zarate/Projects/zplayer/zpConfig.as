@@ -1,15 +1,15 @@
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.FlashVars;
-import tv.zarate.Utils.MathUtils;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.FlashVars;
+import tv.zarate.utils.MathUtils;
 
-import tv.zarate.Application.Config;
+import tv.zarate.application.Config;
 
-import tv.zarate.Projects.zplayer.Item;
-import tv.zarate.Projects.zplayer.zpVideo;
-import tv.zarate.Projects.zplayer.zpImage;
-import tv.zarate.Projects.zplayer.zpConstants;
+import tv.zarate.projects.zplayer.Item;
+import tv.zarate.projects.zplayer.zpVideo;
+import tv.zarate.projects.zplayer.zpImage;
+import tv.zarate.projects.zplayer.zpConstants;
 
-class tv.zarate.Projects.zplayer.zpConfig extends Config{
+class tv.zarate.projects.zplayer.zpConfig extends Config{
 
 	public var imageDelay:Number = 5;
 

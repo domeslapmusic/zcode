@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Projects.webv3.Option{
+class tv.zarate.projects.webv3.Option{
 	
 	public var title:String = "";
 	public var text:String = "";

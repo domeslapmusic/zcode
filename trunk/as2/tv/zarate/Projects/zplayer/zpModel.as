@@ -1,13 +1,13 @@
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.Trace;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.Trace;
 
-import tv.zarate.Application.Model;
+import tv.zarate.application.Model;
 
-import tv.zarate.Projects.zplayer.zpConfig;
-import tv.zarate.Projects.zplayer.zpView;
-import tv.zarate.Projects.zplayer.Item;
+import tv.zarate.projects.zplayer.zpConfig;
+import tv.zarate.projects.zplayer.zpView;
+import tv.zarate.projects.zplayer.Item;
 
-class tv.zarate.Projects.zplayer.zpModel extends Model{
+class tv.zarate.projects.zplayer.zpModel extends Model{
 
 	private var view:zpView;
 	private var conf:zpConfig;

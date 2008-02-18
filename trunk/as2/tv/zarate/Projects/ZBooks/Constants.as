@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Projects.ZBooks.Constants{
+class tv.zarate.projects.ZBooks.Constants{
 	
 	public static var EDIT:String = "edit";
 	public static var ADD:String = "add";

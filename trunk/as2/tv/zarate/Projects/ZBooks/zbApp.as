@@ -19,12 +19,12 @@
 *
 */
 
-import tv.zarate.Utils.Trace;
-import tv.zarate.Projects.ZBooks.zbModel;
-import tv.zarate.Projects.ZBooks.zbView;
-import tv.zarate.Projects.ZBooks.zbController;
+import tv.zarate.utils.Trace;
+import tv.zarate.projects.ZBooks.zbModel;
+import tv.zarate.projects.ZBooks.zbView;
+import tv.zarate.projects.ZBooks.zbController;
 
-class tv.zarate.Projects.ZBooks.zbApp{
+class tv.zarate.projects.ZBooks.zbApp{
 	
 	public static function main(m:MovieClip):Void{
 		

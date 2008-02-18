@@ -19,13 +19,13 @@
 *
 */
 
-import tv.zarate.Utils.Trace;
-import tv.zarate.Utils.TextfieldUtils;
+import tv.zarate.utils.Trace;
+import tv.zarate.utils.TextfieldUtils;
 
-import tv.zarate.Projects.loqueyosede.broadcaster;
-import tv.zarate.Projects.loqueyosede.myEvent;
+import tv.zarate.projects.loqueyosede.broadcaster;
+import tv.zarate.projects.loqueyosede.myEvent;
 
-class tv.zarate.Projects.loqueyosede.receiver{
+class tv.zarate.projects.loqueyosede.receiver{
 	
 	private var timeLine_mc:MovieClip;
 	private var callbackField:TextField;

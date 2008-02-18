@@ -19,9 +19,9 @@
 *
 */
 
-import tv.zarate.Projects.zplayer.Thumbnail;
+import tv.zarate.projects.zplayer.Thumbnail;
 
-class tv.zarate.Projects.zplayer.Item{
+class tv.zarate.projects.zplayer.Item{
 
 	public var thumbnail:Thumbnail;
 	

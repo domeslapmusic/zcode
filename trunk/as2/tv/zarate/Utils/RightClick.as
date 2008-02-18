@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Utils.RightClick extends ContextMenu{
+class tv.zarate.utils.RightClick extends ContextMenu{
 
 	public function RightClick(){
 		

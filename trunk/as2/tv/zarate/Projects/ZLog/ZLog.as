@@ -19,10 +19,10 @@
 *
 */
 
-import tv.zarate.Utils.Delegate;
+import tv.zarate.utils.Delegate;
 import flash.external.ExternalInterface;
 
-class tv.zarate.Projects.ZLog.ZLog{
+class tv.zarate.projects.ZLog.ZLog{
 
 	// clips
 	private var receiving_lc:LocalConnection;

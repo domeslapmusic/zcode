@@ -19,7 +19,7 @@
 *
 */
 
-import tv.zarate.Utils.MovieclipUtils;
+import tv.zarate.utils.MovieclipUtils;
 
 class tv.zarate.components.Common{
 

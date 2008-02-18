@@ -1,4 +1,4 @@
-class tv.zarate.Utils.StyleSheetObject{
+class tv.zarate.utils.StyleSheetObject{
 	
 	// Full reference here:
 	// http://livedocs.adobe.com/flash/8/main/00002714.html#wp453576

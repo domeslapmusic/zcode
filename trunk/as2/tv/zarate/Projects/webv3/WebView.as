@@ -19,24 +19,24 @@
 *
 */
 
-import tv.zarate.Utils.TextfieldUtils;
-import tv.zarate.Utils.MovieclipUtils;
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.ArrayUtils;
-import tv.zarate.Utils.StyleSheetObject;
+import tv.zarate.utils.TextfieldUtils;
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.ArrayUtils;
+import tv.zarate.utils.StyleSheetObject;
 
 import tv.zarate.effects.Image;
 
-import tv.zarate.Application.View;
+import tv.zarate.application.View;
 
-import tv.zarate.Projects.webv3.WebConfig;
-import tv.zarate.Projects.webv3.WebModel;
-import tv.zarate.Projects.webv3.Section;
-import tv.zarate.Projects.webv3.Option;
-import tv.zarate.Projects.webv3.Language;
-import tv.zarate.Projects.webv3.Literals;
+import tv.zarate.projects.webv3.WebConfig;
+import tv.zarate.projects.webv3.WebModel;
+import tv.zarate.projects.webv3.Section;
+import tv.zarate.projects.webv3.Option;
+import tv.zarate.projects.webv3.Language;
+import tv.zarate.projects.webv3.Literals;
 
-class tv.zarate.Projects.webv3.WebView extends View{
+class tv.zarate.projects.webv3.WebView extends View{
 	
 	private var model:WebModel;
 	private var conf:WebConfig;

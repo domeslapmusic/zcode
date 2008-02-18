@@ -19,19 +19,19 @@
 *
 */
 
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.MovieclipUtils;
-import tv.zarate.Utils.TextfieldUtils;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.TextfieldUtils;
 
 import tv.zarate.effects.Image;
 
-import tv.zarate.Projects.zplayer.Item;
-import tv.zarate.Projects.zplayer.zpConstants;
-import tv.zarate.Projects.zplayer.zpImage;
-import tv.zarate.Projects.zplayer.InfoBand;
-import tv.zarate.Projects.zplayer.Thumbnail;
+import tv.zarate.projects.zplayer.Item;
+import tv.zarate.projects.zplayer.zpConstants;
+import tv.zarate.projects.zplayer.zpImage;
+import tv.zarate.projects.zplayer.InfoBand;
+import tv.zarate.projects.zplayer.Thumbnail;
 
-class tv.zarate.Projects.zplayer.ItemsBand{
+class tv.zarate.projects.zplayer.ItemsBand{
 
 	private var currentItem:Item;
 	

@@ -8,7 +8,7 @@
 * 
 */
 
-class tv.zarate.Utils.StringUtils{
+class tv.zarate.utils.StringUtils{
 	
 	public static function replaceEntities(s:String):String{
 		

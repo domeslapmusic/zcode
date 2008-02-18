@@ -19,16 +19,16 @@
 *
 */
 
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.MovieclipUtils;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.MovieclipUtils;
 
-import tv.zarate.Application.Model;
+import tv.zarate.application.Model;
 
-import tv.zarate.Projects.zkino.Frame;
-import tv.zarate.Projects.zkino.ZKinoView;
-import tv.zarate.Projects.zkino.ZKinoConfig;
+import tv.zarate.projects.zkino.Frame;
+import tv.zarate.projects.zkino.ZKinoView;
+import tv.zarate.projects.zkino.ZKinoConfig;
 
-class tv.zarate.Projects.zkino.ZKino extends Model{
+class tv.zarate.projects.zkino.ZKino extends Model{
 	
 	private var view:ZKinoView;
 	private var conf:ZKinoConfig;

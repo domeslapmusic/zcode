@@ -20,7 +20,7 @@
 */
 
 import flash.filters.BlurFilter;
-import tv.zarate.Utils.Delegate;
+import tv.zarate.utils.Delegate;
 
 class tv.zarate.effects.Image{
 

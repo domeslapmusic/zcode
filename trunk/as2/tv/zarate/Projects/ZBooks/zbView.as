@@ -19,21 +19,21 @@
 *
 */
 
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.TextfieldUtils;
-import tv.zarate.Utils.MovieclipUtils;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.TextfieldUtils;
+import tv.zarate.utils.MovieclipUtils;
 
 import tv.zarate.components.SplitPanel;
 
-import tv.zarate.Projects.ZBooks.zbModel;
-import tv.zarate.Projects.ZBooks.zbController;
-import tv.zarate.Projects.ZBooks.zbCheck;
-import tv.zarate.Projects.ZBooks.zbAlert;
-import tv.zarate.Projects.ZBooks.Label;
-import tv.zarate.Projects.ZBooks.Bookmark;
-import tv.zarate.Projects.ZBooks.Constants;
+import tv.zarate.projects.ZBooks.zbModel;
+import tv.zarate.projects.ZBooks.zbController;
+import tv.zarate.projects.ZBooks.zbCheck;
+import tv.zarate.projects.ZBooks.zbAlert;
+import tv.zarate.projects.ZBooks.Label;
+import tv.zarate.projects.ZBooks.Bookmark;
+import tv.zarate.projects.ZBooks.Constants;
 
-class tv.zarate.Projects.ZBooks.zbView{
+class tv.zarate.projects.ZBooks.zbView{
 
 	public var enabled:Boolean = true;
 	public var appWidth:Number = 200;

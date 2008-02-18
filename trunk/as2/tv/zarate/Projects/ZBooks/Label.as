@@ -19,9 +19,9 @@
 *
 */
 
-import tv.zarate.Projects.ZBooks.Bookmark;
+import tv.zarate.projects.ZBooks.Bookmark;
 
-class tv.zarate.Projects.ZBooks.Label{
+class tv.zarate.projects.ZBooks.Label{
 
 	public var title:String = "";
 	public var id:String = "";

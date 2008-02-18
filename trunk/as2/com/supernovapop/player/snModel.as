@@ -1,4 +1,4 @@
-import tv.zarate.Projects.zplayer.zpModel;
+import tv.zarate.projects.zplayer.zpModel;
 
 import com.supernovapop.player.snView;
 

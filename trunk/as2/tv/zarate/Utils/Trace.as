@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Utils.Trace{
+class tv.zarate.utils.Trace{
 
 	public static function trc(s:Object,type:String,reset:Boolean):Void{
 

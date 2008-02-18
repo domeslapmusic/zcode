@@ -19,9 +19,9 @@
 *
 */
 
-import tv.zarate.Projects.loqueyosede.View;
+import tv.zarate.projects.loqueyosede.View;
 
-class tv.zarate.Projects.loqueyosede.Model{
+class tv.zarate.projects.loqueyosede.Model{
 	
 	private var view:View;
 

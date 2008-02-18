@@ -1,13 +1,13 @@
-import tv.zarate.Projects.ZBooks.zbData;
-import tv.zarate.Projects.ZBooks.zbView;
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.FlashVars;
+import tv.zarate.projects.ZBooks.zbData;
+import tv.zarate.projects.ZBooks.zbView;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.FlashVars;
 
-import tv.zarate.Projects.ZBooks.Label;
-import tv.zarate.Projects.ZBooks.Bookmark;
-import tv.zarate.Projects.ZBooks.Config;
+import tv.zarate.projects.ZBooks.Label;
+import tv.zarate.projects.ZBooks.Bookmark;
+import tv.zarate.projects.ZBooks.Config;
 
-class tv.zarate.Projects.ZBooks.zbModel{
+class tv.zarate.projects.ZBooks.zbModel{
 
 	private var currentLabel:Label;
 	private var view:zbView;

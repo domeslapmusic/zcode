@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Projects.zkino.Frame{
+class tv.zarate.projects.zkino.Frame{
 	
 	public var path:String = "";
 	public var delay:Number; // miliseconds

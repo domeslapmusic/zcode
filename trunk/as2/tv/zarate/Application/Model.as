@@ -19,16 +19,16 @@
 *
 */
 
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.FlashVars;
-import tv.zarate.Utils.RightClick;
-import tv.zarate.Utils.Trace;
-import tv.zarate.Utils.MovieclipUtils;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.FlashVars;
+import tv.zarate.utils.RightClick;
+import tv.zarate.utils.Trace;
+import tv.zarate.utils.MovieclipUtils;
 
-import tv.zarate.Application.Config;
-import tv.zarate.Application.View;
+import tv.zarate.application.Config;
+import tv.zarate.application.View;
 
-class tv.zarate.Application.Model{
+class tv.zarate.application.Model{
 
 	public var flashvars:FlashVars;
 	

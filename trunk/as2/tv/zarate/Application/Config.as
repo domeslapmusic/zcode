@@ -19,10 +19,10 @@
 *
 */
 
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.FlashVars;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.FlashVars;
 
-class tv.zarate.Application.Config{
+class tv.zarate.application.Config{
 
 	public var flashvars:FlashVars;
 	public var dataXML:XML;

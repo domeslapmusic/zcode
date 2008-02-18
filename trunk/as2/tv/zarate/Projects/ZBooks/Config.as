@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Projects.ZBooks.Config{
+class tv.zarate.projects.ZBooks.Config{
 
 	public var owner:String = "";
 	public var showURL:Boolean = false;

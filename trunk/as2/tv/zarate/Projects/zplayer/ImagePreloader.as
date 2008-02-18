@@ -19,12 +19,12 @@
 *
 */
 
-import tv.zarate.Utils.MovieclipUtils;
-import tv.zarate.Utils.TextfieldUtils;
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.TextfieldUtils;
 
-import tv.zarate.Projects.zplayer.zpConstants;
+import tv.zarate.projects.zplayer.zpConstants;
 
-class tv.zarate.Projects.zplayer.ImagePreloader{
+class tv.zarate.projects.zplayer.ImagePreloader{
 
 	private var base_mc:MovieClip;
 	private var bar_mc:MovieClip;

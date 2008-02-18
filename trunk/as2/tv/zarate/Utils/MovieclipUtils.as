@@ -21,7 +21,7 @@
 
 import flash.filters.DropShadowFilter;
 
-class tv.zarate.Utils.MovieclipUtils{
+class tv.zarate.utils.MovieclipUtils{
 
 	public static function MakeDropShadow(mc:MovieClip,distance:Number,angle:Number,colour:Number,alpha:Number,blur:Number,strength:Number):Void{
 		

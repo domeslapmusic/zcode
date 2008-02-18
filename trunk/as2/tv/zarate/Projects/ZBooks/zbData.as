@@ -1,12 +1,12 @@
 import com.meychi.ascrypt.MD5;
 
-import tv.zarate.Utils.Delegate;
+import tv.zarate.utils.Delegate;
 
-import tv.zarate.Projects.ZBooks.Label;
-import tv.zarate.Projects.ZBooks.Bookmark;
-import tv.zarate.Projects.ZBooks.Config;
+import tv.zarate.projects.ZBooks.Label;
+import tv.zarate.projects.ZBooks.Bookmark;
+import tv.zarate.projects.ZBooks.Config;
 
-class tv.zarate.Projects.ZBooks.zbData{
+class tv.zarate.projects.ZBooks.zbData{
 
 	private var WSPath:String = "";
 	private var dataXML:XML;

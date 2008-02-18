@@ -19,13 +19,13 @@
 *
 */
 
-import tv.zarate.Utils.TextfieldUtils;
-import tv.zarate.Utils.MovieclipUtils;
-import tv.zarate.Utils.Delegate;
+import tv.zarate.utils.TextfieldUtils;
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.Delegate;
 
-import tv.zarate.Projects.loqueyosede.Model;
+import tv.zarate.projects.loqueyosede.Model;
 
-class tv.zarate.Projects.loqueyosede.View{
+class tv.zarate.projects.loqueyosede.View{
 	
 	private var model:Model;
 

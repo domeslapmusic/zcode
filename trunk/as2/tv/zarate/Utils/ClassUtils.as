@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Utils.ClassUtils{
+class tv.zarate.utils.ClassUtils{
 	
 	public static function getInstanceFromClasspath(classPath:String):Object{
 		

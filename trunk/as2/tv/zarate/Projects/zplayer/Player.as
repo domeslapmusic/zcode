@@ -19,9 +19,9 @@
 *
 */
 
-import tv.zarate.Projects.zplayer.Item;
+import tv.zarate.projects.zplayer.Item;
 
-class tv.zarate.Projects.zplayer.Player{
+class tv.zarate.projects.zplayer.Player{
 
 	private var item:Item;
 

@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Utils.ArrayUtils{
+class tv.zarate.utils.ArrayUtils{
 	
 	public static function randomizeArray(a:Array):Void{
 		

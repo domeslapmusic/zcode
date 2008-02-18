@@ -21,16 +21,16 @@
 
 import flash.external.ExternalInterface;
 
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.MovieclipUtils;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.MovieclipUtils;
 
-import tv.zarate.Application.Model;
+import tv.zarate.application.Model;
 
-import tv.zarate.Projects.webv3.WebView;
-import tv.zarate.Projects.webv3.WebConfig;
-import tv.zarate.Projects.webv3.Section;
+import tv.zarate.projects.webv3.WebView;
+import tv.zarate.projects.webv3.WebConfig;
+import tv.zarate.projects.webv3.Section;
 
-class tv.zarate.Projects.webv3.WebModel extends Model{
+class tv.zarate.projects.webv3.WebModel extends Model{
 	
 	public var currentSection:Section;
 	

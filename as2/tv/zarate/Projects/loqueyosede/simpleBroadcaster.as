@@ -21,10 +21,10 @@
 
 import com.gskinner.GDispatcher;
 
-import tv.zarate.Utils.TextfieldUtils;
-import tv.zarate.Utils.Delegate;
+import tv.zarate.utils.TextfieldUtils;
+import tv.zarate.utils.Delegate;
 
-class tv.zarate.Projects.loqueyosede.simpleBroadcaster{
+class tv.zarate.projects.loqueyosede.simpleBroadcaster{
 
 	// estas tres variables son realmente creadas por GDispatcher
 	public var addEventListener:Function;

@@ -19,18 +19,18 @@
 *
 */
 
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.MovieclipUtils;
-import tv.zarate.Utils.TextfieldUtils;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.TextfieldUtils;
 
 import tv.zarate.effects.Image;
 
-import tv.zarate.Projects.zplayer.Player;
-import tv.zarate.Projects.zplayer.zpVideo;
-import tv.zarate.Projects.zplayer.Item;
-import tv.zarate.Projects.zplayer.LoadBar;
+import tv.zarate.projects.zplayer.Player;
+import tv.zarate.projects.zplayer.zpVideo;
+import tv.zarate.projects.zplayer.Item;
+import tv.zarate.projects.zplayer.LoadBar;
 
-class tv.zarate.Projects.zplayer.PlayerVideo extends Player{
+class tv.zarate.projects.zplayer.PlayerVideo extends Player{
 
 	private var loadbar:LoadBar;
 

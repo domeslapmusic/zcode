@@ -19,11 +19,11 @@
 *
 */
 
-import tv.zarate.Utils.MovieclipUtils;
-import tv.zarate.Utils.TextfieldUtils;
-import tv.zarate.Projects.ZBooks.zbView;
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.TextfieldUtils;
+import tv.zarate.projects.ZBooks.zbView;
 
-class tv.zarate.Projects.ZBooks.zbAlert{
+class tv.zarate.projects.ZBooks.zbAlert{
 
 	public var accept_mc:MovieClip;
 

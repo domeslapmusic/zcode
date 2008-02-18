@@ -1,12 +1,12 @@
-import tv.zarate.Utils.MovieclipUtils;
-import tv.zarate.Utils.TextfieldUtils;
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.TextfieldUtils;
 
-import tv.zarate.Projects.zplayer.zpConstants;
-import tv.zarate.Projects.zplayer.zpImage;
-import tv.zarate.Projects.zplayer.Item;
-import tv.zarate.Projects.zplayer.ImagePreloader;
+import tv.zarate.projects.zplayer.zpConstants;
+import tv.zarate.projects.zplayer.zpImage;
+import tv.zarate.projects.zplayer.Item;
+import tv.zarate.projects.zplayer.ImagePreloader;
 
-class tv.zarate.Projects.zplayer.Thumbnail{
+class tv.zarate.projects.zplayer.Thumbnail{
 
 	private var imageLoader:ImagePreloader;
 	

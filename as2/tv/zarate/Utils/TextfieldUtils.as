@@ -8,7 +8,7 @@
 *
 */
 
-class tv.zarate.Utils.TextfieldUtils{
+class tv.zarate.utils.TextfieldUtils{
 
 	public static function createField(m:MovieClip,width:Number,height:Number,autoSize:String,multiline:Boolean,depth:Number):TextField{
 		

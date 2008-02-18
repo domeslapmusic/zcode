@@ -19,11 +19,11 @@
 *
 */
 
-import tv.zarate.Application.Config;
+import tv.zarate.application.Config;
 
-import tv.zarate.Projects.zkino.Frame;
+import tv.zarate.projects.zkino.Frame;
 
-class tv.zarate.Projects.zkino.ZKinoConfig extends Config{
+class tv.zarate.projects.zkino.ZKinoConfig extends Config{
 	
 	public var frames:/*Frame*/Array;
 	public var loop:Boolean = true;

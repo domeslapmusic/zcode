@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Utils.Delegate{
+class tv.zarate.utils.Delegate{
 	
 	// from Till Schneidereit
 	// http://lists.motion-twin.com/pipermail/mtasc/2005-April/001602.html

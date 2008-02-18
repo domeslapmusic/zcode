@@ -19,9 +19,9 @@
 *
 */
 
-import tv.zarate.Projects.webv3.Option;
+import tv.zarate.projects.webv3.Option;
 
-class tv.zarate.Projects.webv3.Section{
+class tv.zarate.projects.webv3.Section{
 	
 	public var title:String = "";
 	public var text:String = "";

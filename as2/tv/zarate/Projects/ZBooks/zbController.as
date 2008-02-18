@@ -19,15 +19,15 @@
 *
 */
 
-import tv.zarate.Utils.MovieclipUtils;
+import tv.zarate.utils.MovieclipUtils;
 
-import tv.zarate.Projects.ZBooks.zbModel;
-import tv.zarate.Projects.ZBooks.zbView;
-import tv.zarate.Projects.ZBooks.Bookmark;
-import tv.zarate.Projects.ZBooks.Label;
-import tv.zarate.Projects.ZBooks.Constants;
+import tv.zarate.projects.ZBooks.zbModel;
+import tv.zarate.projects.ZBooks.zbView;
+import tv.zarate.projects.ZBooks.Bookmark;
+import tv.zarate.projects.ZBooks.Label;
+import tv.zarate.projects.ZBooks.Constants;
 
-class tv.zarate.Projects.ZBooks.zbController{
+class tv.zarate.projects.ZBooks.zbController{
 
 	private var model:zbModel;
 	private var view:zbView;

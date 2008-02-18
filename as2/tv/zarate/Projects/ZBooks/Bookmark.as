@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Projects.ZBooks.Bookmark{
+class tv.zarate.projects.ZBooks.Bookmark{
 
 	public var id:String = "";
 	public var title:String = "";

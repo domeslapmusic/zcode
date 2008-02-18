@@ -19,11 +19,11 @@
 *
 */
 
-import tv.zarate.Utils.Trace;
+import tv.zarate.utils.Trace;
 
-import tv.zarate.Projects.loqueyosede.Model;
+import tv.zarate.projects.loqueyosede.Model;
 
-class tv.zarate.Projects.loqueyosede.MVCApplication{
+class tv.zarate.projects.loqueyosede.MVCApplication{
 	
 	public static function main(m:MovieClip):Void{
 		

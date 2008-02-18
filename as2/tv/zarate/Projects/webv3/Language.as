@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Projects.webv3.Language{
+class tv.zarate.projects.webv3.Language{
 	
 	public var language_id:String = "";
 	public var title:String = "";

@@ -21,10 +21,10 @@
 
 import tv.zarate.effects.Image;
 
-import tv.zarate.Application.View;
-import tv.zarate.Projects.zkino.Frame;
+import tv.zarate.application.View;
+import tv.zarate.projects.zkino.Frame;
 
-class tv.zarate.Projects.zkino.ZKinoView extends View{
+class tv.zarate.projects.zkino.ZKinoView extends View{
 	
 	private var currentImage_mc:MovieClip;
 	private var nextImage_mc:MovieClip;

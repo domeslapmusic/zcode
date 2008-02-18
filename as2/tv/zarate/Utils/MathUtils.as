@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Utils.MathUtils{
+class tv.zarate.utils.MathUtils{
 	
 	// Returns random between min and max, including both
 

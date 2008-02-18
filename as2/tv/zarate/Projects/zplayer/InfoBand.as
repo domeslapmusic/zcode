@@ -19,12 +19,12 @@
 *
 */
 
-import tv.zarate.Utils.MovieclipUtils;
-import tv.zarate.Utils.TextfieldUtils;
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.TextfieldUtils;
 
-import tv.zarate.Projects.zplayer.zpConstants;
+import tv.zarate.projects.zplayer.zpConstants;
 
-class tv.zarate.Projects.zplayer.InfoBand{
+class tv.zarate.projects.zplayer.InfoBand{
 
 	private var base_mc:MovieClip;
 	private var field:TextField;

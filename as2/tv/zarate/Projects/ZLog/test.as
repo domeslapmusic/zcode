@@ -1,9 +1,9 @@
-import tv.zarate.Utils.Trace;
-import tv.zarate.Utils.MovieclipUtils;
-import tv.zarate.Utils.TextfieldUtils;
-import tv.zarate.Utils.Delegate;
+import tv.zarate.utils.Trace;
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.TextfieldUtils;
+import tv.zarate.utils.Delegate;
 
-class tv.zarate.Projects.ZLog.test{
+class tv.zarate.projects.ZLog.test{
 
 	private var base_mc:MovieClip;
 

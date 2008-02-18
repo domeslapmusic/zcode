@@ -1,7 +1,7 @@
-import tv.zarate.Projects.zplayer.Item;
-import tv.zarate.Projects.zplayer.zpConstants;
+import tv.zarate.projects.zplayer.Item;
+import tv.zarate.projects.zplayer.zpConstants;
 
-class tv.zarate.Projects.zplayer.zpImage extends Item{
+class tv.zarate.projects.zplayer.zpImage extends Item{
 
 	public var sound:String = "";
 	public var duration:Number = 0; // duration in miliseconds

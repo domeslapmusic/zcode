@@ -19,12 +19,12 @@
 *
 */
 
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.MovieclipUtils;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.MovieclipUtils;
 
-import tv.zarate.Projects.zplayer.zpConstants;
+import tv.zarate.projects.zplayer.zpConstants;
 
-class tv.zarate.Projects.zplayer.LoadBar{
+class tv.zarate.projects.zplayer.LoadBar{
 
 	public var onDrag:Function;
 	public var onToggle:Function;

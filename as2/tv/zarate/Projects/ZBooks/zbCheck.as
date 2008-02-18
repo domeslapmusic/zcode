@@ -19,10 +19,10 @@
 *
 */
 
-import tv.zarate.Utils.Delegate;
-import tv.zarate.Utils.MovieclipUtils;
+import tv.zarate.utils.Delegate;
+import tv.zarate.utils.MovieclipUtils;
 
-class tv.zarate.Projects.ZBooks.zbCheck{
+class tv.zarate.projects.ZBooks.zbCheck{
 	
 	private var _selected:Boolean = false;
 	private var base_mc:MovieClip;

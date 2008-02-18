@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Projects.webv3.Literals{
+class tv.zarate.projects.webv3.Literals{
 	
 	public static var WANT_TO_SEND_EMAIL:String = "want_to_send_email";
 	public static var SENDING_EMAIL:String = "sending_email";

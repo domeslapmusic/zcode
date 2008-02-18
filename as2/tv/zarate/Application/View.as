@@ -19,10 +19,10 @@
 *
 */
 
-import tv.zarate.Application.Model;
-import tv.zarate.Application.Config;
+import tv.zarate.application.Model;
+import tv.zarate.application.Config;
 
-class tv.zarate.Application.View{
+class tv.zarate.application.View{
 
 	private var model:Model;
 	private var conf:Config;

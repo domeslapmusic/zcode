@@ -19,8 +19,8 @@
 *
 */
 
-import tv.zarate.Utils.MovieclipUtils;
-import tv.zarate.Utils.Delegate;
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.Delegate;
 
 import tv.zarate.components.Common;
 

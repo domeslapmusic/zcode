@@ -1,7 +1,7 @@
-import tv.zarate.Projects.zplayer.Item;
-import tv.zarate.Projects.zplayer.zpConstants;
+import tv.zarate.projects.zplayer.Item;
+import tv.zarate.projects.zplayer.zpConstants;
 
-class tv.zarate.Projects.zplayer.zpVideo extends Item{
+class tv.zarate.projects.zplayer.zpVideo extends Item{
 
 	public var intro:String = "";
 	

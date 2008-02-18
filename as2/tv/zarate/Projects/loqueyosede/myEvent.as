@@ -19,7 +19,7 @@
 *
 */
 
-class tv.zarate.Projects.loqueyosede.myEvent{
+class tv.zarate.projects.loqueyosede.myEvent{
 	
 	public static var staticType:String = "HelloWorld";
 	public var myvar:String = "";

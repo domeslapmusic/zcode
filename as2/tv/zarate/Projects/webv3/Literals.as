@@ -26,6 +26,7 @@ class tv.zarate.Projects.webv3.Literals{
 	public static var MAIL_SENT_OK:String = "mail_sent_ok";
 	public static var MAIL_SENT_PROBLEM:String = "mail_sent_problem";
 	public static var SPACE_WARNING:String = "space_warning";
+	public static var SPACE_WARNING_HTML:String = "space_warning_html";
 	
 	private var literals:Object;
 	
@@ -49,6 +50,10 @@ class tv.zarate.Projects.webv3.Literals{
 			literals[id] = title;
 			
 		}
+		
+		var spaceWarning:Array = literals[SPACE_WARNING].split("__");
+		literals[SPACE_WARNING] = spaceWarning[0];
+		literals[SPACE_WARNING_HTML] = spaceWarning[1];
 		
 	}
 	

@@ -49,6 +49,7 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	private var footer_mc:MovieClip;
 	private var content_mc:MovieClip;
 	private var spaceWarning_mc:MovieClip;
+	private var warningTextHTML_mc:MovieClip;
 	private var warningText_mc:MovieClip;
 	private var explanationField:TextField;
 	private var contactField:TextField;
@@ -61,7 +62,8 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	private var minimumWidth:Number = 900;
 	private var minimumHeight:Number = 500;
 	private var optionsToRandomize:Array;
-	private var MIN_ALPHA:Number = 25;
+	private var MIN_ALPHA:Number = 15;
+	private var MED_ALPHA:Number = 65;
 	private var MAX_ALPHA:Number = 100;
 	private var NICE_COLOR:Number = 0xef7513;
 	private var WARNING_PERCENT:Number = 0.8;
@@ -70,6 +72,10 @@ class tv.zarate.Projects.webv3.WebView extends View{
 	private var enabling:Boolean = false;
 	private var disabling:Boolean = false;
 	private var sendingEmail:Boolean = false;
+	
+	private var OVER:String = "rollover";
+	private var OUT:String = "rollout";
+	private var PRESS:String = "press";
 	
 	public function WebView(){
 		
@@ -182,8 +188,11 @@ class tv.zarate.Projects.webv3.WebView extends View{
 			var o:Option = optionsToRandomize[i];
 			o.clip_mc = word_mc;
 			
-			word_mc.onRollOver = Delegate.create(this,manageOption,o);
-			word_mc._alpha = (o.section_id == model.currentSection.section_id)? MAX_ALPHA:MIN_ALPHA;
+			word_mc.onPress = Delegate.create(this,manageOption,PRESS,o);
+			word_mc.onRollOver = Delegate.create(this,manageOption,OVER,o);
+			word_mc.onRollOut = Delegate.create(this,manageOption,OUT,o);
+			
+			word_mc._alpha = (o.section_id == model.currentSection.section_id)? MED_ALPHA:MIN_ALPHA;
 			
 			for(var j:Number=0;j<o.title.length;j++){
 				
@@ -294,8 +303,18 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		
 	}
 	
-	private function manageOption(option:Option):Void{
-		showExplanation(true,option.title,option.text,option.link);
+	private function manageOption(action:String,option:Option):Void{
+		
+		var to:Number = (action == OVER)? MAX_ALPHA:MED_ALPHA;
+		
+		Image.Fade(option.clip_mc,to);
+		
+		if(action == PRESS){
+			
+			showExplanation(true,option.title,option.text,option.link);
+			
+		}
+		
 	}
 	
 	private function showExplanation(action:Boolean,title:String,text:String,link:String):Void{
@@ -464,8 +483,17 @@ class tv.zarate.Projects.webv3.WebView extends View{
 			var field:TextField = TextfieldUtils.createField(warningText_mc);
 			field.text = conf.literals.getLiteral(Literals.SPACE_WARNING);
 			field.selectable = false;
-			field.backgroundColor = NICE_COLOR;
 			field.embedFonts = true;
+			//field.border = true;
+			field.setTextFormat(textFormat);
+			
+			warningTextHTML_mc = spaceWarning_mc.createEmptyMovieClip("warningTextHTML_mc",300);
+			
+			field = TextfieldUtils.createField(warningTextHTML_mc);
+			field.text = conf.literals.getLiteral(Literals.SPACE_WARNING_HTML);
+			field.selectable = false;
+			field.embedFonts = true;
+			//field.border = true;
 			field.setTextFormat(textFormat);
 			
 			centreWarning();
@@ -491,6 +519,12 @@ class tv.zarate.Projects.webv3.WebView extends View{
 		
 		warningText_mc._x = Math.round((width-warningText_mc._width)/2);
 		warningText_mc._y = Math.round((height-warningText_mc._height)/2);
+		
+		warningTextHTML_mc._width = warningText_mc._width * 0.4;
+		warningTextHTML_mc._yscale = warningTextHTML_mc._xscale;
+		
+		warningTextHTML_mc._x = Math.round((width-warningTextHTML_mc._width)/2);
+		warningTextHTML_mc._y = warningText_mc._y + warningText_mc._height// - warningTextHTML_mc._height// + 2;
 		
 	}
 	

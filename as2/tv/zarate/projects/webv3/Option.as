@@ -19,13 +19,21 @@
 *
 */
 
+import tv.zarate.utils.MovieclipUtils;
+import tv.zarate.utils.Delegate;
+
+import tv.zarate.projects.webv3.WebConstants;
+
 class tv.zarate.projects.webv3.Option{
 	
 	public var title:String = "";
 	public var text:String = "";
 	public var link:String = "";
-	public var clip_mc:MovieClip;
 	public var section_id:String = "";
+	public var clip_mc:MovieClip;
+	
+	private var selectCallback:Function;
+	private var selected:Boolean = false;
 	
 	public function Option(){}
 	
@@ -37,8 +45,59 @@ class tv.zarate.projects.webv3.Option{
 		
 	}
 	
+	public function config(_clip_mc:MovieClip,_selectCallback:Function):Void{
+		
+		clip_mc = _clip_mc;
+		selectCallback = _selectCallback;
+		
+		clip_mc.onPress = Delegate.create(this,manageOption,WebConstants.PRESS);
+		clip_mc.onRollOver = Delegate.create(this,manageOption,WebConstants.OVER);
+		clip_mc.onRollOut = Delegate.create(this,manageOption,WebConstants.OUT);
+		
+	}
+	
+	public function select(action:Boolean):Void{
+		
+		selected = action;
+		
+		if(!selected){
+			
+			manageOption(WebConstants.OUT,true);
+			
+		}
+		
+	}
+	
 	public function toString():String{
 		return "Option [title=" +title + "]";
 	}
+	
+	// ******************** PRIVATE METHODS ********************
+	
+	private function manageOption(action:String,force:Boolean):Void{
+		
+		switch(action){
+			
+			case WebConstants.PRESS:
+				
+				selected = true;
+				selectCallback(this);
+				
+				break;
+				
+			case WebConstants.OVER:
+				
+				MovieclipUtils.changeColour(clip_mc,WebConstants.NICE_COLOR);
+				break;
+				
+			case WebConstants.OUT:
+				
+				if(!selected || force){ MovieclipUtils.resetColour(clip_mc); }
+				break;
+			
+		}
+		
+	}
+
 	
 }

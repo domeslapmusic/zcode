@@ -50,6 +50,8 @@ class Section extends Controller{
 		$data["sections"] = $this->Section_model->getSections(false);
 		$data["languages"] = $this->Language_model->getLanguages();
 		
+		$data["forceHTML"] = $this->Section_model->getForceHTML();
+		
 		$this->load->view('sectionview',$data);
 		
 	}

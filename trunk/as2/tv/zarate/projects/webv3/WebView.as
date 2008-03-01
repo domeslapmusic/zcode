@@ -35,11 +35,13 @@ import tv.zarate.projects.webv3.Section;
 import tv.zarate.projects.webv3.Option;
 import tv.zarate.projects.webv3.Language;
 import tv.zarate.projects.webv3.Literals;
+import tv.zarate.projects.webv3.WebConstants;
 
 class tv.zarate.projects.webv3.WebView extends View{
 	
 	private var model:WebModel;
 	private var conf:WebConfig;
+	private var currentOption:Option;
 	
 	private var header_mc:MovieClip;
 	private var letters_mc:MovieClip;
@@ -63,19 +65,13 @@ class tv.zarate.projects.webv3.WebView extends View{
 	private var minimumHeight:Number = 500;
 	private var optionsToRandomize:Array;
 	private var MIN_ALPHA:Number = 15;
-	private var MED_ALPHA:Number = 65;
 	private var MAX_ALPHA:Number = 100;
-	private var NICE_COLOR:Number = 0xef7513;
 	private var WARNING_PERCENT:Number = 0.8;
 	private var FONT_SIZE:Number = 20;
 	
 	private var enabling:Boolean = false;
 	private var disabling:Boolean = false;
 	private var sendingEmail:Boolean = false;
-	
-	private var OVER:String = "rollover";
-	private var OUT:String = "rollout";
-	private var PRESS:String = "press";
 	
 	public function WebView(){
 		
@@ -184,19 +180,17 @@ class tv.zarate.projects.webv3.WebView extends View{
 		var nextLetterY:Number = 0;
 		var letterCounter:Number = 0;
 		var wordCounter:Number = 0;
+		var selectCallback:Function = Delegate.create(this,manageOption);
 		
 		for(var i:Number=0;i<optionsToRandomize.length;i++){
 			
 			var word_mc:MovieClip = letters_mc.createEmptyMovieClip("word_"+wordCounter,100+wordCounter);
 			
 			var o:Option = optionsToRandomize[i];
-			o.clip_mc = word_mc;
 			
-			word_mc.onPress = Delegate.create(this,manageOption,PRESS,o);
-			word_mc.onRollOver = Delegate.create(this,manageOption,OVER,o);
-			word_mc.onRollOut = Delegate.create(this,manageOption,OUT,o);
+			o.config(word_mc,selectCallback);
 			
-			word_mc._alpha = (o.section_id == model.currentSection.section_id)? MED_ALPHA:MIN_ALPHA;
+			word_mc._alpha = (o.section_id == model.currentSection.section_id)? MAX_ALPHA:MIN_ALPHA;
 			
 			for(var j:Number=0;j<o.title.length;j++){
 				
@@ -257,14 +251,14 @@ class tv.zarate.projects.webv3.WebView extends View{
 		header_mc._yscale = header_mc._xscale;
 		
 		separator1_mc.clear();
-		MovieclipUtils.DrawSquare(separator1_mc,NICE_COLOR,100,width,1);
+		MovieclipUtils.DrawSquare(separator1_mc,WebConstants.NICE_COLOR,100,width,1);
 		separator1_mc._y = Math.ceil(header_mc._height);
 		
 		explanation_mc._x = Math.round((width-minimumWidth)/2);
 		explanation_mc._y = Math.round(separator1_mc._y + separatorMargin);
 		
 		separator2_mc.clear();
-		MovieclipUtils.DrawSquare(separator2_mc,NICE_COLOR,100,width,1);
+		MovieclipUtils.DrawSquare(separator2_mc,WebConstants.NICE_COLOR,100,width,1);
 		separator2_mc._y = Math.ceil(explanation_mc._y + explanation_mc._height + separatorMargin);
 		
 		createLetters();
@@ -281,6 +275,7 @@ class tv.zarate.projects.webv3.WebView extends View{
 	
 	private function manageSection(section:Section):Void{
 		
+		resetCurrentOption();
 		model.currentSection = section;
 		model.updateTitle(section.title);
 		
@@ -307,17 +302,17 @@ class tv.zarate.projects.webv3.WebView extends View{
 		
 	}
 	
-	private function manageOption(action:String,option:Option):Void{
+	private function manageOption(option:Option):Void{
 		
-		var to:Number = (action == OVER)? MAX_ALPHA:MED_ALPHA;
+		resetCurrentOption();
+		currentOption = option;
+		showExplanation(true,option.title,option.text,option.link);
 		
-		Image.Fade(option.clip_mc,to);
+	}
+	
+	private function resetCurrentOption():Void{
 		
-		if(action == PRESS){
-			
-			showExplanation(true,option.title,option.text,option.link);
-			
-		}
+		if(currentOption != null){ currentOption.select(false); }
 		
 	}
 	
@@ -378,7 +373,7 @@ class tv.zarate.projects.webv3.WebView extends View{
 		contactField.onSetFocus = Delegate.create(this,checkSendField,true,null,contactFieldBg_mc);
 		contactField.onKillFocus = Delegate.create(this,checkSendField,false,contactField.text,contactFieldBg_mc);
 		
-		MovieclipUtils.DrawSquare(contactFieldBg_mc,NICE_COLOR,100,contact_mc._width,contact_mc._height);
+		MovieclipUtils.DrawSquare(contactFieldBg_mc,WebConstants.NICE_COLOR,100,contact_mc._width,contact_mc._height);
 		
 	}
 	

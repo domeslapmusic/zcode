@@ -368,7 +368,7 @@ class tv.zarate.projects.webv3.WebView extends View{
 		
 		var contact_mc:MovieClip = footer_mc.createEmptyMovieClip("contact_mc",200);
 		
-		contactField = TextfieldUtils.createInputField(contact_mc,minimumWidth-languages_mc._width - 10,33);
+		contactField = TextfieldUtils.createInputField(contact_mc,minimumWidth-languages_mc._width - 10,30);
 		contactField.text = conf.literals.getLiteral(Literals.WANT_TO_SEND_EMAIL);
 		contactField.embedFonts = true;
 		contactField.maxChars = 400;
@@ -378,18 +378,7 @@ class tv.zarate.projects.webv3.WebView extends View{
 		contactField.onSetFocus = Delegate.create(this,checkSendField,true,null,contactFieldBg_mc);
 		contactField.onKillFocus = Delegate.create(this,checkSendField,false,contactField.text,contactFieldBg_mc);
 		
-		
-		MovieclipUtils.DrawSquare(contactFieldBg_mc,0xff0000,100,contact_mc._width,contact_mc._height);
-		
-		/*
-		var leftLimit_mc:MovieClip = contactFieldBg_mc.createEmptyMovieClip("leftLimit_mc",100);
-		MovieclipUtils.DrawSquare(leftLimit_mc,NICE_COLOR,100,1,contactField._height);
-		
-		var rightLimit_mc:MovieClip = contactFieldBg_mc.createEmptyMovieClip("rightLimit_mc",200);
-		MovieclipUtils.DrawSquare(rightLimit_mc,NICE_COLOR,100,1,contactField._height);
-		
-		rightLimit_mc._x = contactField._width;
-		*/
+		MovieclipUtils.DrawSquare(contactFieldBg_mc,NICE_COLOR,100,contact_mc._width,contact_mc._height);
 		
 	}
 	
@@ -408,14 +397,18 @@ class tv.zarate.projects.webv3.WebView extends View{
 			
 			if(MovieclipUtils.getFocusObject() == contactField){
 				
-				sendingEmail = true;
-				
-				var callback:Function = Delegate.create(this,sendEmailCallback);
-				
 				var currentText:String = contactField.text;
 				
-				contactField.text = conf.literals.getLiteral(Literals.SENDING_EMAIL);
-				model.sendMail(currentText,callback);
+				if(currentText != conf.literals.getLiteral(Literals.MAIL_SENT_OK) && currentText != conf.literals.getLiteral(Literals.MAIL_SENT_PROBLEM)){
+					
+					sendingEmail = true;
+					
+					var callback:Function = Delegate.create(this,sendEmailCallback);
+					
+					contactField.text = conf.literals.getLiteral(Literals.SENDING_EMAIL);
+					model.sendMail(currentText,callback);
+					
+				}
 				
 			}
 			

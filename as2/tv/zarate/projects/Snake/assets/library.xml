@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<movie width="300" height="300" framerate="21">
+  <background color="#ffffff"/>
+  <frame>
+    <library>
+      <clip id="gameOver" import="assets/gameOver.png" />
+    </library>
+  </frame>
+</movie>

@@ -37,10 +37,11 @@ class tv.zarate.projects.webv3.WebModel extends Model{
 	private var view:WebView;
 	private var conf:WebConfig;
 	
-	
 	private var currentSection_id:String = "";
 	
 	private var FLASH_GATEWAY:String = "flashgateway";
+	private var ZCODE_URL:String = "http://zarate.tv/proyectos/zcode/";
+	private var HMTL_URL:String = "html/";
 	
 	public function WebModel(){
 		
@@ -76,6 +77,10 @@ class tv.zarate.projects.webv3.WebModel extends Model{
 	
 	public function updateTitle(newtitle:String):Void{
 		ExternalInterface.call("updatePageTitle",newtitle);
+	}
+	
+	public function forceHTMLVersion():Void{
+		getURL(HMTL_URL);
 	}
 	
 	public static function main(m:MovieClip):Void{
@@ -120,7 +125,7 @@ class tv.zarate.projects.webv3.WebModel extends Model{
 	}
 	
 	private function showSourceCode():Void{
-		getURL("http://zarate.tv/proyectos/zcode/");
+		getURL(ZCODE_URL);
 	}
 	
 }

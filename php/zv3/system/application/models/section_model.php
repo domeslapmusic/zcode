@@ -24,6 +24,7 @@
 class Section_model extends Model{
 	
 	var $currentSection;
+	var $forceHTML = false;
 	
 	public function Section_model(){
 		
@@ -32,6 +33,13 @@ class Section_model extends Model{
 		$this->load->model('Portfolio_model');
 		$this->load->model('Projects_model');
 		$this->load->model('Article_model');
+		
+	}
+	
+	public function getForceHTML(){
+		
+		$sesionForceHTML = $this->session->userdata('forceHTML');
+		return ($sesionForceHTML != "")? $sesionForceHTML:$this->forceHTML;
 		
 	}
 	
@@ -74,7 +82,13 @@ class Section_model extends Model{
 	
 	public function setSectionFromRewrite($rewrite,$unique=false){
 		
-		if(!isset($rewrite) || $rewrite == ""){
+		if(!isset($rewrite) || $rewrite == "" || $rewrite == "html" || $rewrite == "flash"){
+			
+			if($rewrite == "html" || $rewrite == "flash"){
+				
+				$this->session->set_userdata('forceHTML',($rewrite == "html")?true:false);
+				
+			}
 			
 			$defaultSection = $this->getDefaultRewrite();
 			$rewrite = $defaultSection->rewrite;

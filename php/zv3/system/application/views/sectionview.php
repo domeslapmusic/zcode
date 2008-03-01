@@ -39,7 +39,7 @@ echo utf8_encode($misc_freak_warning);
 	
 	<base href="<?php echo base_url(); ?>" />
 	<link rel="stylesheet" href="css/zwebv3.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="js/swfobject.js"></script>
+	<?php if($forceHTML != true){ ?> <script type="text/javascript" src="js/swfobject.js"></script> <?php } ?>
 	<script type="text/javascript" src="js/zwebv3.js"></script>
 	
 </head>
@@ -127,7 +127,10 @@ echo utf8_encode($misc_freak_warning);
 		
 		<p id="no_flash_warning"><?php echo utf8_encode($misc_flash_warning); ?></p>
 		
+		
 	</div>
+	
+	<?php if($forceHTML != true){ ?>
 	
 	<script type="text/javascript">
 		// <![CDATA[
@@ -138,6 +141,8 @@ echo utf8_encode($misc_freak_warning);
 			
 		// ]]>
 	</script>
+	
+	<?php } ?>
 	
 </body>
 </html>

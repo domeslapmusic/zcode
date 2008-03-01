@@ -89,14 +89,18 @@ class tv.zarate.projects.webv3.WebView extends View{
 		
 		var a:StyleSheetObject = new StyleSheetObject();
 		a.color = "#ef7513";
-		a.textDecoration = StyleSheetObject.DECORATION_UNDERLINE;
 		
-		p.fontFamily = a.fontFamily = "ZFONT";
-		p.fontSize = a.fontSize = FONT_SIZE;
+		var forceHTML:StyleSheetObject = new StyleSheetObject();
+		forceHTML.color = "#ffffff";
+		
+		a.textDecoration = forceHTML.textDecoration = StyleSheetObject.DECORATION_UNDERLINE;
+		p.fontFamily = a.fontFamily = forceHTML.fontFamily = "ZFONT";
+		p.fontSize = a.fontSize = forceHTML.fontSize = FONT_SIZE;
 		
 		textCSS = new TextField.StyleSheet();
 		textCSS.setStyle("p",p);
 		textCSS.setStyle("a",a);
+		textCSS.setStyle(".forceHTML",forceHTML);
 		
 		Key.addListener(this);
 		
@@ -484,17 +488,18 @@ class tv.zarate.projects.webv3.WebView extends View{
 			field.text = conf.literals.getLiteral(Literals.SPACE_WARNING);
 			field.selectable = false;
 			field.embedFonts = true;
-			//field.border = true;
 			field.setTextFormat(textFormat);
 			
 			warningTextHTML_mc = spaceWarning_mc.createEmptyMovieClip("warningTextHTML_mc",300);
 			
 			field = TextfieldUtils.createField(warningTextHTML_mc);
-			field.text = conf.literals.getLiteral(Literals.SPACE_WARNING_HTML);
+			field.html = true;
+			field.styleSheet = textCSS;
+			field.htmlText = "<p>" + conf.literals.getLiteral(Literals.SPACE_WARNING_HTML) + "</p>";
 			field.selectable = false;
 			field.embedFonts = true;
-			//field.border = true;
-			field.setTextFormat(textFormat);
+			
+			warningTextHTML_mc.onPress = Delegate.create(model,model.forceHTMLVersion);
 			
 			centreWarning();
 			
@@ -524,7 +529,7 @@ class tv.zarate.projects.webv3.WebView extends View{
 		warningTextHTML_mc._yscale = warningTextHTML_mc._xscale;
 		
 		warningTextHTML_mc._x = Math.round((width-warningTextHTML_mc._width)/2);
-		warningTextHTML_mc._y = warningText_mc._y + warningText_mc._height// - warningTextHTML_mc._height// + 2;
+		warningTextHTML_mc._y = Math.round(warningText_mc._y + warningText_mc._height);
 		
 	}
 	

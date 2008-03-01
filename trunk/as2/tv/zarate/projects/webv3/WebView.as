@@ -378,6 +378,10 @@ class tv.zarate.projects.webv3.WebView extends View{
 		contactField.onSetFocus = Delegate.create(this,checkSendField,true,null,contactFieldBg_mc);
 		contactField.onKillFocus = Delegate.create(this,checkSendField,false,contactField.text,contactFieldBg_mc);
 		
+		
+		MovieclipUtils.DrawSquare(contactFieldBg_mc,0xff0000,100,contact_mc._width,contact_mc._height);
+		
+		/*
 		var leftLimit_mc:MovieClip = contactFieldBg_mc.createEmptyMovieClip("leftLimit_mc",100);
 		MovieclipUtils.DrawSquare(leftLimit_mc,NICE_COLOR,100,1,contactField._height);
 		
@@ -385,6 +389,7 @@ class tv.zarate.projects.webv3.WebView extends View{
 		MovieclipUtils.DrawSquare(rightLimit_mc,NICE_COLOR,100,1,contactField._height);
 		
 		rightLimit_mc._x = contactField._width;
+		*/
 		
 	}
 	

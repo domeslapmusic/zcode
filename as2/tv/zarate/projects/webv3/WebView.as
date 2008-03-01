@@ -312,7 +312,11 @@ class tv.zarate.projects.webv3.WebView extends View{
 	
 	private function resetCurrentOption():Void{
 		
-		if(currentOption != null){ currentOption.select(false); }
+		if(currentOption != null && currentOption.section_id == model.currentSection.section_id){ 
+			
+			currentOption.select(false); 
+			
+		}
 		
 	}
 	

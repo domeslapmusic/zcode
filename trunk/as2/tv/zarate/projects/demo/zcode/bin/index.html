@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+	
+	<title>Z&aacute;rate - ZCode - Hello World</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="swfobject.js"></script>
+
+</head>
+<body>
+
+	<p>This is <a href="http://zarate.tv/proyectos/zcode/">ZCode</a>'s Hello World application. Please go there for some documentation or just <a href="http://zcode.googlecode.com/svn/trunk/as2/tv/zarate/projects/demo/zcode/">browse the repository</a> if you fancy.</p>
+
+	<div id="container">
+		<p>If you're reading this you either don't have the right Flash player version or your browser doesn't support JavaScript.</p>
+	</div>
+	
+	<script type="text/javascript">
+		// <![CDATA[
+			
+			var so = new SWFObject("helloworld.swf","helloworld","800","200","8","#ffffff");
+			so.addVariable("fv_xmlPath","data.xml");
+			so.write("container");
+			
+		// ]]>
+	</script>
+	
+	<p>To compile this application:
+		<ul>
+			<li> get a copy of the source</li>
+			<li>if you're using MTASC, use something like this:
+				<ul><li>mtasc -swf "helloworld.swf" -header 500:500:21 -version 8 -cp "/path/to/your/classes" HelloModel.as -main -trace tv.zarate.utils.Trace.trc</li></ul>
+			</li>
+			<li>if you're using Flash IDE:
+				<ul>
+					<li>add to your classpath the folder in which you've downloaded the code. Usually you do that in AS2 settings dialog</li>
+					<li>in the first frame add: import tv.zarate.projects.demo.zcode.HelloModel;</li>
+					<li>then: HelloModel.main(this);</li>
+				</ul>
+			</li>
+		</ul>
+	</p>
+	
+</body>
+</html>

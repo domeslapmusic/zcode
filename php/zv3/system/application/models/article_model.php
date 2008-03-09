@@ -29,6 +29,19 @@ class Article_model extends Model{
 		
 	}
 	
+	public function getArticleByRewrite($rewrite){
+		
+		$this->db->select("*");
+		$this->db->from("article");
+		$this->db->join("article_literals","article.article_id=article_literals.article_id");
+		$this->db->where("article_literals.rewrite='".$rewrite."' AND article_literals.language_id='".$this->session->userdata('language_id')."'");
+		
+		$q = $this->db->get();
+		
+		return $q->row();
+		
+	}
+	
 	public function getAllItems(){
 		
 		$this->db->select("*");

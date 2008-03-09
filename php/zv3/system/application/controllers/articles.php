@@ -21,45 +21,43 @@
 *
 */
 
-class Section extends Controller{
+class Articles extends Controller{
 
-	public function Section(){
+	public function Articles(){
 		
 		parent::Controller();
 		
 		//$this->output->enable_profiler(TRUE);
 		
 		$this->load->helper('url');
+		$this->load->model('Language_model');
+		$this->load->model('Article_model');
 		$this->load->model('Section_model');
 		
 	}
 	
-	public function _remap($method){
+	public function index(){
 		
-		$this->load->model('Language_model');
 		$data["language"] = $this->Language_model->checkLanguage();
 		
 		$sectionRewrite = ($this->Language_model->IsNewLanguage())? "" : $this->uri->segment(1);
 		
 		$this->lang->load('misc',$this->session->userdata('language_folder'));
 		
-		$data["misc_flash_warning"] = $this->lang->line('misc_flash_warning');
 		$data["misc_freak_warning"] = $this->lang->line('misc_freak_warning');
 		
 		$data["section"] = $this->Section_model->setSectionFromRewrite($sectionRewrite);
 		$data["sections"] = $this->Section_model->getSections(false);
-		$data["languages"] = $this->Language_model->getLanguages();
 		
-		$data["forceHTML"] = $this->Section_model->getForceHTML();
+		$data["contentView"] = 'articleview';
 		
-		$data["contentView"] = 'sectionview';
+		$data["pageCss"] = array("articles.css");
 		
-		$data["pageCss"] = array("zwebv3.css");
-		$data["pageJS"] = array("swfobject.js","zwebv3.js");
+		$data["article"] = $this->Article_model->getArticleByRewrite($this->uri->segment(2));
 		
-		$data["secondaryTitle"] = $data["section"]->title;
+		$data["secondaryTitle"] = $data["article"]->title;
 		
-		$data["forceMenu"] = false;
+		$data["forceMenu"] = true;
 		
 		$this->load->view('commonview',$data);
 		

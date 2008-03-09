@@ -45,6 +45,7 @@ $route['scaffolding_trigger'] = "";
 
 $route["xml"] = "xml";
 $route["flashgateway"] = "flashgateway";
+$route["articulos/:any"] = "articles";
 $route[':any'] = "section";
 
 ?>

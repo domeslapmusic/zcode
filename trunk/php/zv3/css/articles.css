@@ -1,0 +1,94 @@
+body{
+	font-family: Trebuchet MS, Verdana, Arial;
+	font-size: 1em;
+	color:#4e4e4e;
+	background:#cecece;
+}
+
+a{
+	color:#000000;
+	font-weight:bold;
+}
+
+a:hover{
+	color:#666666;
+	font-weight:bold;
+}
+
+#contenido{
+	padding-left:20px;
+}
+
+#license{
+	margin-top:40px;
+	border: 2px dotted;
+	background:#eaeaea;
+	padding:10px;
+	text-align:center
+}
+
+#license, #contenido, #menu, h1{
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#license a{
+	padding:2px;
+}
+
+h2{
+	margin-left: -20px;
+}
+
+h3{
+	
+	margin-left: -10px;
+}
+
+.subir{
+	text-align:right;
+}
+
+.subir, #menu, #license, #contenido, h1{
+	width:900px;
+}
+
+h1{
+	text-align:center;
+}
+
+#menu ul{
+	text-align: right;
+}
+
+#menu li{
+	display: inline;
+}
+
+.error{
+	color:#cb4441;
+	font-size:1.5em;
+	font-weight:bold;
+}
+
+.asCode{
+	
+	font-family: Courier New, Courier, mono;
+	font-size:0.8em;
+	font-weight:bold;
+	background:#eaeaea;
+	padding: 2px;
+	
+}
+
+blockquote{
+	
+	background:#dedede;
+	padding:10px;
+	border:1px solid #666;
+
+}
+
+#toc li{
+	padding:4px;
+}

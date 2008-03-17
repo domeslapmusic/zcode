@@ -1,15 +1,15 @@
 <ul>
-	<li><a href="#intro">Introducci&oacute;n</a></li>
-	<li><a href="#solucion">Soluci&oacute;n</a></li>
-	<li><a href="#lonormal">La vida es bella, pero no tanto</a></li>
-	<li><a href="#notas">Notas finales</a></li>
-	<li><a href="#enlaces">Enlaces</a></li>
+	<li><a href="<?php echo $article->url; ?>#intro">Introducci&oacute;n</a></li>
+	<li><a href="<?php echo $article->url; ?>#solucion">Soluci&oacute;n</a></li>
+	<li><a href="<?php echo $article->url; ?>#lonormal">La vida es bella, pero no tanto</a></li>
+	<li><a href="<?php echo $article->url; ?>#notas">Notas finales</a></li>
+	<li><a href="<?php echo $article->url; ?>#enlaces">Enlaces</a></li>
 </ul>
 <a name="intro"></a>
 <h2>Introducci&oacute;n</h2>
 <p>En el <a href="http://www.zarate.tv/articulos/instancias-dinamicamente/">cap&iacute;tulo anterior</a> nos quedamos un poco con las ganas de no tener que forzar al compilador a incluir las clases de las que cre&aacute;bamos las instancias din&aacute;micamente. Esto es especialmente un problema cuando no se sabe de antemano cu&aacute;ntas clases distintas se van a tener que instanciar. ¿La forma de solucionarlo? Muy sencillo. Con <span class="asCode">loadMovie</span> :)</p>
 
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="solucion"></a>
 <h2>Soluci&oacute;n</h2>
@@ -32,12 +32,12 @@ var force:DynamicOne;</p>
 
 <p>Puedes bajarte el mismo ejemplo del art&iacute;culo anterior de <a href="swf_as_dll.zip">aqu&iacute;</a>.</p>
 
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="lonormal"></a>
 <h2>La vida es bella, pero no tanto</h2>
 <p>Lo normal. Todas las cosas molonas tienen un pero y esta no iba a ser la excepci&oacute;n:</p>
-<p><strong>Los excludes</strong>. Este ejercicio es tan f&aacute;cil porque las clases son triviales, pero en la vida real son m&aacute;s complicadas y normalmente hay mucha relaci&oacute;n entre ellas. Si utilizas esta t&eacute;cnica, lo m&aacute;s normal es que tengas un pu&#241;ado de clases comunes que est&aacute;n en el swf principal y que quieras que en el swf cargado <strong>s&oacute;lo</strong> est&eacute; la clase que quieres cargar din&aacute;micamente. Para forzar al compilador a NO incluir ciertas clases, necesitas utilizar los apestodos excludes. Que, como coment&aacute;bamos en <a href="http://www.domestika.org/foros/viewtopic.php?t=50969">este post de Domestika</a>, no funcionan muy bien que digamos. Al final dejo un par de enlaces para utilizarlos, tanto desde el IDE como desde MTASC.</p>
+<p><strong>Los excludes</strong>. Este ejercicio es tan f&aacute;cil porque las clases son triviales, pero en la vida real son m&aacute;s complicadas y normalmente hay mucha relaci&oacute;n entre ellas. Si utilizas esta t&eacute;cnica, lo m&aacute;s normal es que tengas un pu&<?php echo $article->url; ?>#241;ado de clases comunes que est&aacute;n en el swf principal y que quieras que en el swf cargado <strong>s&oacute;lo</strong> est&eacute; la clase que quieres cargar din&aacute;micamente. Para forzar al compilador a NO incluir ciertas clases, necesitas utilizar los apestodos excludes. Que, como coment&aacute;bamos en <a href="http://www.domestika.org/foros/viewtopic.php?t=50969">este post de Domestika</a>, no funcionan muy bien que digamos. Al final dejo un par de enlaces para utilizarlos, tanto desde el IDE como desde MTASC.</p>
 <p><strong>Las variables globales</strong>. Yo y mi cruzada contra las variables globales. A lo mejor tienes suerte y no es tu caso, pero las variables globales de una pel&iacute;cula publicada para player 6 NO se ven en una pel&iacute;cula publicada para player 7. Eso quiere decir que si uno de los swfs es 7 y el otro 6, esto deja de funcionar. *Creo* que esto ya no es as&iacute; para player superior a 7, pero no estoy seguro. Esta t&eacute;cnica funciona sin problemas con el player 9, pero estoy casi seguro de que no se puede mezclar clases AS1/AS2 con AS3. Quien haga la prueba que me mande un mail, <em>please</em>.</p>
 
 <a name="notas"></a>
@@ -46,11 +46,12 @@ var force:DynamicOne;</p>
 <p>Otro uso bastante mol&oacute;n es por ejemplo para hacer <em>skins</em>. La idea es: tienes una clase que hace de modelo y quieres tener muchas vistas distintas. No s&oacute;lo colores, sino una disposici&oacute;n de los elementos completamente variable. En ese caso lo que puedes hacer es crear un swf principal con el modelo y clases comunes y un swf con elementos de biblioteca y la clase espec&iacute;fica de esa vista. Luego defines en un xml qu&eacute; swf quieres que haga de <em>skin</em>. Funciona de maravilla siempre y cuando todas las vistas tengan algo en com&uacute;n, una interfaces.</p>
 
 <p>Pues esto es m&aacute;s o menos todo. Espero que ayude. ¡Salud!</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
-
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<a name="enlaces"></a>
+<h2>Enlaces</h2>
 <ul>
 	<li><a href="http://www.osflash.org/using_a_swf_as_a_dll">Using a SWF as a DLL</a>. Art&iacute;culo de Aral Balkan en OSFlash sobre el mismo tema: c&oacute;mo cargar clase din&aacute;micamente.</li>
 	<li><a href="http://www.darronschall.com/weblog/archives/000145.cfm">Using _exclude.xml, the Good, the Bad, and the Wishlist</a>. Darron Schall hablando de los excludes.</li>
-	<li><a href="http://mtasc.org/#usage">C&oacute;mo usar -exclude en MTASC</a>. MTASC no aporta mucho m&aacute;s a la utilizaci&oacute;n de excludes, aunque s&iacute; alguna mejora como poder utilizar varios archivos.</li>
+	<li><a href="http://mtasc.org/<?php echo $article->url; ?>#usage">C&oacute;mo usar -exclude en MTASC</a>. MTASC no aporta mucho m&aacute;s a la utilizaci&oacute;n de excludes, aunque s&iacute; alguna mejora como poder utilizar varios archivos.</li>
 	<li><a href="http://www.domestika.org/foros/viewtopic.php?t=50969">Post en Domestika</a> donde se comenta sobre los excludes.</li>	
 </ul>

@@ -1,12 +1,11 @@
 <ul>
-	<li><a href="#intro">Introducci&oacute;n</a></li>
-    <li><a href="#instalacion">Instalaci&oacute;n de MTASC y SWFMill</a></li>
-    <li><a href="#empezamos">Empieza lo divertido</a></li>
-    <li><a href="#congracia">Ahora lo mismo pero con gracia</a></li>
-    <li><a href="#toquefinal">El toque final, unir SWFMill y MTASC</a></li>
-    <li><a href="#conclusion">Conclusi&oacute;n</a></li>
-    <li><a href="#agradecimientos">Agradecimientos</a></li>
-    <li><a href="#enlaces">Enlaces</a></li>
+	<li><a href="<?php echo $article->url; ?>#intro">Introducci&oacute;n</a></li>
+    <li><a href="<?php echo $article->url; ?>#instalacion">Instalaci&oacute;n de MTASC y SWFMill</a></li>
+    <li><a href="<?php echo $article->url; ?>#empezamos">Empieza lo divertido</a></li>
+    <li><a href="<?php echo $article->url; ?>#congracia">Ahora lo mismo pero con gracia</a></li>
+    <li><a href="<?php echo $article->url; ?>#toquefinal">El toque final, unir SWFMill y MTASC</a></li>
+    <li><a href="<?php echo $article->url; ?>#conclusion">Conclusi&oacute;n</a></li>
+    <li><a href="<?php echo $article->url; ?>#enlaces">Enlaces</a></li>
 </ul>
 <a name="intro"></a>
 <h2>Introducci&oacute;n</h2>
@@ -20,7 +19,7 @@
 	Pod&eacute;is descargar los archivos de ejemplo <a href="Flash_libre_facil_files.zip">aqu&iacute;</a><br />
 	Pod&eacute;is descargar el art&iacute;culo en pdf + los archivos <a href="Flash_libre_facil.zip">aqu&iacute;</a>
 </p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="instalacion"></a>
 <h2>Instalaci&oacute;n de MTASC y SWFMill</h2>
@@ -39,7 +38,7 @@
 	Si nos muestra la &quot;ayuda&quot; de MTASC, bien, en caso contrario, mal. A veces es necesario reiniciar la sesi&oacute;n. Lo mismo para SWFMill.
 </p>
 <p>Esto que cuento es para WinXP que es lo que tengo yo instalado. Para Win2000 ser&aacute; parecido y para Mac y Linux no tengo ni idea, pero seguro que hay algo parecido a las variables de entorno. Si alg&uacute;n usuario caritativo me quiere mandar la explicaci&oacute;n de c&oacute;mo hacerlo o un enlace con una explicaci&oacute;n decente, la a&ntilde;adir&eacute; gustoso.</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="empezamos"></a>
 <h2>Empieza lo divertido</h2>
@@ -72,7 +71,7 @@
 	</ul>
 </p>
 <p>Es MUY recomendable pasar por la web de MTASC para ver qu&eacute; hacen el resto de par&aacute;metros posibles, que hay unos cuantos.</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="congracia"></a>
 <h2>Ahora lo mismo pero con gracia</h2>
@@ -80,7 +79,7 @@
 	XML de ejemplo (de la propia web de SWFMill)<br /><br />
 	<span class="asCode">&lt;?xml version="1.0" encoding="iso-8859-1" ?&gt;<br />
 &lt;movie width="200" height="200" framerate="12"&gt;<br />
-  &lt;background color="#ffffff"/&gt;<br />
+  &lt;background color="<?php echo $article->url; ?>#ffffff"/&gt;<br />
   &lt;frame/&gt;<br />
 &lt;/movie&gt;</span><br /><br />
 Nos vamos a la consola, navegamos hasta el directorio y escribimos:<br /><br />
@@ -88,7 +87,7 @@ Nos vamos a la consola, navegamos hasta el directorio y escribimos:<br /><br />
 Este comando lo que hace es tomar &quot;library.xml&quot; como definici&oacute;n y crear el archivo &quot;SWFMillTest.swf&quot; como salida con el ancho, alto y velocidad definida. Como esto es poco &uacute;til, vamos a agregarle algo que podamos usar luego:<br /><br />
 <span class="asCode">&lt;?xml version="1.0" encoding="iso-8859-1" ?&gt;<br />
 &lt;movie width="300" height="200" framerate="12"&gt;<br />
-  &lt;background color="#ffffff"/&gt;<br />
+  &lt;background color="<?php echo $article->url; ?>#ffffff"/&gt;<br />
   &lt;frame&gt;<br />
     &lt;library&gt;<br />
       &lt;clip id="paradise" import="items/arecibo-beach.jpg"/&gt;<br />
@@ -99,7 +98,7 @@ Con esto lo que hacemos es coger el objeto &quot;items/arecibo-beach.jpg&quot; y
 </p>
 <p>&iexcl;&iexcl;&iexcl;&iexcl;&iexcl;&iexcl;&iexcl;&iexcl;&iexcl;&iexcl;&iexcl;&iexcl;&iexcl;OJO!!!!!!!!!!!!! El jpg se est&aacute; incluyendo en el swf, NO es una carga din&aacute;mica. Esto es lo mismo que crear en el IDE un objeto en la librer&iacute;a e importar un archivo jpg que luego ir&aacute; incluido DENTRO del swf.</p>
 <p>Tambi&eacute;n vale y mucho la pena pasarse por la web de SWFMill para un listado completo de lo que se puede y no hacer. Se pueden importar archivos jpg, png, swf, fuentes y alguna cosa m&aacute;s interesante como definir en qu&eacute; frame estar&aacute;n disponibles qu&eacute; elementos.</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="toquefinal"></a>
 <h2>El toque final, unir SWFMill y MTASC</h2>
@@ -123,7 +122,7 @@ echo ** MTASC **<br />
 Y guardamos el archivo como &quot;compile.bat&quot;. Ahora solo tenemos que ejecutar este archivo (se puede hacer desde las acciones propias de SEPY, por ejemplo) para que el s&oacute;lo ejecute SWFMill y luego MTASC :D
 </p>
 <p>Lo siento otra vez por los MacPollo y los Linuxeros, pero seguro que tambi&eacute;n se puede hacer algo similar.</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="conclusion"></a>
 <h2>Conclusi&oacute;n</h2>
@@ -131,16 +130,9 @@ Y guardamos el archivo como &quot;compile.bat&quot;. Ahora solo tenemos que ejec
 <p>Hay que reconocer que no todo va a ser tan sencillo como esto. A d&iacute;a de hoy MTASC puede dar problemas con ciertas cosas como los componentes de Macromedia (bueno, yo dir&iacute;a que son los componentes de MM los que dan problemas con MTASC), pero repito que yo creo que est&aacute; lo suficiente maduro para muchos proyectos.</p>
 <p>Tambi&eacute;n hay algunas librer&iacute;as previas a la aparici&oacute;n de MTASC (como las de XPath de XFactorStudio) que no compilan en el modo estricto (-strict), lo cual es una pena, pero yo supongo que poco a poco las ir&aacute;n puliendo.</p>
 <p>Bueno gentes, espero que esto ayude un poco a tirar de software libre cuando sea posible. No s&oacute;lo porque sea gratuito Y abierto, sino porque es de CALIDAD.</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
-
-<a name="agradecimientos"></a>
-<h2>Agradecimientos</h2>
-<ul>
-	<li>A Nicolas Cannasse y Daniel Fischer, creadores de MTASC y SWFMill.</li>
-	<li>A mi compa&ntilde;ero Tim Hawkins (<a href="http://www.cellpattern.com">Cellpattern</a>) por ense&ntilde; los truquitos de MTASC, SWFMill y compiles (punto) bat :D</li>
-</ul>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
-
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<a name="enlaces"></a>
+<h2>Enlaces</h2>
 <ul>
 	<li><a href="http://www.mtasc.org">MTASC</a></li>
 	<li><a href="http://iterative.org/swfmill/">SWFMill</a></li>
@@ -148,4 +140,4 @@ Y guardamos el archivo como &quot;compile.bat&quot;. Ahora solo tenemos que ejec
 	<li><a href="http://actionscript.com/Article/tabid/54/ArticleID/Far-Beyond-Open-Source-Flash-Development/Default.aspx">Far Beyond Open Source Flash Development</a></li>
 	<li><a href="http://www.cristalab.com/tutoriales/108/tutorial-de-instalacion-y-uso-de-fames">Tutorial de instalaci&oacute;n y uso de FAMES</a></li>
 </ul>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>

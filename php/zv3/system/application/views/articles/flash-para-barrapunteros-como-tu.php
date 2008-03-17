@@ -1,28 +1,28 @@
 <p><strong>ACTUALIZACI&Oacute;N:</strong> Finalmente este art&iacute;culo pas&oacute; a <a href="http://barrapunto.com/article.pl?sid=07/10/29/1255222">portada de Barrapunto</a> el 29 de Octubre. Interesante echarle un ojo a los comentarios.</p>
 
 <ul id="toc">
-	<li><a href="#intro">Introducci&oacute;n</a></li>
-	<li><a href="#programar">&iquest;Pero en Flash se programa?</a></li>
-	<li><a href="#flashos">Flash &iquest;vs? Software Libre</a></li>
+	<li><a href="<?php echo $article->url; ?>#intro">Introducci&oacute;n</a></li>
+	<li><a href="<?php echo $article->url; ?>#programar">&iquest;Pero en Flash se programa?</a></li>
+	<li><a href="<?php echo $article->url; ?>#flashos">Flash &iquest;vs? Software Libre</a></li>
 		<ul>
-			<li><a href="#formatoswf">El formato swf</a></li>
-			<li><a href="#desarrollo">Desarrollar Flash con Software Libre</a></li>
-			<li><a href="#tamarin">Tamarin</a></li>
-			<li><a href="#flex2sdk">Flex 2 SDK</a></li>
-			<li><a href="#gnash">GNash</a></li>
+			<li><a href="<?php echo $article->url; ?>#formatoswf">El formato swf</a></li>
+			<li><a href="<?php echo $article->url; ?>#desarrollo">Desarrollar Flash con Software Libre</a></li>
+			<li><a href="<?php echo $article->url; ?>#tamarin">Tamarin</a></li>
+			<li><a href="<?php echo $article->url; ?>#flex2sdk">Flex 2 SDK</a></li>
+			<li><a href="<?php echo $article->url; ?>#gnash">GNash</a></li>
 		</ul>
-	<li><a href="#accesibilidad">Flash y accesibilidad</a></li>
-	<li><a href="#seo">Flash y buscadores</a></li>
-	<li><a href="#multi">Flash es multiplataforma. O eso dicen</a></li>
-	<li><a href="#aplicaciones">Aplicaciones que molan y proyectos curiosos</a></li>
+	<li><a href="<?php echo $article->url; ?>#accesibilidad">Flash y accesibilidad</a></li>
+	<li><a href="<?php echo $article->url; ?>#seo">Flash y buscadores</a></li>
+	<li><a href="<?php echo $article->url; ?>#multi">Flash es multiplataforma. O eso dicen</a></li>
+	<li><a href="<?php echo $article->url; ?>#aplicaciones">Aplicaciones que molan y proyectos curiosos</a></li>
 		<ul>
-			<li><a href="#papervision">Papervision3D</a></li>
-			<li><a href="#red5">Red5</a></li>
-			<li><a href="#hydra">Hydra</a></li>
-			<li><a href="#alivepdf">AlivePDF</a></li>
-			<li><a href="#flashvnc">FlashVNC</a></li>
-			<li><a href="#swhx">ScreenweaverHX</a></li>
-			<li><a href="#fc64">FC64</a></li>
+			<li><a href="<?php echo $article->url; ?>#papervision">Papervision3D</a></li>
+			<li><a href="<?php echo $article->url; ?>#red5">Red5</a></li>
+			<li><a href="<?php echo $article->url; ?>#hydra">Hydra</a></li>
+			<li><a href="<?php echo $article->url; ?>#alivepdf">AlivePDF</a></li>
+			<li><a href="<?php echo $article->url; ?>#flashvnc">FlashVNC</a></li>
+			<li><a href="<?php echo $article->url; ?>#swhx">ScreenweaverHX</a></li>
+			<li><a href="<?php echo $article->url; ?>#fc64">FC64</a></li>
 		</ul>
 </ul>
 
@@ -111,7 +111,7 @@
 
 <p>Tambi&eacute;n podr&iacute;a redistribuirse sin necesitar el permiso de Adobe, lo cual facilitar&iacute;a la labor de programas como ScreenweaverHX y otros wrappers de aplicaciones Flash. Eso evitar&iacute;a la obligaci&oacute;n de que el usuario final tenga la correcta versi&oacute;n de Flash instalada. Sobre si es legal redistribuir el player de Flash sin el consentimiento oficial de Adobe, hay una interesante discusi&oacute;n <a href="http://osflash.org/pipermail/osflash_osflash.org/2005-October/004591.html">aqu&iacute;</a> y <a href="http://osflash.org/pipermail/osflash_osflash.org/2005-October/004633.html">aqu&iacute;</a>. Mi visi&oacute;n es que NO es legal, pero Adobe nunca ha actuado en contra de esos proyectos. Mantiene silencio e insin&uacute;a acciones, pero no hace nada. Claramente <a href="http://en.wikipedia.org/wiki/Fear%2C_uncertainty_and_doubt">FUD</a> para mi.</p>
 
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="accesibilidad"></a>
 <h2>Flash y accesibilidad</h2>

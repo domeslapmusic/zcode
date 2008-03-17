@@ -1,16 +1,16 @@
 <ul>
-	<li><a href="#intro">Introducci&oacute;n</a></li>
-    <li><a href="#aprox">Aproximaciones anteriores</a></li>
-    <li><a href="#objetivo">Objetivo</a></li>
-    <li><a href="#solucion">Soluci&oacute;n</a></li>
-    <li><a href="#problemas">Problemas</a></li>
-    <li><a href="#agradecimientos">Agradecimientos</a></li>
-    <li><a href="#enlaces">Enlaces</a></li>
+	<li><a href="<?php echo $article->url; ?>#intro">Introducci&oacute;n</a></li>
+    <li><a href="<?php echo $article->url; ?>#aprox">Aproximaciones anteriores</a></li>
+    <li><a href="<?php echo $article->url; ?>#objetivo">Objetivo</a></li>
+    <li><a href="<?php echo $article->url; ?>#solucion">Soluci&oacute;n</a></li>
+    <li><a href="<?php echo $article->url; ?>#problemas">Problemas</a></li>
+    <li><a href="<?php echo $article->url; ?>#agradecimientos">Agradecimientos</a></li>
+    <li><a href="<?php echo $article->url; ?>#enlaces">Enlaces</a></li>
 </ul>
 <a name="intro"></a>
 <h2>Introducci&oacute;n</h2>
 <p>El uso de tipograf&iacute;as compartidas en Flash nunca ha sido una tarea f&aacute;cil. Desde hace 3-4 a&ntilde;os se ha intentado resolver por varios caminos, algunos con mejor o peor resultado. Este m&eacute;todo tampoco es perfecto. Estar&iacute;a bien que Macromedia aprovechara la nueva versi&oacute;n de Flash para crear un m&eacute;todo &quot;cient&iacute;fico&quot; que solucionara de una vez por todas este problema.</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 <a name="aprox"></a>
 <h2>Aproximaciones anteriores </h2>
 <p>Anteriormente se han intentado b&aacute;sicamente 2 caminos:</p>
@@ -19,11 +19,11 @@
 <p>Otro de los inconvenientes de utilizar librer&iacute;as compartidas es que todas las pel&iacute;culas que requieran la fuente har&aacute;n la petici&oacute;n del archivo swf que la contiene, a pesar de que el archivo est&eacute; en la cach&eacute; del navegador (siempre que no estemos en un entorno https o que por cualquier tipo de raz&oacute;n se hayan utilizado cabeceras de no-cache).</p>
 <h4>2) Carga din&aacute;mica de pel&iacute;culas con las fuentes.</h4>
 <p>La resoluci&oacute;n del problema que m&aacute;s se acercaba a lo que yo quer&iacute;a era la de Ivan Dembicki con su <strong>Shared Font Manager</strong> (SFM). Pero ten&iacute;a una serie de problemas: 1) es de pago, 2) utiliza variables globales para la definici&oacute;n de los objetos TextFormat, 3) utiliza 2 archivos para cada fuente.</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 <a name="objetivo"></a>
 <h2>Objetivo</h2>
 <p>Crear un archivo swf por cada una de las tipograf&iacute;as que se vayan a compartir y poder cargarlos din&aacute;micamente a trav&eacute;s de <span class="asCode">loadMovie</span> como si fuera un archivo externo m&aacute;s. La aplicaci&oacute;n del formato de texto a los campos nuevos debe ser luego la m&aacute;s transparente posible, evitando adem&aacute;s objetos <span class="asCode">TextFormat</span> globales.</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 <a name="solucion"></a>
 <h2>Soluci&oacute;n</h2>
 <p>Puedes bajarte un <a href="files/Zarate_Shared_Fonts.zip">zip</a> con los fla (MX 2004) de ejemplo. </p>
@@ -43,7 +43,7 @@
     <li>Crear un objeto <span class="asCode">TextFormat</span> y un campo de texto din&aacute;micos como si la fuente estuviera en la biblioteca.Es decir, si la fuente que queremos cargar es &quot;Quadaptor&quot;, tendremos que definir la propiedad font del <span class="asCode">TextFormat</span> as&iacute;: <span class="asCode">myFomat.font=&quot;Quadaptor&quot;</span>. El campo de texto tiene que incluir las fuentes con <span class="asCode">myField.embedFonts=true</span>. </li>
     <li>Enjoy :)</li>
 </ol>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 <a name="problemas"></a>
 <h2>Problemas</h2>
 <p>De la misma forma que cualquiera de los otros m&eacute;todos, &eacute;ste que acabo de presentar tambi&eacute;n tiene incovenientes. Supongo que la elecci&oacute;n de un m&eacute;todo u otro depender&aacute; de las necesidades de cada proyecto. Estos son los que yo he encontrado, si v&eacute;is cualquier otro, por favor mandadme un mail a <a href="javascript:noBot('articulos','zarate.tv','{$emailID}')" title="Enviar mail al autor sobre este art&iacute;culo">articulos   [arroba]   zarate.tv</a> para que lo pueda actualizar.</p>
@@ -54,19 +54,14 @@
     <li><strong>Problemas al hacer la precarga con la clase MovieClipLoader</strong>. Utilizando la clase <span class="asCode">MovieClipLoader</span> para la carga del archivo de la fuente, me he dado cuenta de que el evento onLoadInit se dispara ANTES de que la fuente est&eacute; lista para usarse. T&eacute;cnicamente yo creo que esto no deber&iacute;a ser as&iacute; ya que la referencia pone claramente que este evento es llamado despu&eacute;s de que las acciones del primer frame de la pel&iacute;cula se hayan ejecutado. En nuestro caso, no funciona as&iacute; ya que se ejecuta primero el onLoadInit y luego los frames de la pel&iacute;cula cargada. En algunos casos el orden ha sido MovieClip, onLoadInit, Linea principal, lo que es a&uacute;n m&aacute;s raro.&iquest;Por qu&eacute; sucede esto? Pues realmente no lo s&eacute;, pero supongo que ser&aacute; un &quot;efecto colateral&quot; de utilizar el mismo swf para la exportaci&oacute;n y la importaci&oacute;n. Si alguien puede aclararnos esto un poco, ser&aacute; de gran ayuda. La &uacute;nica forma que he encontrado para solucionarlo es: 1) esperar un frame o 2) crear un intervalo. Ver archivos fla de Errores/CargaMovieClipLoader y Errores/Trace para demostraci&oacute;n. [Como se puede apreciar en la pel&iacute;cula de Errores/Trace, hay otro m&eacute;todo de conseguir las fuentes din&aacute;micas y consiste en sustituir el s&iacute;mbolo de fuente de la biblioteca por un MovieClip con un campo de texto con los caracteres incluidos. Esto puede ser especialmente &uacute;til cuando no se quiere incluir toda la fuente sino s&oacute;lo unos caracteres, por ejemplos, s&oacute;lo los n&uacute;meros de un preload]</li>
     <li><strong>Incompatibilidades de Player</strong>. Yo he probado con &eacute;xito el m&eacute;todo en players 7 de Windows, Mac y Linux y player 6,0,79 de Windows. Habr&iacute;a que hacer una prueba intensiva porque es probable que de problemas en players anteriores. </li>
 </ul>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 <a name="agradecimientos"></a>
 <h2>Agradecimientos</h2>
 <p>Lo primero agradecer a todas las personas que han intentado esto antes, ya que sus trabajos han sido las bases de &eacute;ste. Tambi&eacute;n a <strong>Oscar P&eacute;rez</strong> y <strong>Gustavo Ramos</strong> por su labor de investigaci&oacute;n y consejos cuando ya estaba completamente desesperado :D</p>
 <p>Agradecer&iacute;a un voluntario/a que traduzca el art&iacute;culo a ingl&eacute;s, ya que si lo hago yo seguro que el que lo lea no saca mucho beneficio :) </p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 <a name="enlaces"></a>
-<h2>Enlaces de inter&eacute;s</h2>
-<a href="{$url}" title="Enlace directo a este art&iacute;culo">Enlace directo a este art&iacute;culo</a>
-<br />Sugerencias, errores o cualquier duda sobre este articulo en <a href="javascript:noBot('articulos','zarate.tv','{$emailID}')" title="Enviar mail al autor sobre este art&iacute;culo">articulos   [arroba]   zarate.tv</a>
-<br />
-<a href="../index.php" title="M&aacute;s art&iacute;culos">M&aacute;s art&iacute;culos en Zarate.tv</a>
-<h3>Bibliograf&iacute;a</h3>
+<h2>Enlaces</h2>
 <ul>
 	<li><a href="http://www.sharedfonts.com/" target="_blank">Shared fonts manager</a></li>
     <li><a href="http://web.archive.org/web/20021206180401/http://www.waxpraxis.org/archives/000062.html" target="_blank">WaxPraxis - Shared Fonts Redux (Wayback Machine)</a></li>
@@ -74,4 +69,4 @@
     <li><a href="http://www.macromedia.com/cfusion/knowledgebase/index.cfm?id=tn_14786" target="_blank">Macromedia Flash TechNote: Using font symbols</a></li>
     <li><a href="http://www.macromedia.com/cfusion/knowledgebase/index.cfm?id=tn_14767" target="_blank">Macromedia Flash TechNote: Using shared libraries</a></li>
 </ul>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>

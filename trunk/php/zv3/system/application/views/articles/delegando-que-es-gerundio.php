@@ -1,8 +1,8 @@
 <ul>
-	<li><a href="#intro">Introducci&oacute;n</a></li>
-	<li><a href="#solucion">Soluci&oacute;n</a></li>
-	<li><a href="#notas">Notas finales</a></li>
-	<li><a href="#enlaces">Enlaces</a></li>
+	<li><a href="<?php echo $article->url; ?>#intro">Introducci&oacute;n</a></li>
+	<li><a href="<?php echo $article->url; ?>#solucion">Soluci&oacute;n</a></li>
+	<li><a href="<?php echo $article->url; ?>#notas">Notas finales</a></li>
+	<li><a href="<?php echo $article->url; ?>#enlaces">Enlaces</a></li>
 </ul>
 <a name="intro"></a>
 <h2>Introducci&oacute;n</h2>
@@ -37,7 +37,7 @@
 }</p>
 
 <p>Y esto funciona. Este comportamiento &quot;peculiar&quot; de Flash (de los ECMAScript, vamos) se llama <strong>closure</strong>, algo de lo que yo me enter&eacute; en <a href="http://www.domestika.org/foros/viewtopic.php?t=47694">&eacute;ste post de Domestika</a>. M&aacute;s informaci&oacute;n en <a href="http://timotheegroleau.com/Flash/articles/scope_chain.htm">Scope Chain and Memory waste in Flash MX</a> y en la <a href="http://en.wikipedia.org/wiki/Closure_%28computer_science%29">Wikipedia</a> (para campeones).</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 
 <a name="solucion"></a>
@@ -83,18 +83,19 @@ class A{<br><br>
 
 <p>Decidir si esta manera de trabajar es una <i>best practice</i> o no es cosa de cada uno. Hace poco me encontr&eacute; con una aplicaci&oacute;n MVC en la que el modelo le pasaba a la vista las funciones delegadas para los botones de la interface. A gusto del consumidor.</p>
 
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="notas"></a>
 <h2>Notas finales</h2>
 <p>Lo gracioso de esto es que <i>dentro de poco</i> las clases de delegar no se van a utilizar porque en AS3 la delegaci&oacute;n es autom&aacute;tica (echad un ojo a <a href="http://www.adobe.com/devnet/actionscript/articles/actionscript3_overview.html">AS3 overview</a>, Method closures). Pero vamos, al ritmo que se va adoptando las nuevas versiones, yo creo que este art&iacute;culo a&uacute;n puede ser &uacute;til a mucha gente.</p>
 <p>Pues esto es todo familia, <strong>HTH</strong>.</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
-
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<a name="enlaces"></a>
+<h2>Enlaces</h2>
 <ul>
 	<li><a href="http://www.adobe.com/devnet/flash/articles/eventproxy.html">Proxying Events with the mx.utils.Delegate Class</a></li>
 	<li><a href="http://lists.motion-twin.com/pipermail/mtasc/2005-April/001602.html">Implementaci&oacute;n original de Till Schneidereit sobre la que est&aacute; hecha la clase que yo utilizo.</a></li>
 	<li><a href="http://www.domestika.org/foros/viewtopic.php?t=47694">Post sobre <i>closures</i> en Domestika en el que queda patente mi inculticia :P</a></li>
 	<li><a href="http://en.wikipedia.org/wiki/Closure_%28computer_science%29">Explicaci&oacute;n en la Wikipedia sobre closures. Para muy gafotas.</a></li>
 </ul>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>

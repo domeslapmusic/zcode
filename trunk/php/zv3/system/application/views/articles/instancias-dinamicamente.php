@@ -1,16 +1,15 @@
 <ul>
-	<li><a href="#intro">Introducci&oacute;n</a></li>
-	<li><a href="#solucion">Soluci&oacute;n</a></li>
-	<li><a href="#notas">Notas finales</a></li>
-	<li><a href="#enlaces">Enlaces</a></li>
+	<li><a href="<?php echo $article->url; ?>#intro">Introducci&oacute;n</a></li>
+	<li><a href="<?php echo $article->url; ?>#solucion">Soluci&oacute;n</a></li>
+	<li><a href="<?php echo $article->url; ?>#notas">Notas finales</a></li>
 </ul>
 <a name="intro"></a>
 <h2>Introducci&oacute;n</h2>
 <p>Lo primero aclarar el concepto &quot;crear instancias de clases din&aacute;micamente&quot;. Con esto me refiero a que, dado el <em>classpath</em> completo de una clase, podamos crear una instancia de ella. Eso es posible porque las clases que compilamos dentro de una pel&iacute;cula Flash se &quot;guardan&quot; dentro del objeto _global siguiendo el classPath. Es decir, las clases de mi dominio se almacenan en _global.tv.zarate.*, Flash crea &quot;f&iacute;sicamente&quot; todos esos objetos. &Eacute;sta es una de las principales razones para NO utilizar variables globales, ya que es relativamente sencillo &quot;pisar&quot; las que se est&aacute;n utilizando para almacenar clases.</p>
 
-<p>Pero a d&iacute;a de hoy es el &uacute;nico camino que tenemos para crear instancias partiendo del nombre de la clase. En AS3 esto ya se hace de una forma oficial (<a href="http://livedocs.macromedia.com/flex/2/langref/flash/utils/package.html#getDefinitionByName()">getDefinitionByName()</a>), pero hasta que puedas utilizar player 9, igual te sirve lo siguiente.</p>
+<p>Pero a d&iacute;a de hoy es el &uacute;nico camino que tenemos para crear instancias partiendo del nombre de la clase. En AS3 esto ya se hace de una forma oficial (<a href="http://livedocs.macromedia.com/flex/2/langref/flash/utils/package.html<?php echo $article->url; ?>#getDefinitionByName()">getDefinitionByName()</a>), pero hasta que puedas utilizar player 9, igual te sirve lo siguiente.</p>
 
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="solucion"></a>
 <h2>Soluci&oacute;n</h2>
@@ -52,20 +51,13 @@ var dynamicInstance:iDynamic = iDynamic(ClassUtils.getInstanceFromClasspath("tv.
 
 <p>Si est&aacute; todo muy confuso, b&aacute;jate <a href="dynamicinstances.zip">este zip</a> en el que lo puedes ver claramente. Para compilar desde el IDE, importa la clase <span class="asCode">tv.zarate.test.DynamicInstanceCreation</span> y en la l&iacute;nea de tiempo principal pon algo como: <span class="asCode">DynamicInstanceCreation.main(this)</span>. Para hacerlo con MTASC, s&iacute;mplemente tienes que utilizar -main, &eacute;chale un ojo a <a href="http://www.zarate.tv/articulos/flash_libre_facil/">Flash libre, f&aacute;cil</a>.</p>
 
-<p><strong>¡OJO!</strong> En la clase principal, pod&eacute;is ver un par de variables "extra&#241;as", <span class="asCode">forceOne</span> y <span class="asCode">forceTwo</span>. Est&aacute;n ah&iacute; para forzar al compilador a incluir las clases que queremos utilizar din&aacute;micamente. Si no lo haces, el compilador hace bien su trabajo de no incluir clases en el swf que no est&aacute;n referenciadas en el c&oacute;digo (no se usan). Y aqu&iacute; el avispado lector dir&aacute;, ¿y qu&eacute; pasa si no s&eacute; cu&aacute;ntas clases voy a tener ni c&oacute;mo se van a llamar? Pues entonces lo que hay que hacer es compilar la clases sola en un swf (normalmente usando excludes) y cargarla din&aacute;micamente. Una vez cargada, ya se puede utilizar. Eso lo dejo para el pr&oacute;ximo art&iacute;culo, que sino este sale gigante.</p>
+<p><strong>¡OJO!</strong> En la clase principal, pod&eacute;is ver un par de variables "extra&<?php echo $article->url; ?>#241;as", <span class="asCode">forceOne</span> y <span class="asCode">forceTwo</span>. Est&aacute;n ah&iacute; para forzar al compilador a incluir las clases que queremos utilizar din&aacute;micamente. Si no lo haces, el compilador hace bien su trabajo de no incluir clases en el swf que no est&aacute;n referenciadas en el c&oacute;digo (no se usan). Y aqu&iacute; el avispado lector dir&aacute;, ¿y qu&eacute; pasa si no s&eacute; cu&aacute;ntas clases voy a tener ni c&oacute;mo se van a llamar? Pues entonces lo que hay que hacer es compilar la clases sola en un swf (normalmente usando excludes) y cargarla din&aacute;micamente. Una vez cargada, ya se puede utilizar. Eso lo dejo para el pr&oacute;ximo art&iacute;culo, que sino este sale gigante.</p>
 
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
 <a name="notas"></a>
 <h2>Notas finales</h2>
 <p>Esto que escribo no es nada nuevo, se lleva haciendo bastante tiempo, pero la verdad es que no es algo que se ve muy a menudo. Y como el otro d&iacute;a me lo preguntaron, pues me pareci&oacute; una buena idea ponerlo a la vista de todo el mundo.</p>
 <p>Espero que ayude. ¡Salud!</p>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
+<p class="subir"><a href="<?php echo $article->url; ?>#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>
 
-<a name="enlaces"></a>
-<h2>Enlaces de inter&eacute;s</h2>
-<a href="{$url}" title="Enlace directo a este art&iacute;culo">Enlace directo a este art&iacute;culo</a>
-<br />Sugerencias, errores o cualquier duda sobre este articulo en <a href="javascript:noBot('articulos','zarate.tv','{$emailID}')" title="Enviar mail al autor sobre este art&iacute;culo">articulos   [arroba]   zarate.tv</a>
-<br />
-<a href="../index.php" title="M&aacute;s art&iacute;culos">M&aacute;s art&iacute;culos en Zarate.tv</a>
-<p class="subir"><a href="#inicio" title="Volver al comienzo del art&iacute;culo">Subir</a></p>

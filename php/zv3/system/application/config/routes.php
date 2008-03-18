@@ -43,9 +43,16 @@
 $route['default_controller'] = "section";
 $route['scaffolding_trigger'] = "";
 
+// Flash stuff
 $route["xml"] = "xml";
 $route["flashgateway"] = "flashgateway";
+
+// Articles and Projects are "outside" the main site
 $route["articulos/:any"] = "articles";
+$route["proyectos/:any"] = "projects";
+$route["projects/:any"] = "projects";
+
+// Everything else
 $route[':any'] = "section";
 
 ?>

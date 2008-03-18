@@ -1,0 +1,51 @@
+body{
+	
+	font-family:"Courier New";
+	font-size:1.1em;
+	background-color:#ef7513;
+	color:#fff;
+	
+}
+
+p, h1, h2, h3, #menu{
+	
+	width:750px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+p{
+	padding-left:80px;
+}
+
+.license{
+	font-weight:bold;
+}
+
+a{
+	
+	background-color:#fff;
+	color:#ef7513;
+	text-decoration:none;
+	font-weight:bold;
+	
+}
+
+a:hover{
+	background-color:#ef7513;
+	color:#fff;	
+	text-decoration:underline;
+}
+
+#menu{
+	text-align:center;
+}
+
+#menu li{
+	display: inline;
+}
+
+#menu ul{
+	margin-left:0px;
+	padding-left:0px;
+}

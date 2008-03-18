@@ -23,13 +23,26 @@
 
 class Projects_model extends Model{
 	
-	function Projects_model(){
+	public function Projects_model(){
 		
 		parent::Model();
 		
 	}
 	
-	function getAllItems(){
+	public function getProjectFromRewrite($rewrite){
+		
+		$this->db->select("*");
+		$this->db->from("project");
+		$this->db->join("project_literals","project.project_id=project_literals.project_id");
+		$this->db->where("project_literals.rewrite='".$rewrite."' AND project_literals.language_id='".$this->session->userdata('language_id')."'");
+		
+		$q = $this->db->get();
+		
+		return $q->row();		
+		
+	}
+	
+	public function getAllItems(){
 		
 		$this->db->select("*");
 		$this->db->from("project");

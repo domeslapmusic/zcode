@@ -48,6 +48,7 @@ class tv.zarate.application.Model{
 		
 		timeLine_mc = m;
 		timeLine_mc.onEnterFrame = Delegate.create(this,waitForStage);
+		timeLine_mc.application = this;
 		
 	}
 
@@ -105,7 +106,6 @@ class tv.zarate.application.Model{
 		if(success){
 			
 			rightClickMenu = new RightClick();
-			
 			timeLine_mc.menu = rightClickMenu;
 			
 			if(view == null){ view = new View(); }

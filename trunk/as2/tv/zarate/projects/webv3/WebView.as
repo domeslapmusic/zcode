@@ -52,6 +52,7 @@ class tv.zarate.projects.webv3.WebView extends View{
 	private var content_mc:MovieClip;
 	private var spaceWarning_mc:MovieClip;
 	private var warningTextHTML_mc:MovieClip;
+	private var blocker_mc:MovieClip;
 	private var warningText_mc:MovieClip;
 	private var explanationField:TextField;
 	private var contactField:TextField;
@@ -102,11 +103,31 @@ class tv.zarate.projects.webv3.WebView extends View{
 		
 	}
 	
+	public function enable():Void{
+		
+		super.enable();
+		blocker_mc.removeMovieClip();
+		
+	}
+	
+	public function disable():Void{
+		
+		super.disable();
+		
+		blocker_mc = view_mc.createEmptyMovieClip("blocker_mc",889999);
+		blocker_mc._alpha = 0;
+		MovieclipUtils.DrawSquare(blocker_mc,0x000000,100,width,height);
+		
+		Image.Fade(blocker_mc,100);
+		
+		blocker_mc.useHandCursor = false;
+		blocker_mc.onPress = function():Void{}
+		
+	}
+	
 	// ******************** PRIVATE METHODS ********************
 	
 	private function initialLayout():Void{
-		
-		model.currentSection = conf.initialSection;
 		
 		content_mc = view_mc.createEmptyMovieClip("content_mc",100);
 		
@@ -182,7 +203,9 @@ class tv.zarate.projects.webv3.WebView extends View{
 		var wordCounter:Number = 0;
 		var selectCallback:Function = Delegate.create(this,manageOption);
 		
-		for(var i:Number=0;i<optionsToRandomize.length;i++){
+		var totalSections:Number = optionsToRandomize.length;
+		
+		for(var i:Number=0;i<totalSections;i++){
 			
 			var word_mc:MovieClip = letters_mc.createEmptyMovieClip("word_"+wordCounter,100+wordCounter);
 			
@@ -192,7 +215,9 @@ class tv.zarate.projects.webv3.WebView extends View{
 			
 			word_mc._alpha = (o.section_id == model.currentSection.section_id)? MAX_ALPHA:MIN_ALPHA;
 			
-			for(var j:Number=0;j<o.title.length;j++){
+			var titleLength:Number = o.title.length;
+			
+			for(var j:Number=0;j<titleLength;j++){
 				
 				var letter:String = o.title.charAt(j);
 				
@@ -279,7 +304,9 @@ class tv.zarate.projects.webv3.WebView extends View{
 		model.currentSection = section;
 		model.updateTitle(section.title);
 		
-		for(var x:Number=0;x<conf.sections.length;x++){
+		var totalSections:Number = optionsToRandomize.length;
+		
+		for(var x:Number=0;x<totalSections;x++){
 			
 			var s:Section = conf.sections[x];
 			
@@ -288,7 +315,9 @@ class tv.zarate.projects.webv3.WebView extends View{
 			
 			Image.Fade(s.clip_mc,to);
 			
-			for(var i:Number=0;i<s.options.length;i++){
+			var totalOptions:Number = s.options.length;
+			
+			for(var i:Number=0;i<totalOptions;i++){
 				
 				var o:Option = s.options[i];
 				Image.Fade(o.clip_mc,to);

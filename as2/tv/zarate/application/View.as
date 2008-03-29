@@ -24,14 +24,13 @@ import tv.zarate.application.Config;
 
 class tv.zarate.application.View{
 
+	public var width:Number = 0;
+	public var height:Number = 0;
+	
 	private var model:Model;
 	private var conf:Config;
 	
 	private var view_mc:MovieClip;
-
-	private var width:Number = 0;
-	private var height:Number = 0;
-
 	private var initialized:Boolean = false;
 	
 	public function View(){}

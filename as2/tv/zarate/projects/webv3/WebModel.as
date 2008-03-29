@@ -29,6 +29,7 @@ import tv.zarate.application.Model;
 import tv.zarate.projects.webv3.WebView;
 import tv.zarate.projects.webv3.WebConfig;
 import tv.zarate.projects.webv3.Section;
+import tv.zarate.projects.webv3.Preload;
 
 class tv.zarate.projects.webv3.WebModel extends Model{
 	
@@ -36,6 +37,7 @@ class tv.zarate.projects.webv3.WebModel extends Model{
 	
 	private var view:WebView;
 	private var conf:WebConfig;
+	private var xmlPreload:Preload;
 	
 	private var currentSection_id:String = "";
 	
@@ -92,9 +94,28 @@ class tv.zarate.projects.webv3.WebModel extends Model{
 	
 	// ******************** PRIVATE METHODS ********************
 	
-	private function frameworkReady():Void{
+	private function initialize():Void{
+		
+		super.initialize();
+		createXMLPreload();
+		
+	}
+	
+	private function configReady(success:Boolean):Void{
 		
 		currentSection = conf.initialSection;
+		super.configReady(success);
+		
+	}
+	
+	private function frameworkReady():Void{
+		
+		if(xmlPreload != null){
+			
+			xmlPreload.remove();
+			xmlPreload = null;
+			
+		}
 		
 		var viewCode:ContextMenuItem = new ContextMenuItem("View source :)",Delegate.create(this,showSourceCode));
 		rightClickMenu.addItem(viewCode);
@@ -126,6 +147,16 @@ class tv.zarate.projects.webv3.WebModel extends Model{
 	
 	private function showSourceCode():Void{
 		getURL(ZCODE_URL);
+	}
+	
+	private function createXMLPreload():Void{
+		
+		if(xmlPreload == null){
+			
+			xmlPreload = new Preload(timeLine_mc.createEmptyMovieClip("preload_mc",1000),view.width,view.height,"data.",conf.dataXML);
+			
+		}
+		
 	}
 	
 }

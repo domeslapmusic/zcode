@@ -31,6 +31,8 @@ class Xml extends Controller{
 	
 	public function index(){
 		
+		ob_start();
+		
 		$this->load->model('Section_model');
 		$this->load->model('Language_model');
 		
@@ -52,6 +54,18 @@ class Xml extends Controller{
 		$data["literals"]["space_warning"] = $this->lang->line('flash_space_warning');
 		
 		$this->load->view('xmlview',$data);
+		
+		// Can you believe this?? After years of dynamic xml driven applications i didn't know this:
+		// You have to send length header, otherwise xml.getBytesLoaded() doesn't work properly.
+		// And it's just in the reference:
+		// http://livedocs.adobe.com/flash/8/main/00002869.html#wp513747
+		
+		$size=ob_get_length();
+		
+		header("Content-Length: $size");
+		header("Content-Type: text/xml");
+		
+		ob_end_flush();
 		
 	}
 

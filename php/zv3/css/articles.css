@@ -27,7 +27,7 @@ a:hover{
 	text-align:center
 }
 
-#license, #contenido, #menu, h1{
+#license, #contenido, #menu, #error404, h1{
 	margin-left:auto;
 	margin-right:auto;
 }
@@ -49,7 +49,7 @@ h3{
 	text-align:right;
 }
 
-.subir, #menu, #license, #contenido, h1{
+.subir, #menu, #license, #contenido, #error404, h1{
 	width:900px;
 }
 

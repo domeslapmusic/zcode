@@ -1,4 +1,4 @@
-<?php  
+<?php 
 
 /*
 * 
@@ -21,16 +21,13 @@
 *
 */
 
-$this->load->view("menuview");
-
-if($project->loaded){  ?>
-
-<h1><?php echo $project->title; ?></h1>
-
-<?php  
-
-}
-
-$this->load->view($project->template); 
+$this->lang->load('error',$this->session->userdata('language_folder'));
 
 ?>
+
+<div id="error404">
+
+<h1>Error 404</h1>
+<p><?php echo $this->lang->line('error_notfound'); ?></p>
+
+</div>

@@ -55,6 +55,19 @@ class Articles extends Controller{
 		
 		$data["article"] = $this->Article_model->getArticleByRewrite($this->uri->segment(2));
 		
+		if($data["article"] == false){
+			
+			$data["article"]->title = "Error 404";
+			$data["article"]->template = "404";
+			$data["article"]->loaded = false;
+			
+		} else{
+			
+			$data["article"]->loaded = true;
+			$data["article"]->template = "articles/".$data["article"]->rewrite;
+			
+		}
+		
 		$data["secondaryTitle"] = $data["article"]->title;
 		
 		$data["forceMenu"] = true;

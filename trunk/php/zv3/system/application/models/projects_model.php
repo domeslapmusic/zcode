@@ -38,7 +38,15 @@ class Projects_model extends Model{
 		
 		$q = $this->db->get();
 		
-		return $q->row();		
+		$project = false;
+		
+		if($q->num_rows() > 0){
+			
+			$project = $q->row();
+			
+		}
+		
+		return $project;
 		
 	}
 	

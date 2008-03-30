@@ -53,12 +53,25 @@ class Projects extends Controller{
 		
 		$data["project"] = $this->Projects_model->getProjectFromRewrite($this->uri->segment(2));
 		
-		$projectCss = ($data["project"]->css != "")? $data["project"]->css:"projects.css";
+		if($data["project"] == false){
+			
+			$this->lang->load('error',$this->session->userdata('language_folder'));
+			
+			$data["project"]->template = "404";
+			$data["project"]->loaded = false;
+			$projectCss = "projects.css";
+			
+		} else {
+			
+			$data["project"]->loaded = true;
+			$data["project"]->template = "projects/".$data["project"]->rewrite."_".$data["language"]->shortID;
+			$projectCss = ($data["project"]->css != "")? $data["project"]->css:"projects.css";
+			$data["secondaryTitle"] = $data["project"]->title;
+			
+		}
 		
 		$data["pageCss"] = array($projectCss);
 		$data["pageJS"] = array("JSCommon.js","swfobject.js");
-		
-		$data["secondaryTitle"] = $data["project"]->title;
 		
 		$data["forceMenu"] = true;
 		

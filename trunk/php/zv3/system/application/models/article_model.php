@@ -38,7 +38,15 @@ class Article_model extends Model{
 		
 		$q = $this->db->get();
 		
-		return $q->row();
+		$article = false;
+		
+		if($q->num_rows() > 0){
+			
+			$article = $q->row();
+			
+		}
+		
+		return $article;
 		
 	}
 	

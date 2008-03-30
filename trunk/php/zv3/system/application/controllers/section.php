@@ -47,6 +47,17 @@ class Section extends Controller{
 		$data["misc_freak_warning"] = $this->lang->line('misc_freak_warning');
 		
 		$data["section"] = $this->Section_model->setSectionFromRewrite($sectionRewrite);
+		
+		if($data["section"] == false){
+			
+			$this->lang->load('error',$this->session->userdata('language_folder'));
+			
+			$data["section"]->title = "Error 404";
+			$data["section"]->summary = $this->lang->line('error_notfound');
+			$data["section"]->section_id = "";
+			
+		}
+		
 		$data["sections"] = $this->Section_model->getSections(false);
 		$data["languages"] = $this->Language_model->getLanguages();
 		

@@ -111,39 +111,45 @@ class Section_model extends Model{
 		
 		$q = $this->db->get();
 		
-		$section = $q->row();
+		$section = false;
 		
-		if($section->option != ""){
+		if($q->num_rows() > 0){
 			
-			$section->options = array();
+			$section = $q->row();
 			
-			switch($section->option){
+			if($section->option != ""){
 				
-				case("portfolio"):
+				$section->options = array();
+				
+				switch($section->option){
 					
-					$options = $this->Portfolio_model->getAllItems();
-					break;
-					
-				case("project"):
-					
-					$options = $this->Projects_model->getAllItems();
-					break;
-					
-				case("article"):
-					
-					$options = $this->Article_model->getAllItems();
-					break;
-					
+					case("portfolio"):
+						
+						$options = $this->Portfolio_model->getAllItems();
+						break;
+						
+					case("project"):
+						
+						$options = $this->Projects_model->getAllItems();
+						break;
+						
+					case("article"):
+						
+						$options = $this->Article_model->getAllItems();
+						break;
+						
+				}
+				
+				foreach($options->result() as $option){ 
+					$section->options[] = $option; 
+				}
+				
 			}
 			
-			foreach($options->result() as $option){ 
-				$section->options[] = $option; 
-			}
+			$this->currentSection = $section;
+			$this->session->set_userdata('section_id',$this->currentSection->section_id);
 			
 		}
-		
-		$this->currentSection = $section;
-		$this->session->set_userdata('section_id',$this->currentSection->section_id);
 		
 		return $section;
 		

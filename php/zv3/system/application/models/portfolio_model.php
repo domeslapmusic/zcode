@@ -42,6 +42,7 @@ class Portfolio_model extends Model{
 		
 	}
 	
+	/*
 	public function getPortfolio($portfolio_id){
 		
 		$this->db->select("*");
@@ -50,7 +51,35 @@ class Portfolio_model extends Model{
 		$this->db->where("portfolio.portfolio_id='".$portfolio_id."' AND portfolio.active='1'");
 		$q = $this->db->get();
 		
-		return $q;
+		$portfolio = false;
+		
+		if($q->num_rows() > 0){
+			
+			$portfolio = $q->row();
+			
+		}
+		
+		return $portfolio;
+		
+	}
+	*/
+	public function getPortfolioFromRewrite($rewrite){
+		
+		$this->db->select("*");
+		$this->db->from("portfolio");
+		$this->db->join("portfolio_literals","portfolio.portfolio_id=portfolio_literals.portfolio_id");
+		$this->db->where("portfolio.rewrite='".$rewrite."' AND portfolio.active='1'");
+		$q = $this->db->get();
+		
+		$portfolio = false;
+		
+		if($q->num_rows() > 0){
+			
+			$portfolio = $q->row();
+			
+		}
+		
+		return $portfolio;
 		
 	}
 

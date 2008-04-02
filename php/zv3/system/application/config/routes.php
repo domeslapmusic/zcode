@@ -47,10 +47,11 @@ $route['scaffolding_trigger'] = "";
 $route["xml"] = "xml";
 $route["flashgateway"] = "flashgateway";
 
-// Articles and Projects are "outside" the main site
+// Articles, projects and portfolio are "outside" the main site
 $route["articulos/:any"] = "articles";
 $route["proyectos/:any"] = "projects";
 $route["projects/:any"] = "projects";
+$route["portfolio/:any"] = "portfolio";
 
 // Everything else
 $route[':any'] = "section";

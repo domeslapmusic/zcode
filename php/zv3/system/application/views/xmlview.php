@@ -45,7 +45,6 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 			<option>
 				<title><![CDATA[<?php echo $option->title; ?>]]></title>
 				<text><![CDATA[<?php echo $option->summary; ?>]]></text>
-				<link><![CDATA[<?php echo $option->url; ?>]]></link>
 			</option>
 			
 			<?php } ?>

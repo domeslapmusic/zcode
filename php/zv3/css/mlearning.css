@@ -1,0 +1,32 @@
+body{
+	font-family:"Sans Serif";
+	font-size:0.8em;
+	background:#832cad;
+	color:#fff;
+}
+
+#menu li{
+	display: inline;
+}
+
+#menu ul{
+	margin-left:0px;
+	padding-left:0px;
+}
+
+h1{
+	text-align:center;
+}
+
+div, h1{
+	width:700px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+a{
+	color:#832cad;
+	background:#fff;
+	text-decoration:none;
+	padding:2px;
+}

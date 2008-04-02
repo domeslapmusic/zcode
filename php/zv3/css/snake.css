@@ -1,0 +1,33 @@
+body{
+	font-family:"Courier New";
+	font-size:0.8em;
+	background:url("assets/projects/snake/background.png");
+}
+
+#menu li{
+	display: inline;
+}
+
+#menu ul{
+	margin-left:0px;
+	padding-left:0px;
+}
+
+a{
+	color:#32a20b;
+}
+
+p, ul, li, h1{
+	
+	background:#fff;
+	padding:10px;	
+}
+
+p, div, h1{
+
+	width:700px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	
+}

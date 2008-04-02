@@ -5,12 +5,7 @@ body{
 }
 
 #menu li{
-	display: inline;
-}
-
-#menu ul{
-	margin-left:0px;
-	padding-left:0px;
+	display:inline;
 }
 
 a{
@@ -18,9 +13,8 @@ a{
 }
 
 p, ul, li, h1{
-	
 	background:#fff;
-	padding:10px;	
+	padding:10px;
 }
 
 p, div, h1{

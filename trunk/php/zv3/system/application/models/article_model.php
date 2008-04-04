@@ -27,22 +27,32 @@ class Article_model extends Model{
 		
 		parent::Model();
 		
+		$this->load->library('validate');
+		
 	}
 	
 	public function getArticleByRewrite($rewrite){
 		
-		$this->db->select("*");
-		$this->db->from("article");
-		$this->db->join("article_literals","article.article_id=article_literals.article_id");
-		$this->db->where("article_literals.rewrite='".$rewrite."' AND article_literals.language_id='".$this->session->userdata('language_id')."'");
-		
-		$q = $this->db->get();
-		
 		$article = false;
 		
-		if($q->num_rows() > 0){
+		$validate = array();
+		$validate['input_type'] = 'value';
+		$validate[] = array('input'=>$rewrite,'rules'=>'maximum:250|required');
+		
+		if($this->validate->run($validate)){
 			
-			$article = $q->row();
+			$this->db->select("*");
+			$this->db->from("article");
+			$this->db->join("article_literals","article.article_id=article_literals.article_id");
+			$this->db->where("article_literals.rewrite='".$rewrite."' AND article_literals.language_id='".$this->session->userdata('language_id')."'");
+			
+			$q = $this->db->get();
+			
+			if($q->num_rows() > 0){
+				
+				$article = $q->row();
+				
+			}
 			
 		}
 		

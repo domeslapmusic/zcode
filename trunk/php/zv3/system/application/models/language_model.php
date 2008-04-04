@@ -30,19 +30,30 @@ class Language_model extends Model{
 	public function Language_model(){
 		
 		parent::Model();
+		
 		$this->load->model('Section_model');
+		$this->load->library('validate');
 		
 	}
 
 	public function setLanguageByID($language_id){
 		
 		$res = false;
-		$lang = $this->getLanguageByID($language_id);
 		
-		if($lang != false){
+		$validate = array();
+		$validate['input_type'] = 'value';
+		$validate[] = array('input'=>$language_id,'rules'=>'maximum:8|required');
+		
+		if($this->validate->run($validate)){
 			
-			$this->setCurrentLang($lang);
-			$res = true;
+			$lang = $this->getLanguageByID($language_id);
+			
+			if($lang != false){
+				
+				$this->setCurrentLang($lang);
+				$res = true;
+				
+			}
 			
 		}
 		

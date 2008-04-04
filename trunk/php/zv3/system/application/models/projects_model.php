@@ -26,23 +26,32 @@ class Projects_model extends Model{
 	public function Projects_model(){
 		
 		parent::Model();
+		$this->load->library('validate');
 		
 	}
 	
 	public function getProjectFromRewrite($rewrite){
 		
-		$this->db->select("*");
-		$this->db->from("project");
-		$this->db->join("project_literals","project.project_id=project_literals.project_id");
-		$this->db->where("project_literals.rewrite='".$rewrite."' AND project_literals.language_id='".$this->session->userdata('language_id')."'");
-		
-		$q = $this->db->get();
-		
 		$project = false;
 		
-		if($q->num_rows() > 0){
+		$validate = array();
+		$validate['input_type'] = 'value';
+		$validate[] = array('input'=>$rewrite,'rules'=>'maximum:250|required');
+		
+		if($this->validate->run($validate)){
 			
-			$project = $q->row();
+			$this->db->select("*");
+			$this->db->from("project");
+			$this->db->join("project_literals","project.project_id=project_literals.project_id");
+			$this->db->where("project_literals.rewrite='".$rewrite."' AND project_literals.language_id='".$this->session->userdata('language_id')."'");
+			
+			$q = $this->db->get();
+			
+			if($q->num_rows() > 0){
+				
+				$project = $q->row();
+				
+			}
 			
 		}
 		

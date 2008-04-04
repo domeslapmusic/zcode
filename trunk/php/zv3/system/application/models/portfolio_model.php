@@ -26,6 +26,7 @@ class Portfolio_model extends Model{
 	public function Portfolio_model(){
 		
 		parent::Model();
+		$this->load->library('validate');
 		
 	}
 	
@@ -42,40 +43,27 @@ class Portfolio_model extends Model{
 		
 	}
 	
-	/*
-	public function getPortfolio($portfolio_id){
-		
-		$this->db->select("*");
-		$this->db->from("portfolio");
-		$this->db->join("portfolio_literals","portfolio.portfolio_id = portfolio_literals.portfolio_id");
-		$this->db->where("portfolio.portfolio_id='".$portfolio_id."' AND portfolio.active='1'");
-		$q = $this->db->get();
-		
-		$portfolio = false;
-		
-		if($q->num_rows() > 0){
-			
-			$portfolio = $q->row();
-			
-		}
-		
-		return $portfolio;
-		
-	}
-	*/
 	public function getPortfolioFromRewrite($rewrite){
 		
-		$this->db->select("*");
-		$this->db->from("portfolio");
-		$this->db->join("portfolio_literals","portfolio.portfolio_id=portfolio_literals.portfolio_id");
-		$this->db->where("portfolio.rewrite='".$rewrite."' AND portfolio.active='1'");
-		$q = $this->db->get();
-		
 		$portfolio = false;
 		
-		if($q->num_rows() > 0){
+		$validate = array();
+		$validate['input_type'] = 'value';
+		$validate[] = array('input'=>$rewrite,'rules'=>'maximum:250|required');
+		
+		if($this->validate->run($validate)){
 			
-			$portfolio = $q->row();
+			$this->db->select("*");
+			$this->db->from("portfolio");
+			$this->db->join("portfolio_literals","portfolio.portfolio_id=portfolio_literals.portfolio_id");
+			$this->db->where("portfolio.rewrite='".$rewrite."' AND portfolio.active='1'");
+			$q = $this->db->get();
+			
+			if($q->num_rows() > 0){
+				
+				$portfolio = $q->row();
+				
+			}
 			
 		}
 		

@@ -34,6 +34,8 @@ class Section_model extends Model{
 		$this->load->model('Projects_model');
 		$this->load->model('Article_model');
 		
+		$this->load->library('validate');
+		
 	}
 	
 	public function getForceHTML(){
@@ -68,15 +70,23 @@ class Section_model extends Model{
 	
 	public function setSectionByID($section_id){
 		
-		$this->db->select("*");
-		$this->db->from("section");
-		$this->db->join("section_literals","section.section_id=section_literals.section_id");
-		$this->db->where("section.section_id='".$section_id."' AND section_literals.language_id='".$this->session->userdata('language_id')."'");
-		$q = $this->db->get();
+		$validate = array();
+		$validate['input_type'] = 'value';
+		$validate[] = array('input'=>$section_id,'rules'=>'maximum:8|required');
 		
-		$this->currentSection = $q->row();
-		
-		$this->session->set_userdata('section_id',$this->currentSection->section_id);
+		if($this->validate->run($validate)){
+			
+			$this->db->select("*");
+			$this->db->from("section");
+			$this->db->join("section_literals","section.section_id=section_literals.section_id");
+			$this->db->where("section.section_id='".$section_id."' AND section_literals.language_id='".$this->session->userdata('language_id')."'");
+			$q = $this->db->get();
+			
+			$this->currentSection = $q->row();
+			
+			$this->session->set_userdata('section_id',$this->currentSection->section_id);
+			
+		}
 		
 	}
 	
@@ -202,13 +212,25 @@ class Section_model extends Model{
 
 	private function getSectionByID($section_id){
 		
-		$this->db->select("*");
-		$this->db->from("section");
-		$this->db->join("section_literals","section.section_id=section_literals.section_id");
-		$this->db->where("section.section_id='".$section_id."' AND section_literals.language_id='".$this->session->userdata('language_id')."'");
-		$q = $this->db->get();
+		$section = false;
 		
-		return $q->row();
+		$validate = array();
+		$validate['input_type'] = 'value';
+		$validate[] = array('input'=>$section_id,'rules'=>'maximum:8|required');
+		
+		if($this->validate->run($validate)){
+			
+			$this->db->select("*");
+			$this->db->from("section");
+			$this->db->join("section_literals","section.section_id=section_literals.section_id");
+			$this->db->where("section.section_id='".$section_id."' AND section_literals.language_id='".$this->session->userdata('language_id')."'");
+			$q = $this->db->get();
+			
+			$section = $q->row();
+			
+		}
+		
+		return $section;
 		
 	}
 

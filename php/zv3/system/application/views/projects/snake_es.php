@@ -5,7 +5,7 @@
 <script type="text/javascript">
 // <![CDATA[
 	
-	var so = new SWFObject("<?php echo base_url(); ?>assets/projects/snake/zsnake","zsnake","300","300","8","#ffffff");
+	var so = new SWFObject("<?php echo base_url(); ?>assets/projects/snake/zsnake.swf","zsnake","300","300","8","#ffffff");
 	so.write("container");
 	
 // ]]>

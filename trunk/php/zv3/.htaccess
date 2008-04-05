@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
 Options +FollowSymLinks
 RewriteEngine On
-RewriteBase /zv3/
+RewriteBase /
 
 # Need to keep supporting old English zlog url
 RewriteRule ^proyectos/zlog/index_en.htm$ projects/zlog/

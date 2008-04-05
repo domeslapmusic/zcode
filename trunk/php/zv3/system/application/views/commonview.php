@@ -46,7 +46,6 @@ echo utf8_encode($misc_freak_warning);
 	<script type="text/javascript" src="js/<?php echo $js; ?>"></script>
 	<?php } } ?>
 	
-	<!-- 
 	<script type="text/javascript">
 		
 		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -61,7 +60,7 @@ echo utf8_encode($misc_freak_warning);
 		pageTracker._trackPageview();
 		
 	</script>
-	-->
+	
 </head>
 <body>
 

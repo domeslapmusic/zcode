@@ -3,6 +3,8 @@ Options +FollowSymLinks
 RewriteEngine On
 RewriteBase /
 
+IndexIgnore *
+
 # Need to keep supporting old English zlog url
 RewriteRule ^proyectos/zlog/index_en.htm$ projects/zlog/
 

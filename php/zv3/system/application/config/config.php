@@ -11,7 +11,7 @@
 |	http://www.your-site.com/
 |
 */
-$config['base_url']	= "http://localhost/zv3/";
+$config['base_url']	= "http://zarate.tv/";
 
 /*
 |--------------------------------------------------------------------------

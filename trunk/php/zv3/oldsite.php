@@ -4,7 +4,7 @@
 		
 		$section = $_GET["section"];
 		
-		$rootPath = "../../../";
+		$rootPath = "http://zarate.tv/";
 		
 		switch($section){
 			
@@ -36,7 +36,6 @@
 	<title>Z&aacute;rate</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
-	<!-- 
 	<script type="text/javascript">
 		
 		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -51,7 +50,7 @@
 		pageTracker._trackPageview();
 		
 	</script>
-	-->
+	
 </head>
 <body>
 

@@ -5,6 +5,7 @@ body,html, #container{
 	margin:0px;
 	background:#000;
 	color:#fff;
+	text-align:center; /* bloody IE */
 
 }
 
@@ -24,6 +25,7 @@ a{
 	width:900px;
 	margin-left:auto;
 	margin-right:auto;
+	text-align:left;
 	
 }
 
@@ -41,11 +43,17 @@ a{
 	
 }
 
-ul{ padding-left:0px;}
-#menu li, #languages li{ display: inline; }
+ul{ 
+	padding-left:0px;	
+}
+
+#menu li, #languages li{ 
+	display: inline; 
+}
 
 #no_flash_warning{	
 	
 	border: 2px dotted;
 	padding:20px;
 	
+}

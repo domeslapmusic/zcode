@@ -57,11 +57,9 @@
 		
 		<div id="hcard-Juan-Delgado" class="vcard">
 			<a class="url fn" href="http://zarate.tv">Juan Delgado</a>
-			<a class="email" href="mailto:zzzarate@gmail.com">zzzarate@gmail.com</a>
 		</div>
 		
 		<p id="no_flash_warning"><?php echo utf8_encode($misc_flash_warning); ?></p>
-		
 		
 	</div>
 	

@@ -56,6 +56,14 @@ class tv.zarate.projects.webv3.Option{
 		
 	}
 	
+	public function set enabled(val:Boolean):Void{
+		clip_mc.enabled = val;
+	}
+	
+	public function get enabled():Boolean{
+		return clip_mc.enabled;
+	}
+	
 	public function select(action:Boolean):Void{
 		
 		selected = action;

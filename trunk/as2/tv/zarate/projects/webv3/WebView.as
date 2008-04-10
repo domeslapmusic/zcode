@@ -213,7 +213,22 @@ class tv.zarate.projects.webv3.WebView extends View{
 			
 			o.config(word_mc,selectCallback);
 			
-			word_mc._alpha = (o.section_id == model.currentSection.section_id)? MAX_ALPHA:MIN_ALPHA;
+			var wordAlpha:Number, wordEnabled:Boolean;
+			
+			if(o.section_id == model.currentSection.section_id){
+				
+				wordAlpha = MAX_ALPHA;
+				wordEnabled = true;
+				
+			} else {
+				
+				wordAlpha = MIN_ALPHA;
+				wordEnabled = false;
+				
+			}
+			
+			word_mc._alpha = wordAlpha;
+			o.enabled = wordEnabled;
 			
 			var titleLength:Number = o.title.length;
 			
@@ -321,7 +336,7 @@ class tv.zarate.projects.webv3.WebView extends View{
 				
 				var o:Option = s.options[i];
 				Image.Fade(o.clip_mc,to);
-				o.clip_mc.enabled = enable;
+				o.enabled = enable;
 				
 			}
 			

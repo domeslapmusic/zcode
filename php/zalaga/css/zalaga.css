@@ -1,0 +1,38 @@
+body{
+	
+	color:#212121;
+	text-align:center;
+	
+}
+
+div{
+
+	width:800px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:left;
+	
+}
+
+#menu li{
+	
+	display:inline;
+	
+}
+
+#menu ul{
+
+	padding-left:0px;
+
+}
+
+img{
+	
+	padding:20px;
+	border:0px;
+	
+}
+
+a{
+	/*text-decoration:none;*/
+}

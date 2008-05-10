@@ -72,7 +72,7 @@ class tv.zarate.projects.zplayer.Thumbnail{
 		var titleTxt_mc:MovieClip = itemType_mc.createEmptyMovieClip("titleTxt_mc",200);
 		
 		var field:TextField = TextfieldUtils.createField(titleTxt_mc);
-		field.text = (item.type == zpConstants.TYPE_VIDEO)? "V�DEO" : ((zpImage(item).sound != undefined)? "SONIDO":"IMAGEN");
+		field.text = (item.type == zpConstants.TYPE_VIDEO)? "VIDEO" : ((zpImage(item).sound != undefined)? "SONIDO":"IMAGEN");
 		field.setTextFormat(titleFormat);
 		
 		MovieclipUtils.CentreClips(titleBg_mc,titleTxt_mc);
@@ -99,6 +99,12 @@ class tv.zarate.projects.zplayer.Thumbnail{
 	}
 	
 	// **************** PRIVATE METHODS ****************
+	
+	private function onLoadError():Void{
+		
+		trace("Cannot load thumbnail");
+		
+	}
 	
 	private function onLoadProgress(mc:MovieClip,loaded:Number,total:Number):Void{
 		

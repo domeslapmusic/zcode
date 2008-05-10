@@ -22,6 +22,7 @@
 import tv.zarate.utils.Delegate;
 import tv.zarate.utils.MovieclipUtils;
 import tv.zarate.utils.TextfieldUtils;
+import tv.zarate.utils.StyleSheetObject;
 
 import tv.zarate.effects.Image;
 
@@ -130,7 +131,6 @@ class tv.zarate.projects.zplayer.ItemsBand{
 		background_mc._width = width;
 		
 		backgroundMask_mc.clear();
-		//MovieclipUtils.DrawSquare(backgroundMask_mc,0xff00ff,100,background_mc._width,50);
 		MovieclipUtils.DrawRoundedSquare(backgroundMask_mc,0xff0000,100,background_mc._width,background_mc._height,10);
 		
 		calculatePages();
@@ -236,8 +236,10 @@ class tv.zarate.projects.zplayer.ItemsBand{
 		
 		var margin:Number = 5;
 		
+		var pStyle:StyleSheetObject = new StyleSheetObject("Verdana",10,"#ffffff");
+		
 		var css:TextField.StyleSheet = new TextField.StyleSheet();
-		css.setStyle("p",{fontFamily:"Verdana",fontSize:"10",color:"#ffffff"});
+		css.setStyle("p",pStyle);
 		
 		var text_mc:MovieClip = description_mc.createEmptyMovieClip("text_mc",400);
 		text_mc._x = text_mc._y = margin;
@@ -278,6 +280,10 @@ class tv.zarate.projects.zplayer.ItemsBand{
 			
 			prev_mc.enabled = false;
 			next_mc.enabled = true;
+			
+		} else {
+			
+			prev_mc.enabled = true;
 			
 		}
 		

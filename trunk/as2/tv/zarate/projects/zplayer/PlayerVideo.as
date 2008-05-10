@@ -37,7 +37,7 @@ class tv.zarate.projects.zplayer.PlayerVideo extends Player{
 	private var video_mc:MovieClip;
 	private var loadbar_mc:MovieClip;
 	private var checkLoad_mc:MovieClip;
-	private var bigPlay_mc:MovieClip;
+	private var bigPlayIcon_mc:MovieClip;
 	private var intro_mc:MovieClip;
 
 	private var videoObj:Video;
@@ -47,6 +47,7 @@ class tv.zarate.projects.zplayer.PlayerVideo extends Player{
 	private var videoDuration:Number = 0;
 	private var timeElapsed:Number = 0;
 	private var currentVolume:Number = 0;
+	private var playing:Boolean = false;
 
 	public function PlayerVideo(video:Item,base_mc:MovieClip,finishCallback:Function){
 		
@@ -111,8 +112,14 @@ class tv.zarate.projects.zplayer.PlayerVideo extends Player{
 		
 		// add play icon
 		
-		bigPlay_mc = base_mc.attachMovie("bigplay","bigPlay_mc",800);
-		MovieclipUtils.CentreClips(base_mc,bigPlay_mc);
+		var bigPlay_mc:MovieClip = base_mc.createEmptyMovieClip("bigPlay_mc",800);
+		
+		var bigPlayBackground_mc:MovieClip = bigPlay_mc.createEmptyMovieClip("bigPlayBackground_mc",100);
+		MovieclipUtils.DrawSquare(bigPlayBackground_mc,0xffff00,0,width,height);
+		
+		bigPlayIcon_mc = bigPlay_mc.attachMovie("bigplay","bigPlayIcon_mc",200);
+		
+		MovieclipUtils.CentreClips(base_mc,bigPlayIcon_mc);
 		
 		bigPlay_mc.onPress = Delegate.create(this,bigPlayPressed);
 		
@@ -136,19 +143,6 @@ class tv.zarate.projects.zplayer.PlayerVideo extends Player{
 	private function bigPlayPressed():Void{
 		
 		loadbar.togglePlay();
-		removeBigPlay();
-		
-	}
-	
-	private function removeBigPlay():Void{
-		
-		if(bigPlay_mc != null){
-			
-			intro_mc.removeMovieClip();
-			bigPlay_mc.removeMovieClip();
-			bigPlay_mc = null;
-			
-		}
 		
 	}
 	
@@ -161,8 +155,10 @@ class tv.zarate.projects.zplayer.PlayerVideo extends Player{
 
 	private function onToggle(playing:Boolean):Void{
 		
-		removeBigPlay();
+		if(intro_mc != null){ intro_mc.removeMovieClip(); }
+		
 		stream_ns.pause(!playing);
+		bigPlayIcon_mc._visible = !playing;
 		
 	}
 	

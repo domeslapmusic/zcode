@@ -54,7 +54,6 @@ class tv.zarate.projects.zplayer.zpView extends View{
 	private var playerWidth:Number = 0;
 	private var playerHeight:Number = 0;
 	private var itemsBandHeight:Number = 0;
-	private var items:/*Item*/Array;
 	private var showItemsBand:Boolean = false;
 	private var selectItemCallback:Function;
 
@@ -70,13 +69,11 @@ class tv.zarate.projects.zplayer.zpView extends View{
 		
 	}
 
-	public function conf(_model:zpModel,_items:/*Item*/Array,_selectItemCallback:Function):Void{
+	public function zpConf(_selectItemCallback:Function):Void{
 		
-		model = _model;
-		items = _items;
 		selectItemCallback = _selectItemCallback;
 		
-		showItemsBand = (items.length > 1);
+		showItemsBand = (model.items.length > 1);
 		itemsBandHeight = (showItemsBand)? 110:0;
 		
 		if(showItemsBand){
@@ -88,12 +85,13 @@ class tv.zarate.projects.zplayer.zpView extends View{
 		layout();
 		
 	}
-
+	
 	public function showItem(item:Item,finishCallback:Function):Void{
 		
 		if(currentPlayer != null){
 			
 			currentPlayer.remove();
+			infoBand.remove();
 			
 		}
 		
@@ -120,12 +118,16 @@ class tv.zarate.projects.zplayer.zpView extends View{
 		currentPlayer.setSize(playerWidth,playerHeight);
 		currentPlayer.playItem();
 		
-		var info_mc:MovieClip = view_mc.createEmptyMovieClip("info_mc",INFO_DEPTH);
-		infoBand = new InfoBand(info_mc,width,item.info);
-		
-		info_mc._y = player_mc._y + player_mc._height - info_mc._height;
-		
-		if((item.type == zpConstants.TYPE_IMAGE && zpImage(item).sound != undefined) || item.type == zpConstants.TYPE_VIDEO){ info_mc._y -= zpConstants.LOAD_BAR_HEIGHT; }
+		if(item.info != ""){
+			
+			var info_mc:MovieClip = view_mc.createEmptyMovieClip("info_mc",INFO_DEPTH);
+			infoBand = new InfoBand(info_mc,width,item.info);
+			
+			info_mc._y = player_mc._y + player_mc._height - info_mc._height;
+			
+			if((item.type == zpConstants.TYPE_IMAGE && zpImage(item).sound != undefined) || item.type == zpConstants.TYPE_VIDEO){ info_mc._y -= zpConstants.LOAD_BAR_HEIGHT; }
+			
+		}
 		
 	}
 
@@ -147,7 +149,6 @@ class tv.zarate.projects.zplayer.zpView extends View{
 		var titleBorder_mc:MovieClip = title_mc.createEmptyMovieClip("titleBorder_mc",200);
 		
 		var field:TextField = TextfieldUtils.createField(title_mc,100,20,"none");
-		//field.border = true;
 		field.setNewTextFormat(new TextFormat("Verdana",12,0xffffff));
 		
 	}
@@ -183,7 +184,7 @@ class tv.zarate.projects.zplayer.zpView extends View{
 		var toggleInfoCallback:Function = Delegate.create(this,toggleInfo);
 		
 		itemsBand = new ItemsBand();
-		itemsBand.config(items,items_mc,selectItemCallback,updateInfoCallback,toggleInfoCallback);
+		itemsBand.config(model.items,items_mc,selectItemCallback,updateInfoCallback,toggleInfoCallback);
 		
 	}
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data>
+
+	<items>
+		
+		<item type="video" url="mlearning.flv" intro="mlearning/troy.jpg">
+			<title><![CDATA[m-learning]]></title>
+			<info><![CDATA[]]></info>
+		</item>
+		
+	</items>
+
+	<options randomStart="false" keepInfoBand="true"></options>
+	
+</data>

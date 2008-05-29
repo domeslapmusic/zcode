@@ -10,8 +10,8 @@
 You can see a litte recorded demo in the video bellow:
 
 </p>
-<br>
-<br>
+<br/>
+<br/>
 
 <div id="container"></div>
 

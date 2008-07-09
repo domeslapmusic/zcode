@@ -90,7 +90,7 @@ class tv.zarate.projects.zplayer.PlayerVideo extends Player{
 		
 		// load bar to show *video* download progress
 		
-		loadbar_mc = base_mc.createEmptyMovieClip("loadbar_mc",200);
+		loadbar_mc = base_mc.createEmptyMovieClip("loadbar_mc",300);
 		loadbar = new LoadBar(loadbar_mc,width);
 		loadbar.onDrag = Delegate.create(this,onDrag);
 		loadbar.onToggle = Delegate.create(this,onToggle);
@@ -112,7 +112,7 @@ class tv.zarate.projects.zplayer.PlayerVideo extends Player{
 		
 		// add play icon
 		
-		var bigPlay_mc:MovieClip = base_mc.createEmptyMovieClip("bigPlay_mc",800);
+		var bigPlay_mc:MovieClip = base_mc.createEmptyMovieClip("bigPlay_mc",200);
 		
 		var bigPlayBackground_mc:MovieClip = bigPlay_mc.createEmptyMovieClip("bigPlayBackground_mc",100);
 		MovieclipUtils.DrawSquare(bigPlayBackground_mc,0xffff00,0,width,height);

@@ -21,6 +21,7 @@
 
 import tv.zarate.utils.MovieclipUtils;
 import tv.zarate.utils.TextfieldUtils;
+import tv.zarate.utils.StyleSheetObject;
 
 import tv.zarate.projects.zplayer.zpConstants;
 
@@ -46,8 +47,10 @@ class tv.zarate.projects.zplayer.InfoBand{
 		var text_mc:MovieClip = base_mc.createEmptyMovieClip("text_mc",200);
 		text_mc._x = text_mc._y = margin;
 		
+		var pStyle:StyleSheetObject = new StyleSheetObject("Verdana",10,"#000000");
+		
 		var css:TextField.StyleSheet = new TextField.StyleSheet();
-		css.setStyle("p",{fontFamily:"Verdana",fontSize:"10",color:"#000000"});
+		css.setStyle("p",pStyle);
 		
 		field = TextfieldUtils.createField(text_mc,width - margin * 2,height - margin * 2,"none",true);
 		field.html = true;

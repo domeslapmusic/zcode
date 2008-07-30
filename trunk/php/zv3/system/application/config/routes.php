@@ -49,6 +49,7 @@ $route["flashgateway"] = "flashgateway";
 
 // Articles, projects and portfolio are "outside" the main site
 $route["articulos/:any"] = "articles";
+$route["articles/:any"] = "articles";
 $route["proyectos/:any"] = "projects";
 $route["projects/:any"] = "projects";
 $route["portfolio/:any"] = "portfolio";

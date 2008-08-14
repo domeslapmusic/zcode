@@ -1,5 +1,5 @@
 <p>ZCode is&nbsp;the place where I keep my code and also a
-little AS2 framework.</p>
+little AS2 framework (AS3 is on its way).</p>
 <h2>The framework</h2>
 <p>The framework&nbsp;consists only in 3 "main"
 classes&nbsp;
@@ -61,6 +61,6 @@ zv3. BTW, the PHP part is using <a href="http://www.codeigniter.com/">Code Ignit
 really nice Rail-esque framework that I've been playing with. Give it a
 go if you don't have a PHP framework already.</p>
 
-<p class="license">ZCode is released under <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>. If this license is not compatible with your project please contact me in cuentame [thingy] zarate .tv.</p>
+<p class="license">ZCode is released under <a href="http://en.wikipedia.org/wiki/Mit_license">MIT license</a> which allows even commercial use. If you have any doubts please contact me in cuentame [thingy] zarate .tv.</p>
 
 <p>Juan Delgado - <a href="http://zarate.tv">Z&aacute;rate</a></p>

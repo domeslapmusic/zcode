@@ -1,6 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head></head>
-<body><p>ZCode es el sitio en el que guardo mi c&oacute;digo y tambi&eacute;n un peque&ntilde;o framework para AS2.</p>
+<p>ZCode es el sitio en el que guardo mi c&oacute;digo y tambi&eacute;n un peque&ntilde;o framework para AS2 (la versi&oacute;n AS3 est&aacute; en camino).</p>
 <h2>El framework</h2>
 <p>El framework consiste s&oacute;lo en 3 clases "principales" (modelo,
 vista y objeto de configuraci&oacute;n) mas unas cuantas
@@ -49,6 +47,6 @@ con ZCode. &Eacute;chale un ojo a&nbsp;projects &gt; webv3 y
 al&nbsp;backend en php &gt;
 zv3. Por cierto, la parte de&nbsp;PHP est&aacute; hecha con <a href="http://www.codeigniter.com/">Code Igniter</a>, un framework en PHP parecido a Rails. M&iacute;ratelo si no tienes un framework de PHP preferido.</p>
 
-<p class="license">ZCode est&aacute; liberado bajo&nbsp;<a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>. Si esta licencia no es compatible con tu proyecto, m&aacute;ndame un mail a cuentame [movida] zarate .tv.</p>
+<p class="license">ZCode est&aacute; liberado bajo <a href="http://en.wikipedia.org/wiki/Mit_license">licencia MIT</a> lo que permite incluso uso comercial. Si tienes alguna duda m&aacute;ndame un mail a cuentame [movida] zarate .tv.</p>
 
-<p>Juan Delgado - <a href="http://zarate.tv">Z&aacute;rate</a></p></body></html>
+<p>Juan Delgado - <a href="http://zarate.tv">Z&aacute;rate</a></p>

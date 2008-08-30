@@ -70,6 +70,7 @@ package tv.zarate.application{
 				
 			}
 			
+			onResize();
 			initialLayout();
 			
 		}
@@ -96,7 +97,7 @@ package tv.zarate.application{
 		
 		// ********************* PROTECTED METHODS *********************
 		
-		protected function onResize(e:Event):void{
+		protected function onResize(e:Event=null):void{
 			setSize(_model.stage.stageWidth,_model.stage.stageHeight);
 		}
 

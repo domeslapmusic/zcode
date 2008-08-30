@@ -36,12 +36,18 @@ package tv.zarate.video{
 		public static var TYPE_LIT:String = "evLoadProgress";
 		
 		public var video:ZVideo;
+		public var bytesLoaded:Number;
+		public var bytesTotal:Number;
+		public var percentage:Number;
 		
-		public function evLoadProgress(video:ZVideo){
+		public function evLoadProgress(video:ZVideo,bytesLoaded:Number,bytesTotal:Number,percentage:Number){
 			
 			super(TYPE_LIT);
 			
 			this.video = video;
+			this.bytesLoaded = bytesLoaded;
+			this.bytesTotal = bytesTotal;
+			this.percentage = percentage;
 			
 		}
 		

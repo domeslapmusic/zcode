@@ -43,9 +43,6 @@ package tv.zarate.video{
 	
 	public class ZVideo extends Sprite{
 		
-		public var bytesLoaded:Number;
-		public var bytesTotal:Number;
-		
 		private var stream_ns:NetStream;
 		private var connection_nc:NetConnection;
 		private var video:Video;
@@ -55,6 +52,8 @@ package tv.zarate.video{
 		private var loadingTimer:Timer;
 		private var _playing:Boolean;
 		private var autoplay:Boolean;
+		private var _bytesLoaded:Number;
+		private var _bytesTotal:Number;
 		
 		public function ZVideo(){
 			
@@ -112,27 +111,35 @@ package tv.zarate.video{
 			return duration;
 		}
 		
-		public function setTime(pos:int):void{
+		public function setTime(pos:Number):void{
 			stream_ns.seek(pos);
 		}
 		
-		public function getTime():int{
+		public function getTime():Number{
 			return stream_ns.time;
 		}
 		
-		public function setVolume(volume:int):void{
+		public function setVolume(volume:Number):void{
 			videoSound.volume = volume;
 		}
 		
-		public function getVolume():int{
+		public function getVolume():Number{
 			return videoSound.volume;
+		}
+		
+		public function get bytesLoaded():Number{
+			return _bytesLoaded;
+		}
+		
+		public function get bytesTotal():Number{
+			return _bytesTotal;
 		}
 		
 		// ******************* PRIVATE METHODS *******************
 		
 		private function createVideo():void{
 			
-			loadingTimer = new Timer(200);
+			loadingTimer = new Timer(100);
 			loadingTimer.addEventListener(TimerEvent.TIMER,checkBytesLoaded);
 			loadingTimer.start();
 			
@@ -169,12 +176,12 @@ package tv.zarate.video{
 		
 		private function checkBytesLoaded(e:TimerEvent):void{
 			
-			bytesLoaded = stream_ns.bytesLoaded;
-			bytesTotal = stream_ns.bytesTotal;
+			_bytesLoaded = stream_ns.bytesLoaded;
+			_bytesTotal = stream_ns.bytesTotal;
 			
-			dispatchEvent(new evLoadProgress(this));
+			dispatchEvent(new evLoadProgress(this,_bytesLoaded,_bytesTotal,(_bytesLoaded/_bytesTotal)));
 			
-			if(bytesLoaded >= bytesTotal){
+			if(_bytesLoaded >= _bytesTotal){
 				
 				loadingTimer.stop();
 				dispatchEvent(new evLoadFinished(this));
@@ -186,7 +193,7 @@ package tv.zarate.video{
 		private function onMetaData(metadata:Object):void{
 			
 			for(var x:String in metadata){
-				zlog(x + " -- " + metadata[x]);
+				//zlog(x + " -- " + metadata[x]);
 			}
 			
 			if(!autoplay){ pause(); }

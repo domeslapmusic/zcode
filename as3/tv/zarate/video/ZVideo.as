@@ -120,7 +120,10 @@ package tv.zarate.video{
 		}
 		
 		public function setVolume(volume:Number):void{
+			
 			videoSound.volume = volume;
+			if(stream_ns != null){ stream_ns.soundTransform = videoSound; } // people might call setVolume before load
+			
 		}
 		
 		public function getVolume():Number{
@@ -204,9 +207,7 @@ package tv.zarate.video{
 		}
 		
 		private function onPlayStatus(e:NetStatusEvent):void{
-			
-			zlog("NetStatusEvent > " + e);
-			
+			//zlog("NetStatusEvent > " + e);
 		}
 		
 	}

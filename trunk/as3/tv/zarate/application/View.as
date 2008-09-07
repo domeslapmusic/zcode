@@ -57,10 +57,11 @@ package tv.zarate.application{
 			
 		}
 		
-		public function config(model:Model,conf:Config,isRoot:Boolean):void{
+		public function config(model:Model,conf:Config,isRoot:Boolean,flashvars:FlashVars):void{
 			
 			_model = model;
 			_conf = conf;
+			this.flashvars = flashvars;
 			
 			if(isRoot){
 				

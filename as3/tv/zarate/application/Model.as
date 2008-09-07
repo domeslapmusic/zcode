@@ -68,7 +68,7 @@ package tv.zarate.application{
 		protected function configReady(e:evConfigReady):void{
 			
 			if(_view == null){ _view = new View(); }
-			_view.config(this,_conf,MovieClipUtils.IsRoot(this));
+			_view.config(this,_conf,MovieClipUtils.IsRoot(this),flashvars);
 			
 			addChild(_view);
 			

@@ -57,14 +57,17 @@ package tv.zarate.utils{
 			return (fv != null)? Number(fv):currentVal;
 			
 		}
-
+		
 		public function initBoolean(varName:String,currentVal:Boolean):Boolean{
 			
 			var fv:String = getVar(varName);
 			return (fv != null)? ((fv == "true")? true:false):currentVal;
 			
 		}
-
+		
+		public function getApplicationParameters():Object{
+			return loaderInfo.parameters;
+		}
 		
 	}
 	

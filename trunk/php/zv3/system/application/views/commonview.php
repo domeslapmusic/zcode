@@ -43,6 +43,8 @@ echo utf8_encode($misc_freak_warning);
 	<title>Z&aacute;rate <?php if(isset($secondaryTitle)){ echo " - ".$secondaryTitle; } ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
+	<link rel="alternate" type="application/rss+xml" title="ZBlog RSS Feed" href="http://blog.zarate.tv/feed/" />
+	
 	<base href="<?php echo base_url(); ?>" />
 	
 	<?php if(isset($pageCss)){ foreach($pageCss as $css){ ?>

@@ -63,8 +63,9 @@
 <h2>Download</h2>
 <p><strong>ZLog</strong> is Open Source and you can download:</p>
 <ul>
+	<li><a href="<?php echo base_url(); ?>assets/projects/zlog/files/ZLog.air">ZLog AIR package</a>. It runs ZLog as an application outside the browser. It needs <a href="http://get.adobe.com/air/">AIR 1.1 runtime</a>.</li>
 	<li><a href="<?php echo base_url(); ?>assets/projects/zlog/files/zlog_v_1_1_simple.zip">Basic pack</a>. Compiled console and the connector class.</li>
-	<li><a href="<?php echo base_url(); ?>assets/projects/zlog/files/zlog_v_1_1_complete.zip">Freak pack</a>. Console's code with compiling instructions and the connector class.</li>
+	<li><a href="<?php echo base_url(); ?>assets/projects/zlog/files/zlog_v_1_1_complete.zip">Geek pack</a>. Console's code with compiling instructions and the connector class.</li>
 </ul>
 
 <a name="changelog"></a>

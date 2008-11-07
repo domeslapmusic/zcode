@@ -63,6 +63,7 @@
 <h2>Descarga</h2>
 <p>Todo el c&oacute;digo de <strong>ZLog</strong> es abierto y te lo puedes bajar de aqu&iacute;:</p>
 <ul>
+	<li><a href="<?php echo base_url(); ?>assets/projects/zlog/files/ZLog.air">ZLog AIR</a>. Para usar ZLog como una aplicaci&oacute;n fuera del navegador. Necesita <a href="http://get.adobe.com/air/">AIR 1.1 runtime</a>.</li>
 	<li><a href="<?php echo base_url(); ?>assets/projects/zlog/files/zlog_v_1_1_simple.zip">Paquete b&aacute;sico</a>. La consola compilada y la clase conectora.</li>
 	<li><a href="<?php echo base_url(); ?>assets/projects/zlog/files/zlog_v_1_1_complete.zip">Paquete friki</a>. El c&oacute;digo de la consola con instrucciones para compilar y la clase conectora.</li>
 </ul>

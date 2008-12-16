@@ -36,6 +36,8 @@ package tv.zarate.components{
 	
 	public class ZButton extends Sprite{
 		
+		public var data:*;
+		
 		protected var field:TextField;
 		protected var _text:String;
 		protected var margin:int = 5;

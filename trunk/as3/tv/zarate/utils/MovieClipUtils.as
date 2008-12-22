@@ -30,6 +30,7 @@ package tv.zarate.utils{
 	
 	import flash.display.Sprite;
 	import flash.display.Shape;
+	import flash.display.DisplayObject;
 	
 	public class MovieClipUtils{
 		
@@ -60,22 +61,30 @@ package tv.zarate.utils{
 			
 		}
 		
-		public static function CentreHorizontal(master:Sprite,slave:Sprite):void{
+		public static function CentreHorizontal(master:DisplayObject,slave:DisplayObject):void{
 			slave.x = Math.round((master.width - slave.width)/2);
 		}
 		
-		public static function CentreVertical(master:Sprite,slave:Sprite):void{
+		public static function CentreVertical(master:DisplayObject,slave:DisplayObject):void{
 			slave.y = Math.round((master.height - slave.height)/2);
 		}
 		
-		public static function CentreClips(master:Sprite,slave:Sprite):void{
+		public static function CentreFromWidth(width:Number,target:DisplayObject):void{
+			target.x = Math.round((width-target.width)/2);
+		}
+		
+		public static function CentreFromHeight(height:Number,target:DisplayObject):void{
+			target.y = Math.round((height-target.height)/2);
+		}
+		
+		public static function CentreClips(master:DisplayObject,slave:DisplayObject):void{
 			
 			CentreHorizontal(master,slave);
 			CentreVertical(master,slave);
 			
 		}
 		
-		public static function MaxResize(sprite:Sprite,maxWidth:Number,maxHeight:Number):void{
+		public static function MaxResize(sprite:DisplayObject,maxWidth:Number,maxHeight:Number):void{
 			
 			var appAspectRatio:Number = maxWidth/maxHeight;
 			var contentAspectRatio:Number = sprite.width/sprite.height;

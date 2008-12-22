@@ -37,6 +37,7 @@ package tv.zarate.application{
 	import tv.zarate.application.evConfigReady;
 	import tv.zarate.utils.FlashVars;
 	import tv.zarate.utils.MovieClipUtils;
+	import tv.zarate.utils.KeyboardUtils;
 
 	public class Model extends Sprite{
 		
@@ -71,6 +72,8 @@ package tv.zarate.application{
 			_view.config(this,_conf,MovieClipUtils.IsRoot(this),flashvars);
 			
 			addChild(_view);
+			
+			KeyboardUtils.getInstance(stage);
 			
 			frameworkReady();
 			

@@ -39,14 +39,16 @@ package tv.zarate.components{
 		public var data:*;
 		
 		protected var field:TextField;
-		protected var _text:String;
+		protected var text:String;
 		protected var margin:int = 5;
+		protected var color:Number;
 		
-		public function ZButton(text:String){
+		public function ZButton(text:String,color:Number=0xdedede){
 			
 			super();
 			
-			_text = text;
+			this.text = text;
+			this.color = color;
 			
 			draw();
 			
@@ -57,12 +59,12 @@ package tv.zarate.components{
 			buttonMode = true;
 			
 			field = TextFieldUtils.CreateField();
-			field.text = _text;
+			field.text = text;
 			field.x = field.y = margin;
 			field.selectable = false;
 			
 			var bg:Sprite = new Sprite();
-			MovieClipUtils.DrawRect(bg,field.width+margin*2,field.height+margin*2,0xdedede);
+			MovieClipUtils.DrawRect(bg,field.width+margin*2,field.height+margin*2,color);
 			
 			addChild(bg);
 			addChild(field);

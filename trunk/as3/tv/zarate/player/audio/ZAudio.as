@@ -26,28 +26,28 @@
 * 
 */
 
-package tv.zarate.video{
+package tv.zarate.player.audio{
 	
 	import flash.display.Sprite;
-	import flash.net.NetStream;
-	import flash.net.NetConnection;
-	import flash.media.Video;
-	import flash.media.SoundTransform;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
-	import flash.events.NetStatusEvent;
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.net.URLRequest;
 	
-	import tv.zarate.video.evOnMetaData;
-	import tv.zarate.video.evLoadProgress;
-	import tv.zarate.video.evLoadFinished;
+	import flash.media.Sound;
+	//import flash.media.SoundTransform;
 	
-	public class ZVideo extends Sprite{
+	import tv.zarate.player.iPlayer;
+	
+	import tv.zarate.player.events.evLoadProgress;
+	import tv.zarate.player.events.evLoadFinished;
+	
+	public class ZAudio extends Sprite implements iPlayer{
 		
-		private var stream_ns:NetStream;
-		private var connection_nc:NetConnection;
-		private var video:Video;
-		private var videoSound:SoundTransform;
-		private var videoURL:String;
+		private var mainSound:Sound;
+		private var soundPath:String;
+		
 		private var duration:Number;
 		private var loadingTimer:Timer;
 		private var _playing:Boolean;
@@ -55,21 +55,19 @@ package tv.zarate.video{
 		private var _bytesLoaded:Number;
 		private var _bytesTotal:Number;
 		
-		public function ZVideo(){
+		public function ZAudio(){
 			
 			super();
 			
-			videoSound = new SoundTransform(1,0);
-			
 		}
-	
+		
 		public function load(url:String,autoplay:Boolean=false):void{
 			
-			videoURL = url;
+			soundPath = url;
 			this.autoplay = autoplay;
 			_playing = autoplay;
 			
-			createVideo();
+			loadSound();
 			
 		}
 		
@@ -91,14 +89,14 @@ package tv.zarate.video{
 		
 		public function play():void{
 			
-			stream_ns.resume();
+			//stream_ns.resume();
 			_playing = true;
 			
 		}
 		
 		public function pause():void{
 			
-			stream_ns.pause();
+			//stream_ns.pause();
 			_playing = false;
 			
 		}
@@ -112,22 +110,22 @@ package tv.zarate.video{
 		}
 		
 		public function setTime(pos:Number):void{
-			stream_ns.seek(pos);
+			//stream_ns.seek(pos);
 		}
 		
 		public function getTime():Number{
-			return stream_ns.time;
+			return 0//stream_ns.time;
 		}
 		
 		public function setVolume(volume:Number):void{
 			
-			videoSound.volume = volume;
-			if(stream_ns != null){ stream_ns.soundTransform = videoSound; } // people might call setVolume before load
+			//videoSound.volume = volume;
+			//if(stream_ns != null){ stream_ns.soundTransform = videoSound; } // people might call setVolume before load
 			
 		}
 		
 		public function getVolume():Number{
-			return videoSound.volume;
+			return 0//videoSound.volume;
 		}
 		
 		public function get bytesLoaded():Number{
@@ -140,47 +138,23 @@ package tv.zarate.video{
 		
 		// ******************* PRIVATE METHODS *******************
 		
-		private function createVideo():void{
+		private function loadSound():void{
 			
 			loadingTimer = new Timer(100);
 			loadingTimer.addEventListener(TimerEvent.TIMER,checkBytesLoaded);
 			loadingTimer.start();
 			
-			if(connection_nc != null){
-				
-				connection_nc.close();
-				stream_ns.play(null);
-				stream_ns.close();
-				
-				connection_nc = null;
-				stream_ns = null;
-				
-			}
-			
-			connection_nc = new NetConnection();
-			connection_nc.connect(null);
-			
-			stream_ns = new NetStream(connection_nc);
-
-			var netClient:Object = new Object();
-			netClient.onMetaData = onMetaData;
-			netClient.onPlayStatus = onPlayStatus;
-
-			stream_ns.client = netClient;
-			stream_ns.soundTransform = videoSound;
-			stream_ns.play(videoURL);
-			
-			video = new Video(160,120);
-			video.attachNetStream(stream_ns);
-			
-			addChild(video);
+			mainSound = new Sound();
+			mainSound.addEventListener(Event.COMPLETE,loadComplete);
+			mainSound.addEventListener(IOErrorEvent.IO_ERROR,loadError);
+			mainSound.load(new URLRequest(soundPath));
 			
 		}
 		
 		private function checkBytesLoaded(e:TimerEvent):void{
 			
-			_bytesLoaded = stream_ns.bytesLoaded;
-			_bytesTotal = stream_ns.bytesTotal;
+			_bytesLoaded = mainSound.bytesLoaded;
+			_bytesTotal = mainSound.bytesTotal;
 			
 			dispatchEvent(new evLoadProgress(this,_bytesLoaded,_bytesTotal,(_bytesLoaded/_bytesTotal)));
 			
@@ -193,6 +167,25 @@ package tv.zarate.video{
 			
 		}
 		
+		private function loadComplete(e:Event):void{
+			
+			zlog("loadComplete > " + e + " -- " + autoplay);
+			
+			if(autoplay){
+				
+				mainSound.play();
+				
+			}
+			
+		}
+		
+		private function loadError(e:IOErrorEvent):void{
+			
+			zlog("loadError > " + e);
+			
+		}
+		
+		/*
 		private function onMetaData(metadata:Object):void{
 			
 			for(var x:String in metadata){
@@ -209,7 +202,7 @@ package tv.zarate.video{
 		private function onPlayStatus(e:NetStatusEvent):void{
 			//zlog("NetStatusEvent > " + e);
 		}
-		
+		*/
 	}
 
 }

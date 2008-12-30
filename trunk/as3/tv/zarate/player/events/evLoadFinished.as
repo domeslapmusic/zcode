@@ -25,25 +25,22 @@
 * THE SOFTWARE.
 * 
 */
-
-package tv.zarate.video{
+package tv.zarate.player.events{
 	
 	import flash.events.Event;
-	import tv.zarate.video.ZVideo;
+	import tv.zarate.player.iPlayer;
 	
-	public class evOnMetaData extends Event{
+	public class evLoadFinished extends Event{
 		
-		public static var TYPE_LIT:String = "evOnMetaData";
+		public static var TYPE_LIT:String = "evLoadFinished";
 		
-		public var metadata:Object;
-		public var video:ZVideo;
+		public var player:iPlayer;
 		
-		public function evOnMetaData(video:ZVideo,metadata:Object){
+		public function evLoadFinished(player:iPlayer){
 			
 			super(TYPE_LIT);
 			
-			this.metadata = metadata;
-			this.video = video;
+			this.player = player;
 			
 		}
 		

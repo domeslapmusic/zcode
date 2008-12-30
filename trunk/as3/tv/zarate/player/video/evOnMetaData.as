@@ -26,28 +26,24 @@
 * 
 */
 
-package tv.zarate.video{
+package tv.zarate.player.video{
 	
 	import flash.events.Event;
 	import tv.zarate.video.ZVideo;
 	
-	public class evLoadProgress extends Event{
+	public class evOnMetaData extends Event{
 		
-		public static var TYPE_LIT:String = "evLoadProgress";
+		public static var TYPE_LIT:String = "evOnMetaData";
 		
+		public var metadata:Object;
 		public var video:ZVideo;
-		public var bytesLoaded:Number;
-		public var bytesTotal:Number;
-		public var percentage:Number;
 		
-		public function evLoadProgress(video:ZVideo,bytesLoaded:Number,bytesTotal:Number,percentage:Number){
+		public function evOnMetaData(video:ZVideo,metadata:Object){
 			
 			super(TYPE_LIT);
 			
+			this.metadata = metadata;
 			this.video = video;
-			this.bytesLoaded = bytesLoaded;
-			this.bytesTotal = bytesTotal;
-			this.percentage = percentage;
 			
 		}
 		

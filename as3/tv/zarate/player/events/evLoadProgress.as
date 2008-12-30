@@ -25,22 +25,29 @@
 * THE SOFTWARE.
 * 
 */
-package tv.zarate.video{
+
+package tv.zarate.player.events{
 	
 	import flash.events.Event;
-	import tv.zarate.video.ZVideo;
+	import tv.zarate.player.iPlayer;
 	
-	public class evLoadFinished extends Event{
+	public class evLoadProgress extends Event{
 		
-		public static var TYPE_LIT:String = "evLoadFinished";
+		public static var TYPE_LIT:String = "evLoadProgress";
 		
-		public var video:ZVideo;
+		public var player:iPlayer;
+		public var bytesLoaded:Number;
+		public var bytesTotal:Number;
+		public var percentage:Number;
 		
-		public function evLoadFinished(video:ZVideo){
+		public function evLoadProgress(player:iPlayer,bytesLoaded:Number,bytesTotal:Number,percentage:Number){
 			
 			super(TYPE_LIT);
 			
-			this.video = video;
+			this.player = player;
+			this.bytesLoaded = bytesLoaded;
+			this.bytesTotal = bytesTotal;
+			this.percentage = percentage;
 			
 		}
 		

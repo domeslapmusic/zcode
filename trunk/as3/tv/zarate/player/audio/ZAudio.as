@@ -28,32 +28,34 @@
 
 package tv.zarate.player.audio{
 	
-	import flash.display.Sprite;
-	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.events.EventDispatcher;
 	import flash.net.URLRequest;
+	import flash.utils.Timer;
 	
 	import flash.media.Sound;
-	//import flash.media.SoundTransform;
+	import flash.media.SoundTransform;
+	import flash.media.SoundChannel;
 	
 	import tv.zarate.player.iPlayer;
-	
 	import tv.zarate.player.events.evLoadProgress;
 	import tv.zarate.player.events.evLoadFinished;
 	
-	public class ZAudio extends Sprite implements iPlayer{
+	public class ZAudio extends EventDispatcher implements iPlayer{
 		
-		private var mainSound:Sound;
 		private var soundPath:String;
+		private var mainSound:Sound;
+		private var audioTransform:SoundTransform;
+		private var audioChannel:SoundChannel;
 		
-		private var duration:Number;
 		private var loadingTimer:Timer;
 		private var _playing:Boolean;
 		private var autoplay:Boolean;
 		private var _bytesLoaded:Number;
 		private var _bytesTotal:Number;
+		private var lastPosition:Number = 0;
 		
 		public function ZAudio(){
 			
@@ -89,14 +91,18 @@ package tv.zarate.player.audio{
 		
 		public function play():void{
 			
-			//stream_ns.resume();
+			audioChannel = mainSound.play(lastPosition);
+			audioChannel.soundTransform = audioTransform;
+			
 			_playing = true;
 			
 		}
 		
 		public function pause():void{
 			
-			//stream_ns.pause();
+			lastPosition = audioChannel.position;
+			audioChannel.stop();
+			
 			_playing = false;
 			
 		}
@@ -106,26 +112,40 @@ package tv.zarate.player.audio{
 		}
 		
 		public function getDuration():Number{
-			return duration;
+			return mainSound.length;
 		}
 		
 		public function setTime(pos:Number):void{
-			//stream_ns.seek(pos);
+			
+			if(pos < 0){ pos = 0; }
+			if(pos > getDuration()){ pos = getDuration(); }
+			
+			lastPosition = pos;
+			play();
+			
+			// The if below is ugly but the only way to move the position
+			// of the sound is calling sound.play() method.
+			
+			if(!playing){ pause(); }
+			
 		}
 		
 		public function getTime():Number{
-			return 0//stream_ns.time;
+			return audioChannel.position;
 		}
 		
 		public function setVolume(volume:Number):void{
 			
-			//videoSound.volume = volume;
-			//if(stream_ns != null){ stream_ns.soundTransform = videoSound; } // people might call setVolume before load
+			if(volume < 0){ volume = 0; }
+			if(volume > 1){ volume = 1; }
+			
+			audioTransform.volume = volume;
+			audioChannel.soundTransform = audioTransform;
 			
 		}
 		
 		public function getVolume():Number{
-			return 0//videoSound.volume;
+			return audioTransform.volume;
 		}
 		
 		public function get bytesLoaded():Number{
@@ -143,6 +163,8 @@ package tv.zarate.player.audio{
 			loadingTimer = new Timer(100);
 			loadingTimer.addEventListener(TimerEvent.TIMER,checkBytesLoaded);
 			loadingTimer.start();
+			
+			audioTransform = new SoundTransform();
 			
 			mainSound = new Sound();
 			mainSound.addEventListener(Event.COMPLETE,loadComplete);
@@ -168,41 +190,13 @@ package tv.zarate.player.audio{
 		}
 		
 		private function loadComplete(e:Event):void{
-			
-			zlog("loadComplete > " + e + " -- " + autoplay);
-			
-			if(autoplay){
-				
-				mainSound.play();
-				
-			}
-			
+			if(autoplay){ play(); }
 		}
 		
 		private function loadError(e:IOErrorEvent):void{
-			
 			zlog("loadError > " + e);
-			
 		}
 		
-		/*
-		private function onMetaData(metadata:Object):void{
-			
-			for(var x:String in metadata){
-				//zlog(x + " -- " + metadata[x]);
-			}
-			
-			if(!autoplay){ pause(); }
-			
-			duration = metadata.duration;
-			dispatchEvent(new evOnMetaData(this,metadata));
-			
-		}
-		
-		private function onPlayStatus(e:NetStatusEvent):void{
-			//zlog("NetStatusEvent > " + e);
-		}
-		*/
 	}
 
 }

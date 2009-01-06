@@ -31,6 +31,7 @@ package tv.zarate.utils{
 	import flash.display.Sprite;
 	import flash.display.Shape;
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	
 	public class MovieClipUtils{
 		
@@ -111,6 +112,12 @@ package tv.zarate.utils{
 			// http://livedocs.adobe.com/flash/9.0/ActionScriptLangRefV3/flash/display/DisplayObject.html#root
 			
 			return (sprite.parent.toString() == "[object Stage]");
+			
+		}
+		
+		public static function RemoveChildren(displayObjectContainer:DisplayObjectContainer):void{
+			
+			while(displayObjectContainer.numChildren > 0){ displayObjectContainer.removeChildAt(0); }
 			
 		}
 		

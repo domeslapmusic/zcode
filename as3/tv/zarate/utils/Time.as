@@ -34,18 +34,18 @@ package tv.zarate.utils{
 		public var hours:Number = 0;
 		public var minutes:Number = 0;
 		public var seconds:Number = 0;
-
-		public function Time(days:Number,hours:Number,minutes:Number,seconds:Number){
 		
+		public function Time(days:Number,hours:Number,minutes:Number,seconds:Number){
+			
 			this.days = days;
 			this.hours = hours;
 			this.minutes = minutes;
 			this.seconds = seconds;
-		
+			
 		}
-
-		public static function getTimeFromSeconds(seconds:Number):Time{
 		
+		public static function getTimeFromSeconds(seconds:Number,roundSeconds:Boolean=true):Time{
+			
 			var rest:Number = seconds;
 			var daySeconds:Number = 24*60*60;
 			var hourSeconds:Number = 60*60;
@@ -62,6 +62,7 @@ package tv.zarate.utils{
 			rest -= mins*minuteSeconds;
 			
 			var seconds:Number = rest;
+			if(roundSeconds){ seconds = Math.round(seconds); }
 			
 			return new Time(days,hours,mins,seconds);
 			

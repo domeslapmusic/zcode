@@ -42,7 +42,7 @@ package tv.zarate.player{
 		function getDuration():Number;
 		function setTime(position:Number):void;
 		function getTime():Number;
-		function setVolume(volume:Number):void;
+		function setVolume(volume:Number):Number;
 		function getVolume():Number;
 		
 	}

@@ -56,6 +56,7 @@ package tv.zarate.player.audio{
 		private var _bytesLoaded:Number;
 		private var _bytesTotal:Number;
 		private var lastPosition:Number = 0;
+		private var initialVolume:Number = 1;
 		
 		public function ZAudio(){
 			
@@ -131,21 +132,36 @@ package tv.zarate.player.audio{
 		}
 		
 		public function getTime():Number{
-			return audioChannel.position;
+			
+			var t:Number = 0;
+			try{ t = audioChannel.position; } catch(e:*){}
+			
+			return t;
+			
 		}
 		
-		public function setVolume(volume:Number):void{
+		public function setVolume(volume:Number):Number{
 			
 			if(volume < 0){ volume = 0; }
 			if(volume > 1){ volume = 1; }
 			
-			audioTransform.volume = volume;
-			audioChannel.soundTransform = audioTransform;
+			if(audioTransform == null || audioChannel == null){
+				
+				initialVolume = volume;
+				
+			} else {
+				
+				audioTransform.volume = volume;
+				audioChannel.soundTransform = audioTransform;
+				
+			}
+			
+			return getVolume();
 			
 		}
 		
 		public function getVolume():Number{
-			return audioTransform.volume;
+			return (audioTransform != null)? audioTransform.volume : initialVolume;
 		}
 		
 		public function get bytesLoaded():Number{
@@ -164,7 +180,7 @@ package tv.zarate.player.audio{
 			loadingTimer.addEventListener(TimerEvent.TIMER,checkBytesLoaded);
 			loadingTimer.start();
 			
-			audioTransform = new SoundTransform();
+			audioTransform = new SoundTransform(initialVolume,0);
 			
 			mainSound = new Sound();
 			mainSound.addEventListener(Event.COMPLETE,loadComplete);

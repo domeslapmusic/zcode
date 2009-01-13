@@ -101,8 +101,12 @@ package tv.zarate.player.audio{
 		
 		public function pause():void{
 			
-			lastPosition = audioChannel.position;
-			audioChannel.stop();
+			if(audioChannel != null){
+				
+				lastPosition = audioChannel.position;
+				audioChannel.stop();
+				
+			}
 			
 			_playing = false;
 			

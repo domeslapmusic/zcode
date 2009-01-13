@@ -29,7 +29,7 @@
 package tv.zarate.player.video{
 	
 	import flash.events.Event;
-	import tv.zarate.video.ZVideo;
+	import tv.zarate.player.video.ZVideo;
 	
 	public class evOnMetaData extends Event{
 		

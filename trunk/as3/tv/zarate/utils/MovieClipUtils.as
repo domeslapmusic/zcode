@@ -121,6 +121,10 @@ package tv.zarate.utils{
 			
 		}
 		
+		public static function BringToFront(displayObjectContainer:DisplayObjectContainer):void{
+			displayObjectContainer.parent.setChildIndex(displayObjectContainer,displayObjectContainer.parent.numChildren-1);
+		}
+		
 	}
 
 }

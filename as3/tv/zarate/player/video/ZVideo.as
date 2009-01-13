@@ -40,7 +40,7 @@ package tv.zarate.player.video{
 	import tv.zarate.player.iPlayer;
 	import tv.zarate.player.events.evLoadProgress;
 	import tv.zarate.player.events.evLoadFinished;
-	import tv.zarate.video.evOnMetaData;
+	import tv.zarate.player.video.evOnMetaData;
 	
 	public class ZVideo extends Sprite implements iPlayer{
 		
@@ -55,12 +55,11 @@ package tv.zarate.player.video{
 		private var autoplay:Boolean;
 		private var _bytesLoaded:Number;
 		private var _bytesTotal:Number;
+		private var initialVolume:Number = 1;
 		
 		public function ZVideo(){
 			
 			super();
-			
-			videoSound = new SoundTransform(1,0);
 			
 		}
 	
@@ -99,7 +98,7 @@ package tv.zarate.player.video{
 		
 		public function pause():void{
 			
-			stream_ns.pause();
+			if(stream_ns != null){ stream_ns.pause(); }
 			_playing = false;
 			
 		}
@@ -120,15 +119,28 @@ package tv.zarate.player.video{
 			return stream_ns.time;
 		}
 		
-		public function setVolume(volume:Number):void{
+		public function setVolume(volume:Number):Number{
 			
-			videoSound.volume = volume;
-			if(stream_ns != null){ stream_ns.soundTransform = videoSound; } // people might call setVolume before load
+			if(volume < 0){ volume = 0; }
+			if(volume > 1){ volume = 1; }
+			
+			if(videoSound == null){
+				
+				initialVolume = volume;
+				
+			} else {
+				
+				videoSound.volume = volume;
+				if(stream_ns != null){ stream_ns.soundTransform = videoSound; } // people might call setVolume before load
+				
+			}
+			
+			return getVolume();
 			
 		}
 		
 		public function getVolume():Number{
-			return videoSound.volume;
+			return (videoSound != null)? videoSound.volume : initialVolume;
 		}
 		
 		public function get bytesLoaded():Number{
@@ -146,6 +158,8 @@ package tv.zarate.player.video{
 			loadingTimer = new Timer(100);
 			loadingTimer.addEventListener(TimerEvent.TIMER,checkBytesLoaded);
 			loadingTimer.start();
+			
+			videoSound = new SoundTransform(initialVolume,0);
 			
 			if(connection_nc != null){
 				

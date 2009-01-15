@@ -112,7 +112,14 @@ package tv.zarate.player.video{
 		}
 		
 		public function setTime(pos:Number):void{
+			
+			var t:Number = getTime();
+			
+			if(pos < 0){ pos = 0; }
+			if(pos > t){ pos = t; }
+			
 			stream_ns.seek(pos);
+			
 		}
 		
 		public function getTime():Number{

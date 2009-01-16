@@ -33,6 +33,8 @@ package tv.zarate.utils{
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	
+	import flash.geom.ColorTransform;
+	
 	public class MovieClipUtils{
 		
 		public static function DrawRect(sprite:Sprite,width:Number=100,height:Number=100,colour:Number=0x000000,alpha:Number=1,border:Number=0,borderColour:Number=0x000000,borderAlpha:Number=1):Sprite{
@@ -116,13 +118,20 @@ package tv.zarate.utils{
 		}
 		
 		public static function RemoveChildren(displayObjectContainer:DisplayObjectContainer):void{
-			
 			while(displayObjectContainer.numChildren > 0){ displayObjectContainer.removeChildAt(0); }
-			
 		}
 		
 		public static function BringToFront(displayObjectContainer:DisplayObjectContainer):void{
 			displayObjectContainer.parent.setChildIndex(displayObjectContainer,displayObjectContainer.parent.numChildren-1);
+		}
+		
+		public static function ChangeColor(displayObject:DisplayObject,color:Number):void{
+			
+			var ct:ColorTransform = new ColorTransform();
+			ct.color = color;
+			
+			displayObject.transform.colorTransform = ct;
+			
 		}
 		
 	}

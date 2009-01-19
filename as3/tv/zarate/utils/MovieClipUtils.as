@@ -33,6 +33,8 @@ package tv.zarate.utils{
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	
+	import flash.geom.Rectangle;
+	
 	import flash.geom.ColorTransform;
 	
 	public class MovieClipUtils{
@@ -40,6 +42,8 @@ package tv.zarate.utils{
 		public static function DrawRect(sprite:Sprite,width:Number=100,height:Number=100,colour:Number=0x000000,alpha:Number=1,border:Number=0,borderColour:Number=0x000000,borderAlpha:Number=1):Sprite{
 			
 			var rect:Sprite = new Sprite();
+			
+			var r:Rectangle = new Rectangle();
 			
 			if(border > 0){
 				
@@ -53,6 +57,35 @@ package tv.zarate.utils{
 			var inner:Shape = new Shape();
 			inner.graphics.beginFill(colour,alpha);
 			inner.graphics.drawRect(border,border,width-border*2,height-border*2);
+			inner.graphics.endFill();
+			
+			if(border > 0){ rect.addChild(rectBorder); }
+			rect.addChild(inner);
+			
+			sprite.addChild(rect);
+			
+			return rect;
+			
+		}
+		
+		public static function DrawRoundRect(sprite:Sprite,width:Number=100,height:Number=100,colour:Number=0x000000,alpha:Number=1,corner:Number=5,border:Number=0,borderColour:Number=0x000000,borderAlpha:Number=1):Sprite{
+			
+			var rect:Sprite = new Sprite();
+			
+			var r:Rectangle = new Rectangle();
+			
+			if(border > 0){
+				
+				var rectBorder:Shape = new Shape();
+				rectBorder.graphics.beginFill(borderColour,borderAlpha);
+				rectBorder.graphics.drawRoundRect(0,0,width,height,corner);
+				rectBorder.graphics.endFill();
+				
+			}
+		
+			var inner:Shape = new Shape();
+			inner.graphics.beginFill(colour,alpha);
+			inner.graphics.drawRoundRect(border,border,width-border*2,height-border*2,corner);
 			inner.graphics.endFill();
 			
 			if(border > 0){ rect.addChild(rectBorder); }

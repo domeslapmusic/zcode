@@ -47,6 +47,19 @@ package tv.zarate.utils{
 			return Date.UTC(date.fullYear,date.month,date.date,date.hours,date.minutes,date.seconds,date.milliseconds);
 		}
 		
+		// Returns dd/mm/yyyy format from given date
+		public static function getSlashSeparatedStringFromDate(date:Date):String{
+			
+			var t:String;
+			
+			t += (date.date < 9)? "0" + date.date : date.date;
+			t += "/" + ((date.month + 1 < 9)? "0" + (date.month + 1) : date.month + 1);
+			t += "/" + date.fullYear;
+			
+			return t;
+			
+		}
+		
 	}
 	
 }

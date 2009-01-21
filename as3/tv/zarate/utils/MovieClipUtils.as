@@ -154,8 +154,8 @@ package tv.zarate.utils{
 			while(displayObjectContainer.numChildren > 0){ displayObjectContainer.removeChildAt(0); }
 		}
 		
-		public static function BringToFront(displayObjectContainer:DisplayObjectContainer):void{
-			displayObjectContainer.parent.setChildIndex(displayObjectContainer,displayObjectContainer.parent.numChildren-1);
+		public static function BringToFront(displayObject:DisplayObject):void{
+			displayObject.parent.setChildIndex(displayObject,displayObject.parent.numChildren-1);
 		}
 		
 		public static function ChangeColor(displayObject:DisplayObject,color:Number):void{

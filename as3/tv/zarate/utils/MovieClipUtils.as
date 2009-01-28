@@ -113,6 +113,13 @@ package tv.zarate.utils{
 			target.y = Math.round((height-target.height)/2);
 		}
 		
+		public static function CentreFromBoth(width:Number,height:Number,target:DisplayObject):void{
+			
+			CentreFromWidth(width,target);
+			CentreFromHeight(height,target);
+			
+		}
+		
 		public static function CentreClips(master:DisplayObject,slave:DisplayObject):void{
 			
 			CentreHorizontal(master,slave);

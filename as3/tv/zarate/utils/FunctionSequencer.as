@@ -49,6 +49,10 @@ package tv.zarate.utils{
 			
 		}
 		
+		public function stop():void{
+			timer.stop();
+		}
+		
 		private function callFunction(e:TimerEvent):void{
 			
 			var f:Function = functions[position];

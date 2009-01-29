@@ -40,6 +40,7 @@ package tv.zarate.player.video{
 	import tv.zarate.player.iPlayer;
 	import tv.zarate.player.events.evLoadProgress;
 	import tv.zarate.player.events.evLoadFinished;
+	import tv.zarate.player.events.evPlayerFinished;
 	import tv.zarate.player.video.evOnMetaData;
 	
 	public class ZVideo extends Sprite implements iPlayer{
@@ -62,7 +63,7 @@ package tv.zarate.player.video{
 			super();
 			
 		}
-	
+		
 		public function load(url:String,autoplay:Boolean=false):void{
 			
 			videoURL = url;
@@ -73,7 +74,7 @@ package tv.zarate.player.video{
 			
 		}
 		
-		public function get playing():Boolean{
+		public function isPlaying():Boolean{
 			return _playing;
 		}
 		
@@ -183,11 +184,15 @@ package tv.zarate.player.video{
 			connection_nc.connect(null);
 			
 			stream_ns = new NetStream(connection_nc);
-
+			
+			// I don't bloody understand why we have to listen to to a standard event for NetStatusEvent.NET_STATUS
+			// but we need a stupid client object for the metadata. Until I find out, We'll have to get over it.
+			
 			var netClient:Object = new Object();
 			netClient.onMetaData = onMetaData;
-			netClient.onPlayStatus = onPlayStatus;
-
+			
+			stream_ns.addEventListener(NetStatusEvent.NET_STATUS,onPlayStatus);
+			
 			stream_ns.client = netClient;
 			stream_ns.soundTransform = videoSound;
 			stream_ns.play(videoURL);
@@ -218,7 +223,7 @@ package tv.zarate.player.video{
 		private function onMetaData(metadata:Object):void{
 			
 			for(var x:String in metadata){
-				//zlog(x + " -- " + metadata[x]);
+				zlog(x + " -- " + metadata[x]);
 			}
 			
 			if(!autoplay){ pause(); }
@@ -229,7 +234,13 @@ package tv.zarate.player.video{
 		}
 		
 		private function onPlayStatus(e:NetStatusEvent):void{
-			//zlog("NetStatusEvent > " + e);
+			
+			if(e.info.code == "NetStream.Play.Stop"){
+				
+				dispatchEvent(new evPlayerFinished(this));
+				
+			}
+			
 		}
 		
 	}

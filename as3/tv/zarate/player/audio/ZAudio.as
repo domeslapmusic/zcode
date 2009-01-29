@@ -42,6 +42,7 @@ package tv.zarate.player.audio{
 	import tv.zarate.player.iPlayer;
 	import tv.zarate.player.events.evLoadProgress;
 	import tv.zarate.player.events.evLoadFinished;
+	import tv.zarate.player.events.evPlayerFinished;
 	
 	public class ZAudio extends EventDispatcher implements iPlayer{
 		
@@ -74,7 +75,7 @@ package tv.zarate.player.audio{
 			
 		}
 		
-		public function get playing():Boolean{
+		public function isPlaying():Boolean{
 			return _playing;
 		}
 		
@@ -92,8 +93,16 @@ package tv.zarate.player.audio{
 		
 		public function play():void{
 			
+			if(audioChannel != null){
+				
+				audioChannel.stop();
+				audioChannel = null;
+				
+			}
+			
 			audioChannel = mainSound.play(lastPosition);
 			audioChannel.soundTransform = audioTransform;
+			audioChannel.addEventListener(Event.SOUND_COMPLETE,soundComplete);
 			
 			_playing = true;
 			
@@ -117,7 +126,7 @@ package tv.zarate.player.audio{
 		}
 		
 		public function getDuration():Number{
-			return mainSound.length;
+			return mainSound.length / 1000;
 		}
 		
 		public function setTime(pos:Number):void{
@@ -125,13 +134,15 @@ package tv.zarate.player.audio{
 			if(pos < 0){ pos = 0; }
 			if(pos > getDuration()){ pos = getDuration(); }
 			
-			lastPosition = pos;
+			var wasPlaying:Boolean = isPlaying();
+			
+			lastPosition = pos * 1000;
 			play();
 			
 			// The if below is ugly but the only way to move the position
 			// of the sound is calling sound.play() method.
 			
-			if(!playing){ pause(); }
+			if(!wasPlaying){ pause(); }
 			
 		}
 		
@@ -140,7 +151,7 @@ package tv.zarate.player.audio{
 			var t:Number = 0;
 			try{ t = audioChannel.position; } catch(e:*){}
 			
-			return t;
+			return t/1000;
 			
 		}
 		
@@ -211,6 +222,16 @@ package tv.zarate.player.audio{
 		
 		private function loadComplete(e:Event):void{
 			if(autoplay){ play(); }
+		}
+		
+		private function soundComplete(e:Event):void{
+			
+			// we dispatch both, just in case people don't know about the custom evPlayerFinished event
+			// and are only listening to SOUND_COMPLETE
+			
+			dispatchEvent(e);
+			dispatchEvent(new evPlayerFinished(this));
+			
 		}
 		
 		private function loadError(e:IOErrorEvent):void{

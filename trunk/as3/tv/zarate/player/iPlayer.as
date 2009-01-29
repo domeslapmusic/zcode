@@ -29,11 +29,10 @@
 package tv.zarate.player{
 	
 	public interface iPlayer{
-		/*
-		public var playing:Boolean;
-		public var bytesLoaded:Number;
-		public var bytesTotal:Number;
-		*/
+		
+		// ALL times are in seconds, for BOTH players although the default for the audio player would be miliseconds
+		
+		function isPlaying():Boolean;
 		function load(url:String,autoplay:Boolean=false):void;
 		function toggle():Boolean;
 		function play():void;

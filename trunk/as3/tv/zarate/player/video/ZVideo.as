@@ -223,7 +223,7 @@ package tv.zarate.player.video{
 		private function onMetaData(metadata:Object):void{
 			
 			for(var x:String in metadata){
-				zlog(x + " -- " + metadata[x]);
+				//zlog(x + " -- " + metadata[x]);
 			}
 			
 			if(!autoplay){ pause(); }

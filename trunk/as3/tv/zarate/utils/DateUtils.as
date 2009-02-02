@@ -48,13 +48,13 @@ package tv.zarate.utils{
 		}
 		
 		// Returns dd/mm/yyyy format from given date
-		public static function getSlashSeparatedStringFromDate(date:Date):String{
+		public static function getSlashSeparatedStringFromDate(d:Date):String{
 			
-			var t:String;
+			var t:String = "";
 			
-			t += (date.date < 9)? "0" + date.date : date.date;
-			t += "/" + ((date.month + 1 < 9)? "0" + (date.month + 1) : date.month + 1);
-			t += "/" + date.fullYear;
+			t += (d.date < 9)? "0" + d.date : d.date;
+			t += "/" + ((d.month + 1 < 9)? "0" + (d.month + 1) : d.month + 1);
+			t += "/" + d.fullYear;
 			
 			return t;
 			

@@ -1,1 +1,0 @@
-<div><iframe src="assets/portfolio/myriamgallego/mggm.htm" width="700" height="260" /></div>

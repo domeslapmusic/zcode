@@ -50,10 +50,18 @@ package tv.zarate.transitions{
 	public class Transition3D{
 		
 		private static var basicView:BasicView;
+		private static var transition3dscene:Transition3DScene;
 		
 		public static function Wadus(object:DisplayObject,rows:uint,cols:uint,random:Boolean=true):void{
 			
-			var transition3dscene:Transition3DScene = Create(object,rows,cols);
+			// We create the stuff we need, see below for details
+			
+			transition3dscene = Create(object,rows,cols);
+			
+			// Once we have the 3D scene in place, it's just a matter of
+			// animating each plane or piece. I'm using GTween and Penner's equations here 
+			// but you can do it the way you want. Also note that the transition3dscene object
+			// has a reference to BasicView object too, so you could animate the camera or the scene as well, up to you.
 			
 			var pieces:Array = transition3dscene.pieces;
 			
@@ -61,16 +69,46 @@ package tv.zarate.transitions{
 			
 			var timeLine:GTweenTimeline = new GTweenTimeline();
 			
-			var pos:Number = .1;
+			var tweenDelta:Number = .005;
+			var tweenPosition:Number = tweenDelta;
+			
+			var counter:int = 0;
+			var total:int = pieces.length;
 			
 			for each(var piece:Plane in pieces){
 				
-				var t:GTween = new GTween(piece,2,{y:piece.y-100,z:300,rotationX:360,rotationY:360},{autoRotation:false});
+				var t:GTween = new GTween(piece,1,{z:300,rotationX:360,rotationY:360},{autoRotation:false});
 				t.ease = Elastic.easeOut;
 				
-				timeLine.addTween(pos,t);
+				counter++;
 				
-				pos += .1;
+				if(counter >= total){
+					
+					// adding a listener to the last tween
+					t.addEventListener(Event.COMPLETE,lastPlaneComplete);
+					
+				}
+				
+				timeLine.addTween(tweenPosition,t);
+				
+				tweenPosition += tweenDelta;
+				
+			}
+			
+		}
+		
+		private static function lastPlaneComplete(e:Event):void{
+			
+			// This animation back is just for demo purposes, not really needed.
+			
+			var pieces:Array = transition3dscene.pieces;
+			
+			for each(var piece:Plane in pieces){
+				
+				var zOriginalPosition:int = -653; // yeah, i'm cheating here, should figure this out reversing the original formula. stay tunned.
+				
+				var t:GTween = new GTween(piece,1,{z:-653,rotationX:0,rotationY:0},{autoRotation:false});
+				t.ease = Elastic.easeOut;
 				
 			}
 			
@@ -79,13 +117,27 @@ package tv.zarate.transitions{
 		private static function Create(object:DisplayObject,rows:uint,cols:uint):Transition3DScene{
 			
 			var parent:DisplayObjectContainer = object.parent;
+			
+			// Remove original object from parent's DisplaList
 			parent.removeChild(object);
 			
+			// BasicView has all the ingredients we need for a 3D scene, enough for now
 			basicView = new BasicView(0,0,true);
 			parent.addChild(basicView);
 			
+			
+			// Lets find out how big the planes are going to be
 			var pieceWidth:Number = object.width / cols;
 			var pieceHeight:Number = object.height / rows;
+			
+			
+			// Tricky stuff ahead.
+			// Passing from the 2D object to the 3D scene MUST be seamless for the user so
+			// we need to calculate some stuff based on original object's position and camera zoom (see later)
+			// Got it from here:
+			// http://www.everydayflash.com/blog/index.php/2008/07/07/pixel-precision-in-papervision3d/
+			// http://archive.pv3d.org/?p=51
+			// Thanks to XLeon for the pointers!
 			
 			var diffX:Number = object.x -basicView.viewport.viewportWidth / 2 + pieceWidth / 2;
 			var diffY:Number = -object.y + basicView.viewport.viewportHeight / 2 - pieceHeight / 2;
@@ -93,6 +145,9 @@ package tv.zarate.transitions{
 			var pieces:/*Plane*/Array = new Array();
 			
 			var rect:Rectangle = new Rectangle(0,0,pieceWidth,pieceHeight);
+			
+			// The loop below slices up the object and creates a plane with each piece.
+			// Thanks to Cay for the Matrix tip : )
 			
 			for(var i:int=0;i<rows;i++){
 				
@@ -105,14 +160,14 @@ package tv.zarate.transitions{
 					bmp.draw(object,new Matrix(1,0,0,1,-currentX,-currentY),null,null,rect);
 					
 					var material:BitmapMaterial = new BitmapMaterial(bmp);
-					//material.oneSide = false;
-					//material.smooth = true;
 					
 					var piece:Plane = new Plane(material,pieceWidth,pieceHeight);
 					basicView.scene.addChild(piece);
 					
 					pieces.push(piece);
 					
+					// See here how we calculate x,y,z
+					// based on the original object and camera zoom
 					piece.x = currentX + diffX;
 					piece.y = -currentY + diffY;
 					piece.z = (basicView.camera.zoom * basicView.camera.focus) - Math.abs(basicView.camera.z);
@@ -121,6 +176,7 @@ package tv.zarate.transitions{
 				
 			}
 			
+			// We need to render the scene
 			parent.addEventListener(Event.ENTER_FRAME,tick);
 			
 			return new Transition3DScene(basicView,pieces);

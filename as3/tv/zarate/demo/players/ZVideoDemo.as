@@ -55,6 +55,7 @@ package tv.zarate.demo.players{
 			
 			// Let's go for the player now
 			player = new ZVideo();
+			player.setVolume(0);
 			
 			// Adding listeners to all possible events, pick up only the ones you need
 			player.addEventListener(evLoadProgress.LOAD_PROGRESS,loadProgress);
@@ -67,27 +68,14 @@ package tv.zarate.demo.players{
 			
 		}
 		
-		private function checkVideoStatus(e:Event):void{
+		private function metaData(e:evOnMetaData):void{
 			
-			videoBar.scaleX = player.getTimePercentage();
-			
-			var t:Time = Time.getTimeFromSeconds(player.getTime());
-			timeField.text = Time.getFriendlyStringFromTime(t);
-			
-		}
-		
-		private function loadProgress(e:evLoadProgress):void{
-			
-			var status:String = "loadProgress > " + e.bytesLoaded + "  -- " + e.bytesTotal + " -- " + e.percentage;
-			updateStatus(status);
-			
-		}
-		
-		private function loadFinished(e:evLoadFinished):void{
-			
-			var status:String = "loadFinished";
-			updateStatus(status);
-			
+			for(var data:String in e.metadata){
+				
+				var status:String = "metaData " + data + " --- " + e.metadata[data];
+				updateStatus(status);
+				
+			}
 			
 			// Let's do some layout
 			player.width = 320;
@@ -181,21 +169,35 @@ package tv.zarate.demo.players{
 			
 		}
 		
-		private function playerFinished(e:evPlayerFinished):void{
+		private function checkVideoStatus(e:Event):void{
 			
-			var status:String = "playerFinished";
+			videoBar.scaleX = player.getTimePercentage();
+			
+			var t:Time = Time.getTimeFromSeconds(player.getTime());
+			timeField.text = Time.getFriendlyStringFromTime(t);
+			
+		}
+		
+		private function loadProgress(e:evLoadProgress):void{
+			
+			var percentage:Number = Math.round((e.bytesLoaded/e.bytesTotal)*100);
+			
+			var status:String = "loadProgress > " + percentage + "%";
 			updateStatus(status);
 			
 		}
 		
-		private function metaData(e:evOnMetaData):void{
+		private function loadFinished(e:evLoadFinished):void{
 			
-			for(var data:String in e.metadata){
-				
-				var status:String = "metaData " + data + " --- " + e.metadata[data];
-				updateStatus(status);
-				
-			}
+			var status:String = "loadFinished";
+			updateStatus(status);
+			
+		}
+		
+		private function playerFinished(e:evPlayerFinished):void{
+			
+			var status:String = "playerFinished";
+			updateStatus(status);
 			
 		}
 		

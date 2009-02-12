@@ -96,6 +96,14 @@ package tv.zarate.application{
 			
 		}
 		
+		public function getAppWidth():int{
+			return appWidth;
+		}
+		
+		public function getAppHeight():int{
+			return appHeight;
+		}
+		
 		// ********************* PROTECTED METHODS *********************
 		
 		protected function onResize(e:Event=null):void{

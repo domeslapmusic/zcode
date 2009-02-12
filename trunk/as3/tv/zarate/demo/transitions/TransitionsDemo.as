@@ -10,9 +10,7 @@ package tv.zarate.demo.transitions{
 	
 	import flash.net.URLRequest;
 	
-	import flash.display.StageScaleMode;
-	import flash.display.StageAlign;
-	
+	import tv.zarate.application.Model;
 	import tv.zarate.utils.MovieClipUtils;
 	import tv.zarate.transitions.Transition3D;
 	import tv.zarate.components.ZButton;
@@ -23,7 +21,7 @@ package tv.zarate.demo.transitions{
 	// 
 	// mxmlc TransitionsDemo.as -source-path ../../../../ -source-path C:\projects\GTween -source-path C:\projects\PPV\src  -output bin/transitions.swf -target-player 9 -use-network=false
 	
-	public class TransitionsDemo extends Sprite{
+	public class TransitionsDemo extends Model{
 		
 		private var loader:Loader;
 		private var ready:Boolean = true;
@@ -32,8 +30,9 @@ package tv.zarate.demo.transitions{
 			
 			super();
 			
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-			stage.align = StageAlign.TOP_LEFT;
+		}
+		
+		override protected function frameworkReady():void{
 			
 			loadImage();
 			
@@ -43,9 +42,12 @@ package tv.zarate.demo.transitions{
 			
 			// Example loading an image, but should work with any DisplayObject
 			
+			// Get image path from config xml
+			var imagePath:String = _conf.dataXML.image;
+			
 			loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,imageLoaded);
-			loader.load(new URLRequest("beach.jpg"));
+			loader.load(new URLRequest(imagePath));
 			
 		}
 		

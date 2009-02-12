@@ -173,6 +173,10 @@ package tv.zarate.player.audio{
 			
 		}
 		
+		public function getTimePercentage():Number{
+			return getTime()/getDuration();
+		}
+		
 		public function setVolume(volume:Number):Number{
 			
 			if(volume < 0){ volume = 0; }

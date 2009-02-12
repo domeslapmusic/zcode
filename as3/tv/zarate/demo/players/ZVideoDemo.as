@@ -55,7 +55,6 @@ package tv.zarate.demo.players{
 			
 			// Let's go for the player now
 			player = new ZVideo();
-			player.setVolume(0);
 			
 			// Adding listeners to all possible events, pick up only the ones you need
 			player.addEventListener(evLoadProgress.LOAD_PROGRESS,loadProgress);

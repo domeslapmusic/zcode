@@ -207,7 +207,7 @@ package tv.zarate.player.audio{
 		
 		// ******************* PRIVATE METHODS *******************
 		
-		private function loadSound():void{
+		protected function loadSound():void{
 			
 			loadingTimer = new Timer(100);
 			loadingTimer.addEventListener(TimerEvent.TIMER,checkBytesLoaded);
@@ -222,7 +222,7 @@ package tv.zarate.player.audio{
 			
 		}
 		
-		private function checkBytesLoaded(e:TimerEvent):void{
+		protected function checkBytesLoaded(e:TimerEvent):void{
 			
 			_bytesLoaded = mainSound.bytesLoaded;
 			_bytesTotal = mainSound.bytesTotal;
@@ -238,11 +238,11 @@ package tv.zarate.player.audio{
 			
 		}
 		
-		private function loadComplete(e:Event):void{
+		protected function loadComplete(e:Event):void{
 			if(autoplay){ play(); }
 		}
 		
-		private function soundComplete(e:Event):void{
+		protected function soundComplete(e:Event):void{
 			
 			// we dispatch both, just in case people don't know about the custom evPlayerFinished event
 			// and are only listening to SOUND_COMPLETE
@@ -252,7 +252,7 @@ package tv.zarate.player.audio{
 			
 		}
 		
-		private function loadError(e:IOErrorEvent):void{
+		protected function loadError(e:IOErrorEvent):void{
 			zlog("loadError > " + e);
 		}
 		

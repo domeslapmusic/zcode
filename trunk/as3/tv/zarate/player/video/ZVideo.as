@@ -185,7 +185,7 @@ package tv.zarate.player.video{
 		
 		// ******************* PRIVATE METHODS *******************
 		
-		private function createVideo():void{
+		protected function createVideo():void{
 			
 			loadingTimer = new Timer(100);
 			loadingTimer.addEventListener(TimerEvent.TIMER,checkBytesLoaded);
@@ -228,7 +228,7 @@ package tv.zarate.player.video{
 			
 		}
 		
-		private function checkBytesLoaded(e:TimerEvent):void{
+		protected function checkBytesLoaded(e:TimerEvent):void{
 			
 			_bytesLoaded = stream_ns.bytesLoaded;
 			_bytesTotal = stream_ns.bytesTotal;
@@ -244,7 +244,7 @@ package tv.zarate.player.video{
 			
 		}
 		
-		private function onMetaData(metadata:Object):void{
+		protected function onMetaData(metadata:Object):void{
 			
 			for(var x:String in metadata){
 				//zlog(x + " -- " + metadata[x]);
@@ -257,7 +257,7 @@ package tv.zarate.player.video{
 			
 		}
 		
-		private function onPlayStatus(e:NetStatusEvent):void{
+		protected function onPlayStatus(e:NetStatusEvent):void{
 			
 			if(e.info.code == "NetStream.Play.Stop"){
 				

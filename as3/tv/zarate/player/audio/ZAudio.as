@@ -44,6 +44,24 @@ package tv.zarate.player.audio{
 	import tv.zarate.player.events.evLoadFinished;
 	import tv.zarate.player.events.evPlayerFinished;
 	
+	/**
+	* Subscribe to this event to monitor player's load progress.
+	* @eventType tv.zarate.player.events.evLoadProgress.LOAD_PROGRESS
+	*/
+	[Event(name="load_progress",type="tv.zarate.player.events.evLoadProgress")]
+	
+	/**
+	* Subscribe to this event to monitor when the audio has been fully loaded.
+	* @eventType tv.zarate.player.events.evLoadFinished.LOAD_FINISHED
+	*/
+	[Event(name="load_finished",type="tv.zarate.player.events.evLoadFinished")]
+	
+	/**
+	* Subscribe to this event to monitor when the audio finishes.
+	* @eventType tv.zarate.player.events.evPlayerFinished.PLAYER_FINISHED
+	*/
+	[Event(name="player_finished",type="tv.zarate.player.events.evPlayerFinished")]
+	
 	public class ZAudio extends EventDispatcher implements iPlayer{
 		
 		private var soundPath:String;

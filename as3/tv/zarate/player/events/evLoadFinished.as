@@ -32,13 +32,13 @@ package tv.zarate.player.events{
 	
 	public class evLoadFinished extends Event{
 		
-		public static var TYPE_LIT:String = "evLoadFinished";
+		public static const LOAD_FINISHED:String ="load_finished";
 		
 		public var player:iPlayer;
 		
 		public function evLoadFinished(player:iPlayer){
 			
-			super(TYPE_LIT);
+			super(LOAD_FINISHED);
 			
 			this.player = player;
 			

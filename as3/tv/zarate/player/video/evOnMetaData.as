@@ -33,14 +33,14 @@ package tv.zarate.player.video{
 	
 	public class evOnMetaData extends Event{
 		
-		public static var TYPE_LIT:String = "evOnMetaData";
+		public static const META_DATA:String ="meta_data";
 		
 		public var metadata:Object;
 		public var video:ZVideo;
 		
 		public function evOnMetaData(video:ZVideo,metadata:Object){
 			
-			super(TYPE_LIT);
+			super(META_DATA);
 			
 			this.metadata = metadata;
 			this.video = video;

@@ -50,7 +50,7 @@ package tv.zarate.utils{
 		}
 		
 		public static function CreateMultiline(width:Number=100,height:Number=100):TextField{
-			return CreateField(width,height,TextFieldAutoSize.CENTER,true);
+			return CreateField(width,height,TextFieldAutoSize.NONE,true);
 		}
 
 		public static function CreateInputField(width:Number=100,height:Number=100,multiline:Boolean=false):TextField{

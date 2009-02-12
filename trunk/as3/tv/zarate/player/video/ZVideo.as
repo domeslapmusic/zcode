@@ -43,6 +43,30 @@ package tv.zarate.player.video{
 	import tv.zarate.player.events.evPlayerFinished;
 	import tv.zarate.player.video.evOnMetaData;
 	
+	/**
+	* Subscribe to this event to monitor player's load progress.
+	* @eventType tv.zarate.player.events.evLoadProgress.LOAD_PROGRESS
+	*/
+	[Event(name="load_progress",type="tv.zarate.player.events.evLoadProgress")]
+	
+	/**
+	* Subscribe to this event to monitor when the video has been fully loaded.
+	* @eventType tv.zarate.player.events.evLoadFinished.LOAD_FINISHED
+	*/
+	[Event(name="load_finished",type="tv.zarate.player.events.evLoadFinished")]
+	
+	/**
+	* Subscribe to this event to monitor when the video finishes.
+	* @eventType tv.zarate.player.events.evPlayerFinished.PLAYER_FINISHED
+	*/
+	[Event(name="player_finished",type="tv.zarate.player.events.evPlayerFinished")]
+	
+	/**
+	* Subscribe to receive metadata information. Remeber that metadata information doesn't follow any standard and the information contained is up to whoever encoded the video.
+	* @eventType tv.zarate.player.video.evOnMetaData.META_DATA
+	*/
+	[Event(name="meta_data",type="tv.zarate.player.video.evOnMetaData")]
+	
 	public class ZVideo extends Sprite implements iPlayer{
 		
 		private var stream_ns:NetStream;
@@ -185,7 +209,7 @@ package tv.zarate.player.video{
 			
 			stream_ns = new NetStream(connection_nc);
 			
-			// I don't bloody understand why we have to listen to to a standard event for NetStatusEvent.NET_STATUS
+			// I don't bloody understand why we have to listen to a standard event for NetStatusEvent.NET_STATUS
 			// but we need a stupid client object for the metadata. Until I find out, We'll have to get over it.
 			
 			var netClient:Object = new Object();

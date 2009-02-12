@@ -33,7 +33,7 @@ package tv.zarate.player.events{
 	
 	public class evLoadProgress extends Event{
 		
-		public static var TYPE_LIT:String = "evLoadProgress";
+		public static const LOAD_PROGRESS:String ="load_progress";
 		
 		public var player:iPlayer;
 		public var bytesLoaded:Number;
@@ -42,7 +42,7 @@ package tv.zarate.player.events{
 		
 		public function evLoadProgress(player:iPlayer,bytesLoaded:Number,bytesTotal:Number,percentage:Number){
 			
-			super(TYPE_LIT);
+			super(LOAD_PROGRESS);
 			
 			this.player = player;
 			this.bytesLoaded = bytesLoaded;

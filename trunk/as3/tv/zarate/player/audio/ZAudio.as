@@ -62,20 +62,26 @@ package tv.zarate.player.audio{
 	*/
 	[Event(name="player_finished",type="tv.zarate.player.events.evPlayerFinished")]
 	
+	/**
+	* Subscribe to this event to be notified if the video cannot be found
+	* @eventType flash.events.IOErrorEvent
+	*/
+	[Event(name="ioError",type="flash.events.IOErrorEvent")]
+	
 	public class ZAudio extends EventDispatcher implements iPlayer{
 		
-		private var soundPath:String;
-		private var mainSound:Sound;
-		private var audioTransform:SoundTransform;
-		private var audioChannel:SoundChannel;
+		protected var mainSound:Sound;
+		protected var audioTransform:SoundTransform;
+		protected var audioChannel:SoundChannel;
 		
-		private var loadingTimer:Timer;
-		private var _playing:Boolean;
-		private var autoplay:Boolean;
-		private var _bytesLoaded:Number;
-		private var _bytesTotal:Number;
-		private var lastPosition:Number = 0;
-		private var initialVolume:Number = 1;
+		protected var lastPosition:Number = 0;
+		protected var soundPath:String;
+		protected var loadingTimer:Timer;
+		protected var autoplay:Boolean;
+		protected var initialVolume:Number = 1;
+		protected var _playing:Boolean;
+		protected var _bytesLoaded:Number;
+		protected var _bytesTotal:Number;
 		
 		public function ZAudio(){
 			
@@ -220,9 +226,9 @@ package tv.zarate.player.audio{
 			audioTransform = new SoundTransform(initialVolume,0);
 			
 			mainSound = new Sound();
-			mainSound.addEventListener(Event.COMPLETE,loadComplete);
 			mainSound.addEventListener(IOErrorEvent.IO_ERROR,loadError);
 			mainSound.load(new URLRequest(soundPath));
+			if(autoplay){ play(); }
 			
 		}
 		
@@ -242,10 +248,6 @@ package tv.zarate.player.audio{
 			
 		}
 		
-		protected function loadComplete(e:Event):void{
-			if(autoplay){ play(); }
-		}
-		
 		protected function soundComplete(e:Event):void{
 			
 			// we dispatch both, just in case people don't know about the custom evPlayerFinished event
@@ -257,7 +259,10 @@ package tv.zarate.player.audio{
 		}
 		
 		protected function loadError(e:IOErrorEvent):void{
-			zlog("loadError > " + e);
+			
+			loadingTimer.stop();
+			dispatchEvent(e);
+			
 		}
 		
 	}

@@ -9,6 +9,7 @@ package tv.zarate.demo.players{
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.IOErrorEvent;
 	import flash.text.TextField;
 	
 	import tv.zarate.application.Model;
@@ -61,6 +62,7 @@ package tv.zarate.demo.players{
 			player.addEventListener(evLoadFinished.LOAD_FINISHED,loadFinished);
 			player.addEventListener(evPlayerFinished.PLAYER_FINISHED,playerFinished);
 			player.addEventListener(evOnMetaData.META_DATA,metaData);
+			player.addEventListener(IOErrorEvent.IO_ERROR,ioError);
 			
 			// Ready to load, autoplay set to true
 			player.load(flvPath,true);
@@ -204,6 +206,13 @@ package tv.zarate.demo.players{
 			
 			statusField.appendText(s + "\n");
 			statusField.scrollV = statusField.maxScrollV;
+			
+		}
+		
+		private function ioError(e:IOErrorEvent):void{
+			
+			var status:String = "Cannot find video";
+			updateStatus(status);
 			
 		}
 		

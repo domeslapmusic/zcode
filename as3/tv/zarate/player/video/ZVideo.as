@@ -36,6 +36,7 @@ package tv.zarate.player.video{
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 	import flash.events.NetStatusEvent;
+	import flash.events.IOErrorEvent;
 	
 	import tv.zarate.player.iPlayer;
 	import tv.zarate.player.events.evLoadProgress;
@@ -67,20 +68,27 @@ package tv.zarate.player.video{
 	*/
 	[Event(name="meta_data",type="tv.zarate.player.video.evOnMetaData")]
 	
+	/**
+	* Subscribe to this event to be notified if the video cannot be found.
+	* @eventType flash.events.IOErrorEvent
+	*/
+	[Event(name="ioError",type="flash.events.IOErrorEvent")]
+	
 	public class ZVideo extends Sprite implements iPlayer{
 		
-		private var stream_ns:NetStream;
-		private var connection_nc:NetConnection;
-		private var video:Video;
-		private var videoSound:SoundTransform;
-		private var videoURL:String;
-		private var duration:Number;
-		private var loadingTimer:Timer;
-		private var _playing:Boolean;
-		private var autoplay:Boolean;
-		private var _bytesLoaded:Number;
-		private var _bytesTotal:Number;
-		private var initialVolume:Number = 1;
+		protected var stream_ns:NetStream;
+		protected var connection_nc:NetConnection;
+		protected var video:Video;
+		protected var videoSound:SoundTransform;
+		
+		protected var duration:Number;
+		protected var videoURL:String;
+		protected var loadingTimer:Timer;
+		protected var autoplay:Boolean;
+		protected var initialVolume:Number = 1;
+		protected var _playing:Boolean;
+		protected var _bytesLoaded:Number;
+		protected var _bytesTotal:Number;
 		
 		public function ZVideo(){
 			
@@ -214,7 +222,7 @@ package tv.zarate.player.video{
 			stream_ns = new NetStream(connection_nc);
 			
 			// I don't bloody understand why we have to listen to a standard event for NetStatusEvent.NET_STATUS
-			// but we need a stupid client object for the metadata. Until I find out, We'll have to get over it.
+			// but we need a stupid client object for the metadata. Until I find out, we'll have to get over it.
 			
 			var netClient:Object = new Object();
 			netClient.onMetaData = onMetaData;
@@ -239,7 +247,7 @@ package tv.zarate.player.video{
 			
 			dispatchEvent(new evLoadProgress(this,_bytesLoaded,_bytesTotal,(_bytesLoaded/_bytesTotal)));
 			
-			if(_bytesLoaded >= _bytesTotal){
+			if(_bytesLoaded >= _bytesTotal && _bytesTotal > 0){
 				
 				loadingTimer.stop();
 				dispatchEvent(new evLoadFinished(this));
@@ -250,10 +258,6 @@ package tv.zarate.player.video{
 		
 		protected function onMetaData(metadata:Object):void{
 			
-			for(var x:String in metadata){
-				//zlog(x + " -- " + metadata[x]);
-			}
-			
 			if(!autoplay){ pause(); }
 			
 			duration = metadata.duration;
@@ -263,9 +267,18 @@ package tv.zarate.player.video{
 		
 		protected function onPlayStatus(e:NetStatusEvent):void{
 			
-			if(e.info.code == "NetStream.Play.Stop"){
+			switch(e.info.code){
 				
-				dispatchEvent(new evPlayerFinished(this));
+				case "NetStream.Play.Stop": 
+					
+					dispatchEvent(new evPlayerFinished(this));
+					break;
+					
+				case "NetStream.Play.StreamNotFound":
+					
+					loadingTimer.stop();
+					dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR));
+					break;
 				
 			}
 			

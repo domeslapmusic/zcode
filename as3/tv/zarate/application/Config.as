@@ -35,10 +35,14 @@ package tv.zarate.application{
 	import flash.net.URLRequest;
 	
 	import tv.zarate.application.evConfigReady;
+	import tv.zarate.utils.FlashVars;
 	
 	public class Config extends EventDispatcher{
 		
 		public var dataXML:XML;
+		
+		protected var hardCodedXMLPath:String;
+		protected var flashvars:FlashVars;
 		
 		public function Config(){
 			
@@ -46,7 +50,13 @@ package tv.zarate.application{
 			
 		}
 		
-		public function loadXML(xmlPath:String):void{
+		public function setFlashVars(flashvars:FlashVars):void{
+			this.flashvars = flashvars;
+		}
+		
+		public function loadXML():void{
+			
+			var xmlPath:String = (hardCodedXMLPath != null)? hardCodedXMLPath : flashvars.initString("fv_xmlPath","");
 			
 			var loader:URLLoader = new URLLoader();
 			loader.addEventListener(Event.COMPLETE,xmlLoaded);
@@ -60,8 +70,20 @@ package tv.zarate.application{
 		protected function xmlLoaded(e:Event):void{
 			
 			dataXML = new XML(e.target.data);
-			dispatchEvent(new evConfigReady());
+			parseXML();
+			dispatchReadyEvent();
 			
+		}
+		
+		protected function parseXML():void{
+			
+			// You might want to extract some data from the XML before launching,
+			// override this method to do so.
+
+		}
+		
+		protected function dispatchReadyEvent():void{
+			dispatchEvent(new evConfigReady());
 		}
 		
 		protected function xmlFail(e:IOErrorEvent):void{

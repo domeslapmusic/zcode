@@ -60,9 +60,10 @@ package tv.zarate.application{
 			flashvars = new FlashVars(this.root.loaderInfo);
 			
 			if(_conf == null){ _conf = new Config(); }
+			_conf.setFlashVars(flashvars);
 			_conf.addEventListener(evConfigReady.TYPE_LIT,configReady);
 			_conf.addEventListener(IOErrorEvent.IO_ERROR,configFail);
-			_conf.loadXML(flashvars.initString("fv_xmlPath",""));
+			_conf.loadXML();
 			
 		}
 		

@@ -44,6 +44,7 @@ package tv.zarate.player{
 		function setVolume(volume:Number):Number;
 		function getVolume():Number;
 		function getTimePercentage():Number;
+		function addEventListener(type:String,listener:Function,useCapture:Boolean=false,priority:int=0,useWeakReference:Boolean=false):void;
 		
 	}
 

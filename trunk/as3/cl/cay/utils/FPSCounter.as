@@ -11,15 +11,17 @@
 
 
 package cl.cay.utils{
+	
 	import flash.display.*;
 	import flash.text.*;
 	import flash.utils.getTimer;
 	import flash.geom.*;
 	import flash.system.*
+	import flash.events.Event;
 
 	public class FPSCounter extends Sprite {
 		private var bmp:BitmapData;
-		static var cols:Array=new Array(65280,1638144,3342080,5046016,6815488,8388352,10092288,11861760,13565696,15269632,16776448,16769792,16763136,16756480,16750080,16743936,16737280,16730880,16724224,16717568);
+		private static var cols:Array=new Array(65280,1638144,3342080,5046016,6815488,8388352,10092288,11861760,13565696,15269632,16776448,16769792,16763136,16756480,16750080,16743936,16737280,16730880,16724224,16717568);
 
 		//frametimes maximo y minimo (este ultimo se saca del stage.frameTime)
 		public var maxt:Number;
@@ -50,14 +52,14 @@ package cl.cay.utils{
 			addChild(tf);
 			addEventListener("addedToStage",init);
 		}
-		public function init(e) {
+		public function init(e:Event):void{
 			maxt=200;
 			mint=1000 / stage.frameRate;
 			time1=time2=getTimer();
 			addEventListener("enterFrame",loop);
 		}
-		var a=0;
-		private function loop(e) {
+		private var a:Number=0;
+		private function loop(e:Event):void{
 			var time:uint=getTimer();
 			var ftime:uint=time - time1;
 			time1=time;
@@ -70,7 +72,7 @@ package cl.cay.utils{
 			} else {
 				frames++;
 			}
-			var totmem=System.totalMemory / 1048576;
+			var totmem:Number=System.totalMemory / 1048576;
 			mem = (totmem).toFixed(2);
 			tf.text=fps + "fps | " + ftime + "ms | "+mem+"ram";
 			

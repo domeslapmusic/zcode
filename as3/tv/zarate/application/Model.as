@@ -81,7 +81,7 @@ package tv.zarate.application{
 		}
 		
 		protected function configFail(e:IOErrorEvent):void{
-			zlog("configFail > " + e);
+			zlog("configFail > " + e.text);
 		}
 		
 		/*

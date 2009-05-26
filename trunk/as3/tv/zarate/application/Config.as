@@ -43,6 +43,7 @@ package tv.zarate.application{
 		
 		protected var hardCodedXMLPath:String;
 		protected var flashvars:FlashVars;
+		protected var dataXMLPath:String;
 		
 		public function Config(){
 			
@@ -56,12 +57,12 @@ package tv.zarate.application{
 		
 		public function loadXML():void{
 			
-			var xmlPath:String = (hardCodedXMLPath != null)? hardCodedXMLPath : flashvars.initString("fv_xmlPath","");
+			dataXMLPath = (hardCodedXMLPath != null)? hardCodedXMLPath : flashvars.initString("fv_xmlPath","");
 			
 			var loader:URLLoader = new URLLoader();
 			loader.addEventListener(Event.COMPLETE,xmlLoaded);
 			loader.addEventListener(IOErrorEvent.IO_ERROR,xmlFail);
-			loader.load(new URLRequest(xmlPath));
+			loader.load(new URLRequest(dataXMLPath));
 			
 		}
 		
@@ -79,7 +80,7 @@ package tv.zarate.application{
 			
 			// You might want to extract some data from the XML before launching,
 			// override this method to do so.
-
+			
 		}
 		
 		protected function dispatchReadyEvent():void{

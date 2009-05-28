@@ -171,11 +171,11 @@ package tv.zarate.utils{
 		public static function DrawCircle(sprite:Sprite,radius:Number,colour:Number=0x000000,alpha:Number=1,border:Number=0,borderColour:Number=0x000000,borderAlpha:Number=1):Sprite{
 			
 			var circle:Sprite = new Sprite();
-			circle.x = circle.y = radius;
 			
 			if(border > 0){
 				
 				var borderShape:Shape = new Shape();
+				borderShape.x = borderShape.y = radius;
 				
 				borderShape.graphics.beginFill(borderColour,borderAlpha);
 				borderShape.graphics.drawCircle(0,0,radius);
@@ -188,6 +188,7 @@ package tv.zarate.utils{
 			}
 			
 			var inner:Shape = new Shape();
+			inner.x = inner.y = radius + border;
 			
 			inner.graphics.beginFill(colour,alpha);
 			inner.graphics.drawCircle(0,0,radius);

@@ -33,8 +33,6 @@ package tv.zarate.utils{
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	
-	import flash.geom.Rectangle;
-	
 	import flash.geom.ColorTransform;
 	
 	public class MovieClipUtils{
@@ -42,8 +40,6 @@ package tv.zarate.utils{
 		public static function DrawRect(sprite:Sprite,width:Number=100,height:Number=100,colour:Number=0x000000,alpha:Number=1,border:Number=0,borderColour:Number=0x000000,borderAlpha:Number=1):Sprite{
 			
 			var rect:Sprite = new Sprite();
-			
-			var r:Rectangle = new Rectangle();
 			
 			if(border > 0){
 				
@@ -71,8 +67,6 @@ package tv.zarate.utils{
 		public static function DrawRoundRect(sprite:Sprite,width:Number=100,height:Number=100,colour:Number=0x000000,alpha:Number=1,corner:Number=5,border:Number=0,borderColour:Number=0x000000,borderAlpha:Number=1):Sprite{
 			
 			var rect:Sprite = new Sprite();
-			
-			var r:Rectangle = new Rectangle();
 			
 			if(border > 0){
 				
@@ -171,6 +165,39 @@ package tv.zarate.utils{
 			ct.color = color;
 			
 			displayObject.transform.colorTransform = ct;
+			
+		}
+		
+		public static function DrawCircle(sprite:Sprite,radius:Number,colour:Number=0x000000,alpha:Number=1,border:Number=0,borderColour:Number=0x000000,borderAlpha:Number=1):Sprite{
+			
+			var circle:Sprite = new Sprite();
+			circle.x = circle.y = radius;
+			
+			if(border > 0){
+				
+				var borderShape:Shape = new Shape();
+				
+				borderShape.graphics.beginFill(borderColour,borderAlpha);
+				borderShape.graphics.drawCircle(0,0,radius);
+				borderShape.graphics.endFill();
+				
+				circle.addChild(borderShape);
+				
+				radius -= border;
+				
+			}
+			
+			var inner:Shape = new Shape();
+			
+			inner.graphics.beginFill(colour,alpha);
+			inner.graphics.drawCircle(0,0,radius);
+			inner.graphics.endFill();
+			
+			circle.addChild(inner);
+			
+			sprite.addChild(circle);
+			
+			return circle;
 			
 		}
 		

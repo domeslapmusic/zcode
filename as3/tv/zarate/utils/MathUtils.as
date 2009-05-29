@@ -40,6 +40,14 @@ package tv.zarate.utils{
 			return getRandomBetween(0,max);
 		}
 		
+		public static function toRadians(degrees:Number):Number{
+			return degrees * Math.PI / 180;
+		}
+		
+		public static function toDegrees(radians:Number):Number{
+			return radians * 180 / Math.PI;
+		}
+		
 	}
 	
 }

@@ -159,6 +159,10 @@ package tv.zarate.utils{
 			displayObject.parent.setChildIndex(displayObject,displayObject.parent.numChildren-1);
 		}
 		
+		public static function SendToBottom(displayObject:DisplayObject):void{
+			displayObject.parent.setChildIndex(displayObject,0);
+		}
+		
 		public static function ChangeColor(displayObject:DisplayObject,color:Number):void{
 			
 			var ct:ColorTransform = new ColorTransform();

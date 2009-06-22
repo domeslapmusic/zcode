@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Use it to use Beyond Compare as external
+# diff tool for command line SVN.
+# See this for more info: http://blog.zarate.tv/2009/04/12/svn-diff-with-external-tools/
+
+/usr/bin/bcompare $6 $7 &
+exit 0

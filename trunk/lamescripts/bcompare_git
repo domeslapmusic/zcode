@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Use it to use Beyond Compare as external
+# diff tool for command line GIT.
+# See this for more info: http://stackoverflow.com/questions/255202/how-do-i-view-git-diff-output-with-visual-diff-program
+
+/usr/bin/bcompare "$2" "$5" | cat
+exit 0

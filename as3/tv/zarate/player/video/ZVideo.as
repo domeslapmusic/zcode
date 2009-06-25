@@ -156,7 +156,10 @@ package tv.zarate.player.video{
 		}
 		
 		public function getTime():Number{
-			return stream_ns.time;
+			
+			var t:Number = (stream_ns != null)? stream_ns.time : 0;
+			return t;
+			
 		}
 		
 		public function getTimePercentage():Number{

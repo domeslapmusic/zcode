@@ -1,8 +1,15 @@
 #!/bin/bash
 
-# Use it to use Beyond Compare as external
+# Use Beyond Compare as external
 # diff tool for command line SVN.
+
+# 1) Install Beyond Compare
+# 2) Copy this script somewhere in your path. /usr/bin will do
+# 3) Edit ~/.subversion/config adding this into the Helpers section (not at the end of the file):
+#		diff-cmd=/usr/bin/bcompare_svn
+# 4) Good to go, now SVN will launch BC for your diffs.
+
 # See this for more info: http://blog.zarate.tv/2009/04/12/svn-diff-with-external-tools/
 
-/usr/bin/bcompare $6 $7 &
+/usr/bin/bcompare "$6" "$7" &
 exit 0

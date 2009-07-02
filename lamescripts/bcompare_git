@@ -1,8 +1,15 @@
 #!/bin/bash
 
-# Use it to use Beyond Compare as external
+# Use Beyond Compare as external
 # diff tool for command line GIT.
-# See this for more info: http://stackoverflow.com/questions/255202/how-do-i-view-git-diff-output-with-visual-diff-program
+
+# 1) Install Beyond Compare
+# 2) Copy this script somewhere in your path. /usr/bin will do
+# 3) Edit your GIT config file to use this script to diff. You can do it typing:
+#		git config --global diff.external bcompare_git
+# 4) Good to go, now GIT will launch BC for your diffs.
+
+# Seen here: http://stackoverflow.com/questions/255202/how-do-i-view-git-diff-output-with-visual-diff-program
 
 /usr/bin/bcompare "$2" "$5" | cat
 exit 0

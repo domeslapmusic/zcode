@@ -37,6 +37,18 @@ package tv.zarate.utils{
 	
 	public class MovieClipUtils{
 		
+		public static function MakeDropShadow(sprite:DisplayObject,distance:Number=3,angle:Number=45,colour:Number=0x000000,alpha:Number=.9,blur:Number=5,strength:Number=1):void{
+			
+			var shadow:DropShadowFilter = new DropShadowFilter(distance,angle,colour,alpha,blur,blur,strength,3,false,false,false);
+			
+			var filters:Array = sprite.filters;
+			if(filters == null){ filters = new Array(); }
+			filters.push(shadow);
+			
+			sprite.filters = filters;
+			
+		}
+		
 		public static function DrawRect(sprite:Sprite,width:Number=100,height:Number=100,colour:Number=0x000000,alpha:Number=1,border:Number=0,borderColour:Number=0x000000,borderAlpha:Number=1):Sprite{
 			
 			var rect:Sprite = new Sprite();

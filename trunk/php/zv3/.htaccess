@@ -17,12 +17,19 @@ RewriteRule ^proyectos/zlog/index_en.htm$ projects/zlog/
 # in urls and that's no good!
 RewriteRule ^v2/* oldsite.php
 
+# Moving articles from the website to the blog
+redirect 301 /articulos/shared_fonts http://blog.zarate.tv/articles/shared-fonts-today/
+redirect 301 /articulos/shared_fonts/index.php http://blog.zarate.tv/articles/shared-fonts-today/
+redirect 301 /articulos/delegando-que-es-gerundio http://blog.zarate.tv/articles/delegando-que-es-gerundio/
+redirect 301 /articulos/flash_libre_facil http://blog.zarate.tv/articles/flash-libre-facil/
+redirect 301 /articulos/instancias-dinamicamente http://blog.zarate.tv/articles/crear-instancias-de-clases-dinamicamente/
+redirect 301 /articulos/cargar-clases-dinamicamente http://blog.zarate.tv/articles/cargar-clases-dinamicamente/
+redirect 301 /articulos/flash-para-barrapunteros-como-tu http://blog.zarate.tv/articles/flash-para-barrapunteros-como-tu/
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond $1 !^(assets)
-RewriteRule ^(.*)$ index.php/$1 [L]
-
-#RewriteCond $1 !^(index\.php|images|robots\.txt)
+RewriteRule ^(.*)$ index.php?/$1 [L]
 
 </IfModule>
 

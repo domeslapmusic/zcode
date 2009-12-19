@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# I dont think it likes spaces in the path. Be warned.
+
+clear
+
+folderPath=$1
+token=".jpg"
+
+for image in `find "$folderPath" -type f -iname *${token}` ; do
+	
+	if [ -f "$image" ] ; then
+	
+		echo "Processing $image..."
+		
+		imageDir=`dirname "$image"`
+		imageFullPath=`basename "$image"`
+		imageName=${imageFullPath:0:${#imageFullPath}-${#token}}
+		
+		convert -resize 20% $image "${imageDir}/${imageName}_thumb.png"
+
+	fi
+
+done
+
+echo "DONE"
